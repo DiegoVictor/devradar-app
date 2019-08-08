@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import './Main.css';
-import Logo from '../../assets/logo.svg';
-import Loading from '../../components/Loading/Loading';
-import Api from '../../services/Api';
+import Logo from '../../../assets/logo.svg';
+import Loading from '../../../components/Loading/Loading';
+import Api from '../../../services/Api';
 
 export default function Main({ match }) {
   const [developers, setDevelopers] = useState([]);
