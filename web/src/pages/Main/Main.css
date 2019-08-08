@@ -1,0 +1,126 @@
+.main-container {
+  margin: auto;
+  max-width: 980px;
+  padding: 50px 0px;
+  text-align: center;
+}
+
+.main-container ul {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin-top: 50px;
+}
+
+.main-container ul li {
+  box-shadow: 0px 0px 3px #CCC;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container ul li img {
+  border-radius: 5px 5px 0px 0px;
+  max-width: 100%;
+}
+
+.main-container ul li footer {
+  background-color: #FFF;
+  border: 1px solid #EEE;
+  border-radius: 0px 0px 5px 5px;
+  flex: 1;
+  padding: 15px 20px;
+  text-align: left;
+}
+
+.main-container ul li footer strong {
+  color: #333;
+  font-size: 16px;
+}
+
+.main-container ul li footer p {
+  color: #999;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+
+.main-container ul li .buttons {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 10px;
+}
+
+.main-container ul li .buttons button {
+  background-color: #FFF;
+  border: 0px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  height: 50px;
+}
+
+.main-container ul li .buttons button:hover img {
+  transform:  translateY(-5px);
+  transition: all .5s;
+}
+
+.main-container .empty {
+  color: #999;
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 300px;
+}
+
+.main-container .developer-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 980px;
+  padding: 0px 15px;
+  top: 0px;
+  width: 100%;
+}
+
+.main-container .developer-bar .developer-profile .logout {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 58px;
+  padding-right: 10px;
+  position: relative;
+  right: -56px;
+  text-transform: uppercase;
+  top: -49px;
+}
+
+.main-container .developer-bar .developer-profile {
+  background-color: rgba(223, 71, 35, 0.7);
+  border-radius: 4px;
+  color: #FFF;
+  height: 49px;
+  overflow: hidden;
+  padding: 2px;
+  text-align: left;
+  transition: all .45s;
+  width: 49px;
+}
+
+.main-container .developer-bar .developer-profile:hover {
+  width: 95px;
+}
+
+.main-container .developer-bar a {
+  text-decoration: none;
+}
+
+.main-container .developer-bar .developer-profile a {
+  color: #AAA;
+  font-weight: bold;
+}
+
+.main-container .developer-bar .developer-profile img {
+  border-radius: 4px;
+  width: 45px;
+}
