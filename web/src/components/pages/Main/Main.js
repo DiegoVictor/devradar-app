@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import './Main.css';
 import Logo from '../../../assets/logo.svg';
+import Match from '../../../assets/itsamatch.png';
 import Loading from '../../../components/Loading/Loading';
 import Api from '../../../services/Api';
+import { host, port } from '../../../config/app';
 
 export default function Main({ match }) {
   const [developers, setDevelopers] = useState([]);
+  const [match_developer, setMatchDeveloper] = useState(null);
 
   let [preload, setPreloading] = useState(false);
 
@@ -20,6 +24,16 @@ export default function Main({ match }) {
       
       // TODO get user to fill the profile bar
     })();
+  }, [match.params.id]);
+
+  useEffect(() => {
+    const socket = io(`${host}:${port}`, {
+      query: { developer_id: match.params.id }
+    });
+
+    socket.on('match', developer => {
+      setMatchDeveloper(developer);
+    });
   }, [match.params.id]);
 
   async function handleLike(id) {
@@ -83,6 +97,17 @@ export default function Main({ match }) {
           { !preload ? (<Loading />) : 'Sem sugestões no momento :('}
         </div>
       ) }
+
+      { match_developer && (
+        <div className="match-container">
+          <img src={Match} alt="It's a Match"/>
+
+          <img className="avatar" src={match_developer.avatar} alt={match_developer.name} />
+          <strong>{ match_developer.name }</strong>
+          <p>{ match_developer.bio }</p>
+          <button type="button" onClick={() => setMatchDeveloper(null)}>Fechar</button>
+        </div>
+      )}
     </div>
   );
 }
