@@ -17,6 +17,11 @@ module.exports = {
     res.json(developers);
   },
 
+  async show(req, res) {
+    const { avatar, name } = await Developer.findById(req.params.id);
+    res.json({ avatar, name });
+  },
+
   async store(req, res) {
     const username = req.body.username.toLowerCase();
 

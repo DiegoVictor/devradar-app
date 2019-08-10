@@ -13,6 +13,7 @@ import { host, port } from '../../../config/app';
 export default function Main({ match }) {
   const [developers, setDevelopers] = useState([]);
   const [match_developer, setMatchDeveloper] = useState(null);
+  const [me, setMe] = useState(null);
 
   let [preload, setPreloading] = useState(false);
 
@@ -23,8 +24,13 @@ export default function Main({ match }) {
       });
       setDevelopers(response.data);
       setPreloading(true);
-      
-      // TODO get user to fill the profile bar
+    })();
+  }, [match.params.id]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await Api.get(`/developer/${match.params.id}`);
+      setMe(response.data);
     })();
   }, [match.params.id]);
 
@@ -54,21 +60,24 @@ export default function Main({ match }) {
 
   return (
     <div className="main-container">
-      <div className="developer-bar">
-        <div className="brand">
-          <img src={Logo} alt="Tindev"/>
-        </div>
-        <Link to="/" title="Sair">
-          <div className="developer-profile">
-              <img title="Diego Victor" src="https://avatars3.githubusercontent.com/u/15165349?v=4" alt="Diego Victor"/>
-              <div className="logout">
-              <svg width="24px" height="24px" viewBox="0 0 24 24">
-                <path fill="#DF4723" d="M14.08,15.59L16.67,13H7V11H16.67L14.08,8.41L15.5,7L20.5,12L15.5,17L14.08,15.59M19,3A2,2 0 0,1 21,5V9.67L19,7.67V5H5V19H19V16.33L21,14.33V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H19Z" />
-              </svg>
-              </div>
+      { me && (
+        <div className="developer-bar">
+          <div className="brand">
+            <img src={Logo} alt="Tindev"/>
           </div>
-        </Link>
-      </div>
+          <Link to="/" title="Sair">
+            <div className="developer-profile">
+                <img title="Sair" src={me.avatar} alt={me.name}/>
+                <div className="logout">
+                <svg width="24px" height="24px" viewBox="0 0 24 24">
+                  <path fill="#DF4723" d="M14.08,15.59L16.67,13H7V11H16.67L14.08,8.41L15.5,7L20.5,12L15.5,17L14.08,15.59M19,3A2,2 0 0,1 21,5V9.67L19,7.67V5H5V19H19V16.33L21,14.33V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3H19Z" />
+                </svg>
+                </div>
+            </div>
+          </Link>
+        </div>
+      )}
+
       {developers.length > 0 ? (
         <ul>
           {developers.map(developer => (
