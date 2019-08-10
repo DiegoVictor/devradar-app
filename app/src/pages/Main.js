@@ -5,6 +5,9 @@ import Api from '../services/Api';
 import Logo from '../assets/logo.png';
 import Dislike from '../assets/dislike.png';
 import Like from '../assets/like.png';
+import Match from '../assets/itsamatch.png';
+import io from 'socket.io-client';
+import { host, port } from '../config/app';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,14 +51,14 @@ const styles = StyleSheet.create({
   name: {
     color: '#333333',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
 
   bio: {
     color: '#999',
     fontSize: 14,
     lineHeight: 18,
-    marginTop: 5,
+    marginTop: 5
   },
 
   logo: {
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
 
   buttonsContainer: {
     marginBottom: 30,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
 
   button: {
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowOffset: {
       height: 2,
-      width: 0,
+      width: 0
     }
   },
 
@@ -89,12 +92,57 @@ const styles = StyleSheet.create({
     color: '#999999',
     fontSize: 24,
     fontWeight: 'bold'
-  }
+  },
+
+  matchContainer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center'
+  },
+
+  matchAvatar: {
+    borderColor: '#FFFFFF',
+    borderRadius: 80,
+    borderWidth: 5,
+    height: 160,
+    marginVertical: 30,
+    width: 160
+  },
+
+  matchName: {
+    color: '#FFFFFF',
+    fontSize: 26,
+    fontWeight: 'bold'
+  },
+
+  matchImage: {
+    height: 60,
+    resizeMode: 'contain'
+  },
+
+  matchBio: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 10,
+    paddingHorizontal: 30,
+    textAlign: 'center'
+  },
+
+  closeMatch: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 30,
+    textAlign: 'center'
+  },
 });
 
 export default function Main({ navigation }) {
   const id = navigation.getParam('_id');
   const [developers, setDevelopers] = useState([]);
+  const [match_developer, setMatchDeveloper] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -103,6 +151,16 @@ export default function Main({ navigation }) {
       });
       setDevelopers(response.data);
     })();
+  }, [id]);
+
+  useEffect(() => {
+    const socket = io(`${host}:${port}`, {
+      query: { developer_id: id }
+    });
+
+    socket.on('match', developer => {
+      setMatchDeveloper(developer);
+    });
   }, [id]);
 
   async function handleLike() {
@@ -153,6 +211,19 @@ export default function Main({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleLike}>
           <Image source={Like} />
+        </TouchableOpacity>
+      </View>
+    )}
+
+    { match_developer && (
+      <View style={styles.matchContainer}>
+        <Image style={styles.matchImage} source={Match} />
+
+        <Image style={styles.matchAvatar} source={{ uri: match_developer.avatar }} />
+        <Text style={styles.matchName}>{ match_developer.name }</Text>
+        <Text style={styles.matchBio}>{ match_developer.bio }</Text>
+        <TouchableOpacity  onPress={() => setMatchDeveloper(null)}>
+          <Text style={styles.closeMatch}>FECHAR</Text>
         </TouchableOpacity>
       </View>
     )}
