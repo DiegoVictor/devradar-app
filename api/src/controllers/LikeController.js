@@ -15,7 +15,16 @@ module.exports = {
     const authenticated_developer = await Developer.findById(authenticated_user_id);
 
     if (liked_developer.likes.includes(authenticated_developer._id)) {
-      console.log('Match developers');
+      const authenticated_developer_socket = req.connected[authenticated_user_id];
+      const liked_developer_socket = req.connected[liked_user_id];
+
+      if (authenticated_developer_socket) {
+        req.io.to(authenticated_developer_socket).emit('match', liked_developer);
+      }
+
+      if (liked_developer_socket) {
+        req.io.to(liked_developer_socket).emit('match', authenticated_developer);
+      }
     }
 
     if (!authenticated_developer.likes.includes(liked_developer._id)) {
