@@ -9,7 +9,7 @@ $ docker start aircnc
 > Windows users using Docker Toolbox maybe need set the mongodb host to `192.168.99.100` instead of `localhost` or `127.0.0.1`
 
 # .env
-Rename to `.env` then just update with yours settings
+Rename the `.env.example` to `.env` then just update with yours settings
 
 # Start Up
 ```
