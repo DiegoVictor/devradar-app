@@ -31,5 +31,7 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'no-underscore-dangle': 'off'
   },
 };
