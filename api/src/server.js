@@ -2,6 +2,7 @@ import 'dotenv/config';
 import Express from 'express';
 import Mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
 import routes from './routes';
 
 const App = Express();
@@ -13,6 +14,7 @@ Mongoose.connect(process.env.MONGO_URL, {
 
 App.use(cors());
 App.use(Express.json());
+App.use('/files', Express.static(path.resolve(__dirname, '..', 'uploads')));
 App.use(routes);
 
 App.listen(process.env.APP_PORT);

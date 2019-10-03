@@ -1,8 +1,7 @@
 import { model, Schema } from 'mongoose';
 
-export default model(
-  'Spot',
-  new Schema({
+const SpotSchema = new Schema(
+  {
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
@@ -11,5 +10,16 @@ export default model(
     price: Number,
     thumbnail: String,
     techs: [String],
-  })
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
+
+SpotSchema.virtual('thumbnail_url').get(function() {
+  return `${process.env.APP_URL}:${process.env.APP_PORT}/files/${this.thumbnail}`;
+});
+
+export default model('Spot', SpotSchema);
