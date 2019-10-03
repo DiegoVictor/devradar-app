@@ -1,5 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Default from './pages';
+import Style from './styles';
+import Routes from './routes';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <>
+    <Style />
+    <Default>
+      <Routes />
+    </Default>
+  </>,
+  document.getElementById('root')
+);
