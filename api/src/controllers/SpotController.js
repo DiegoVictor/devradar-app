@@ -21,14 +21,14 @@ class SpotController {
     }
 
     const spot = await Spot.create({
-      user_id,
+      user: user_id,
       company,
       techs: techs.split(',').map(tech => tech.trim()),
       price,
       thumbnail: filename,
     });
 
-    res.json(spot);
+    return res.json(spot);
   }
 }
 

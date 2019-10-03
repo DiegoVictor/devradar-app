@@ -2,9 +2,8 @@ import Spot from '../models/Spot';
 
 class DashboardController {
   async index(req, res) {
-    const { user_id } = req.headers;
-
-    const spots = await Spot.find({ user_id });
+    const { user_id: user } = req.headers;
+    const spots = await Spot.find({ user });
     return res.json(spots);
   }
 }
