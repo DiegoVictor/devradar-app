@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, ScrollView } from 'react-native';
 
 import Logo from '../../../assets/logo.png';
 import { Container, Brand } from './styles';
@@ -19,11 +19,13 @@ export default function List() {
 
   return (
     <Container>
-      <Brand resizeMode="contain" source={Logo} />
+      <ScrollView>
+        <Brand resizeMode="contain" source={Logo} />
 
-      {techs.map(tech => (
-        <SpotList key={tech} tech={tech} />
-      ))}
+        {techs.map(tech => (
+          <SpotList key={tech} tech={tech} />
+        ))}
+      </ScrollView>
     </Container>
   );
 }
