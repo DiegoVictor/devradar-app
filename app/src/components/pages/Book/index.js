@@ -33,7 +33,7 @@ export default function Book({ navigation }) {
     <Container>
       <Label>DATA DE INTERESSE *</Label>
       <Input
-        placeholder="Qual data voê quer reservar?"
+        placeholder="Qual data você quer reservar?"
         placeholderTextColor="#999"
         autoCapitalize="words"
         autoCorrect={false}
@@ -46,7 +46,7 @@ export default function Book({ navigation }) {
       </Button>
 
       <Cancel onPress={handleCancel}>
-        <WhiteText>Solicitar reserva</WhiteText>
+        <WhiteText>Cancelar</WhiteText>
       </Cancel>
     </Container>
   );
