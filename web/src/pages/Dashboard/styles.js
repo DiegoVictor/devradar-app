@@ -1,5 +1,34 @@
 import styled from 'styled-components';
 
+export const Notifications = styled.ul`
+  list-style: none;
+  margin-bottom: 15px;
+`;
+
+export const Notification = styled.li`
+  font-size: 16px;
+  line-height: 24px;
+
+  button {
+    background-color: transparent;
+    margin-right: 10px;
+    padding: 0px;
+    width: auto;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+`;
+
+export const Accept = styled.button`
+  color: #84c870;
+`;
+
+export const Cancel = styled.button`
+  color: #e55e5e;
+`;
+
 export const Spots = styled.ul`
   display: grid;
   grid-gap: 20px;
