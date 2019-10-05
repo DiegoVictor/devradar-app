@@ -8,8 +8,14 @@ class BookingController {
 
     const booking = await Booking.create({ user, spot, date });
 
-    booking.populate('spot').populate('user');
-    return res.json(await booking.execPopulate());
+    booking.populate('spot').populate('user', (err, book) => {
+      const spot_owner = req.connections[book.spot.user];
+      if (spot_owner) {
+        req.io.to(spot_owner).emit('booking_request', booking);
+      }
+    });
+
+    return res.json(await booking);
   }
 }
 
