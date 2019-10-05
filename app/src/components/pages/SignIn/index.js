@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Image, AsyncStorage } from 'react-native';
 
 import Logo from '../../../assets/logo.png';
@@ -62,3 +63,9 @@ export default function SignIn({ navigation }) {
     </Container>
   );
 }
+
+SignIn.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};

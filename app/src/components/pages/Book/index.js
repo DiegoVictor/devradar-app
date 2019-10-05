@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { AsyncStorage, Alert } from 'react-native';
+import PropTypes from 'prop-types';
 import api from '../../../services/api';
 
 import { Container, Label, Input, Button, WhiteText, Cancel } from './styles';
@@ -51,3 +52,10 @@ export default function Book({ navigation }) {
     </Container>
   );
 }
+
+Book.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    getParam: PropTypes.func.isRequired,
+  }).isRequired,
+};
