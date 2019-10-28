@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { withNavigation } from 'react-navigation';
 import { ScrollView } from 'react-native';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 import {
@@ -62,5 +63,12 @@ function SpotList({ tech, navigation }) {
     </Container>
   );
 }
+
+SpotList.propTypes = {
+  tech: PropTypes.string.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default withNavigation(SpotList);
