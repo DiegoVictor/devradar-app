@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
-import api from '../../services/api';
-import Camera from '../../assets/camera.svg';
+import api from '~/services/api';
+import Camera from '~/assets/camera.svg';
 import { Thumbnail } from './styles';
 
 export default function Spot({ history }) {

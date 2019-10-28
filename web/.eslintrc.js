@@ -35,4 +35,11 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'camelcase': 'off'
   },
+  settings: {
+    'import/resolver': {
+      'babel-plugin-root-import': {
+        rootPathSuffix: 'src'
+      }
+    }
+  }
 };

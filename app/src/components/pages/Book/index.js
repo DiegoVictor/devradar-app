@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { AsyncStorage, Alert } from 'react-native';
 import PropTypes from 'prop-types';
-import api from '../../../services/api';
 
+import api from '~/services/api';
 import { Container, Label, Input, Button, WhiteText, Cancel } from './styles';
 
 export default function Book({ navigation }) {

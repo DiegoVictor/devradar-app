@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { withNavigation } from 'react-navigation';
 import { ScrollView } from 'react-native';
 
-import api from '../../services/api';
+import api from '~/services/api';
 import {
   Container,
   Title,

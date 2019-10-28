@@ -2,9 +2,9 @@ import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Image, AsyncStorage } from 'react-native';
 
-import Logo from '../../../assets/logo.png';
+import Logo from '~/assets/logo.png';
 import { Container, Form, Label, Input, Button, WhiteText } from './styles';
-import api from '../../../services/api';
+import api from '~/services/api';
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState('');

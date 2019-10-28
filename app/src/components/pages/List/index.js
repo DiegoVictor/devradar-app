@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AsyncStorage, ScrollView, Alert } from 'react-native';
 import socketio from 'socket.io-client';
 
-import Logo from '../../../assets/logo.png';
+import Logo from '~/assets/logo.png';
 import { Container, Brand } from './styles';
-import SpotList from '../../SpotList';
+import SpotList from '~/components/SpotList';
 
 export default function List() {
   const [techs, setTechs] = useState([]);

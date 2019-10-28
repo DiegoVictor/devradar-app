@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
-import api from '../../services/api';
+import api from '~/services/api';
 
 export default function SignIn({ history }) {
   const handleSubmit = useCallback(

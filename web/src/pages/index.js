@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Box } from './styles';
-import Logo from '../assets/logo.svg';
+import Logo from '~/assets/logo.svg';
 
 export default function Default({ children }) {
   return (
