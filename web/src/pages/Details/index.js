@@ -35,6 +35,16 @@ export default function Details({ match, history }) {
     [spot]
   );
 
+  const deleteSpot = useCallback(
+    spot_id => {
+      (async () => {
+        await api.delete(`spots/${spot_id}`);
+        history.push('/dashboard');
+      })();
+    },
+    [history]
+  );
+
   return (
     <Container>
       {spot && (
@@ -51,7 +61,7 @@ export default function Details({ match, history }) {
             </Techs>
           </Spot>
 
-          {spot.bookings && (
+          {spot.bookings.length > 0 ? (
             <Bookings>
               <thead>
                 <tr>
@@ -72,6 +82,10 @@ export default function Details({ match, history }) {
                 ))}
               </tbody>
             </Bookings>
+          ) : (
+            <button type="button" onClick={() => deleteSpot(id)}>
+              Remover
+            </button>
           )}
         </>
       )}

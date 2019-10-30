@@ -1,3 +1,4 @@
+import Booking from '../models/Booking';
 import Spot from '../models/Spot';
 import User from '../models/User';
 
@@ -50,6 +51,31 @@ class SpotController {
       thumbnail: filename,
     });
 
+    return res.json(spot);
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const spot = await Spot.findById(id);
+    if (!spot) {
+      return res.status(400).json({
+        error: 'Spot does not exists',
+      });
+    }
+
+    const bookings = await Booking.find({
+      approved: { $ne: true },
+      date: { $gte: new Date() },
+    });
+
+    if (bookings.length > 0) {
+      return res.status(401).json({
+        error: 'You can not remove spot with bookings approved',
+      });
+    }
+
+    await spot.remove();
     return res.json(spot);
   }
 }
