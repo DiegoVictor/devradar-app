@@ -8,6 +8,28 @@ class SpotController {
     return res.json(await Spot.find({ techs: tech }));
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    const spot = await Spot.findById(id);
+
+    const { thumbnail_url, company, price, techs, user } = spot;
+    const bookings = await Booking.find({
+      spot: id,
+      date: { $gte: new Date() },
+      approved: true,
+    }).populate('user');
+
+    return res.json({
+      user,
+      company,
+      price,
+      techs,
+      thumbnail_url,
+      bookings,
+    });
+  }
+
   async store(req, res) {
     const { filename } = req.file;
     const { company, techs, price } = req.body;

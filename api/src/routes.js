@@ -14,6 +14,7 @@ const Route = Router();
 Route.post('/sessions', SessionController.store);
 
 Route.get('/spots', SpotController.index);
+Route.get('/spots/:id', SpotController.show);
 Route.post('/spots', Multer(storage).single('thumbnail'), SpotController.store);
 Route.post('/spots/:spot_id/booking', BookingController.store);
 

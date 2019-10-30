@@ -36,6 +36,10 @@ export const Spots = styled.ul`
   list-style: none;
   margin-bottom: 30px;
   width: 100%;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Spot = styled.li`

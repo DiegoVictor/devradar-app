@@ -86,11 +86,15 @@ export default function Dashboard() {
       </Notifications>
       <Spots>
         {spots.map(spot => (
+          <Link to={`/spots/${spot._id}`}>
           <Spot key={spot._id}>
             <Banner url={spot.thumbnail_url} />
             <strong>{spot.company}</strong>
-            <span>{spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}</span>
+              <span>
+                {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
+              </span>
           </Spot>
+          </Link>
         ))}
       </Spots>
       <Link to="/spot">
