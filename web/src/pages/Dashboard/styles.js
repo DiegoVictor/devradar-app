@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const Notifications = styled.ul`
   list-style: none;
-  margin-bottom: 15px;
+
+  & + ul {
+    margin-top: 15px;
+  }
 `;
 
 export const Notification = styled.li`

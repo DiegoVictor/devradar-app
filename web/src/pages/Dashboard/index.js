@@ -66,34 +66,36 @@ export default function Dashboard() {
 
   return (
     <>
-      <Notifications>
-        {requests.map(request => (
-          <Notification key={request._id}>
-            <p>
-              <strong>{request.user.email}</strong> está solicitando uma nova
-              reserva em <strong>{request.spot.company}</strong> para a
-              data:&nbsp;
-              <strong>{request.date}</strong>
-            </p>
-            <Accept type="button" onClick={() => approve(request._id)}>
-              ACEITAR
-            </Accept>
-            <Cancel type="button" onClick={() => reject(request._id)}>
-              REJEITAR
-            </Cancel>
-          </Notification>
-        ))}
-      </Notifications>
+      {requests.length > 0 && (
+        <Notifications>
+          {requests.map(request => (
+            <Notification key={request._id}>
+              <p>
+                <strong>{request.user.email}</strong> está solicitando uma nova
+                reserva em <strong>{request.spot.company}</strong> para a
+                data:&nbsp;
+                <strong>{request.date}</strong>
+              </p>
+              <Accept type="button" onClick={() => approve(request._id)}>
+                ACEITAR
+              </Accept>
+              <Cancel type="button" onClick={() => reject(request._id)}>
+                REJEITAR
+              </Cancel>
+            </Notification>
+          ))}
+        </Notifications>
+      )}
       <Spots>
         {spots.map(spot => (
           <Link to={`/spots/${spot._id}`}>
-          <Spot key={spot._id}>
-            <Banner url={spot.thumbnail_url} />
-            <strong>{spot.company}</strong>
+            <Spot key={spot._id}>
+              <Banner url={spot.thumbnail_url} />
+              <strong>{spot.company}</strong>
               <span>
                 {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
               </span>
-          </Spot>
+            </Spot>
           </Link>
         ))}
       </Spots>
