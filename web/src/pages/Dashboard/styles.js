@@ -35,7 +35,7 @@ export const Cancel = styled.button`
 export const Spots = styled.ul`
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   list-style: none;
   margin-bottom: 30px;
   width: 100%;
@@ -48,6 +48,7 @@ export const Spots = styled.ul`
 export const Spot = styled.li`
   display: flex;
   flex-direction: column;
+  max-width: 130px;
 
   strong {
     color: #444;
@@ -65,6 +66,6 @@ export const Banner = styled.header`
   background-image: url(${props => props.url});
   background-size: cover;
   border-radius: 4px;
-  height: 120px;
+  height: 130px;
   width: 100%;
 `;
