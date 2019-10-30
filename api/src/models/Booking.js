@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 export default model(
   'Booking',
   new Schema({
-    date: String,
+    date: Date,
     approved: Boolean,
     user: {
       type: Schema.Types.ObjectId,
