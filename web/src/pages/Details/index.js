@@ -75,7 +75,7 @@ export default function Details({ match, history }) {
                     <td>{booking.date}</td>
                     <td>
                       <button type="button" onClick={() => reject(booking._id)}>
-                        Rejeitar
+                        Cancelar
                       </button>
                     </td>
                   </tr>
@@ -84,7 +84,7 @@ export default function Details({ match, history }) {
             </Bookings>
           ) : (
             <button type="button" onClick={() => deleteSpot(id)}>
-              Remover
+              Remover Spot
             </button>
           )}
         </>
