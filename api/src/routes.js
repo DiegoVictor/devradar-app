@@ -2,6 +2,7 @@ import { Router } from 'express';
 import Multer from 'multer';
 
 import SessionController from './controllers/SessionController';
+import PendingController from './controllers/PendingController';
 import SpotController from './controllers/SpotController';
 import BookingController from './controllers/BookingController';
 import DashboardController from './controllers/DashboardController';
@@ -21,6 +22,7 @@ Route.delete('/spots/:id', SpotController.delete);
 
 Route.get('/dashboard', DashboardController.index);
 
+Route.get('/pending', PendingController.index);
 Route.post('/bookings/:booking_id/approval', ApprovalController.store);
 Route.post('/bookings/:booking_id/rejection', RejectionController.store);
 

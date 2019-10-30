@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
+import { parseISO, format } from 'date-fns';
+
 import api from '~/services/api';
 
 import {
@@ -16,20 +18,20 @@ import {
 export default function Dashboard() {
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
+  const user_id = localStorage.getItem('aircnc_user');
 
   useEffect(() => {
     (async () => {
       const response = await api.get(`/dashboard`, {
         headers: {
-          user_id: localStorage.getItem('aircnc_user'),
+          user_id,
         },
       });
 
       setSpots(response.data);
     })();
-  }, []);
+  }, [user_id]);
 
-  const user_id = localStorage.getItem('aircnc_user');
   const socket = useMemo(
     () =>
       socketio('http://localhost:3333', {
@@ -37,6 +39,25 @@ export default function Dashboard() {
       }),
     [user_id]
   );
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get(`pending`, {
+        headers: {
+          user_id,
+        },
+      });
+
+      setRequests(
+        data.map(request => {
+          return {
+            ...request,
+            date: format(parseISO(request.date), "dd'/'MM'/'yyyy"),
+          };
+        })
+      );
+    })();
+  }, [user_id]);
 
   useEffect(() => {
     socket.on('booking_request', data => {
@@ -73,8 +94,7 @@ export default function Dashboard() {
               <p>
                 <strong>{request.user.email}</strong> está solicitando uma nova
                 reserva em <strong>{request.spot.company}</strong> para a
-                data:&nbsp;
-                <strong>{request.date}</strong>
+                data:&nbsp;<strong>{request.date}</strong>
               </p>
               <Accept type="button" onClick={() => approve(request._id)}>
                 ACEITAR
@@ -88,7 +108,7 @@ export default function Dashboard() {
       )}
       <Spots>
         {spots.map(spot => (
-          <Link to={`/spots/${spot._id}`}>
+          <Link to={`/spots/${spot._id}`} key={spot._id}>
             <Spot key={spot._id}>
               <Banner url={spot.thumbnail_url} />
               <strong>{spot.company}</strong>
