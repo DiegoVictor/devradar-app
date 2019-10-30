@@ -56,8 +56,13 @@ class SpotController {
 
   async delete(req, res) {
     const { id } = req.params;
+    const { user_id: user } = req.headers;
 
-    const spot = await Spot.findById(id);
+    const spot = await Spot.findOne({
+      _id: id,
+      user,
+    });
+
     if (!spot) {
       return res.status(400).json({
         error: 'Spot does not exists',
@@ -65,7 +70,8 @@ class SpotController {
     }
 
     const bookings = await Booking.find({
-      approved: { $ne: true },
+      spot: id,
+      approved: true,
       date: { $gte: new Date() },
     });
 
