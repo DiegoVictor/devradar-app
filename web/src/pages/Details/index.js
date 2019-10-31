@@ -15,6 +15,7 @@ import api from '~/services/api';
 export default function Details({ match, history }) {
   const [spot, setSpot] = useState(null);
   const { id } = match.params;
+  const user_id = localStorage.getItem('aircnc_user');
 
   useEffect(() => {
     (async () => {
@@ -46,11 +47,15 @@ export default function Details({ match, history }) {
   const deleteSpot = useCallback(
     spot_id => {
       (async () => {
-        await api.delete(`spots/${spot_id}`);
+        await api.delete(`spots/${spot_id}`, {
+          headers: {
+            user_id,
+          },
+        });
         history.push('/dashboard');
       })();
     },
-    [history]
+    [history, user_id]
   );
 
   return (
