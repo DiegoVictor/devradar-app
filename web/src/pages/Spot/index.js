@@ -1,44 +1,65 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
+
 import api from '~/services/api';
 import Camera from '~/assets/camera.svg';
 import { Thumbnail } from './styles';
 
-export default function Spot({ history }) {
+export default function Spot({ history, match }) {
+  const [spot, setSpot] = useState({});
   const [thumbnail, setThumbnail] = useState(null);
+  const [preview, setPreview] = useState('');
   const showPreview = useCallback(event => {
-    setThumbnail(event.target.files[0]);
+    const file = event.target.files[0];
+    setThumbnail(file);
+    setPreview(URL.createObjectURL(file));
   }, []);
+  const { id } = match.params;
 
-  const preview = useMemo(() => {
-    if (thumbnail) {
-      return URL.createObjectURL(thumbnail);
-    }
-    return null;
-  }, [thumbnail]);
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const { data } = await api.get(`spots/${id}`, {});
+        setSpot(data);
+        setPreview(data.thumbnail_url);
+      }
+    })();
+  }, [id]);
 
   const handleSubmit = useCallback(
     async ({ company, techs, price }) => {
       const data = new FormData();
 
-      data.append('thumbnail', thumbnail);
+      if (thumbnail) {
+        data.append('thumbnail', thumbnail);
+      }
+
       data.append('company', company);
       data.append('techs', techs);
       data.append('price', price);
 
-      await api.post('spots', data, {
-        headers: {
-          user_id: localStorage.getItem('aircnc_user'),
-        },
-      });
-      history.push('/dashboard');
+      if (id) {
+        await api.put(`spots/${id}`, data, {
+          headers: {
+            user_id: localStorage.getItem('aircnc_user'),
+          },
+        });
+        history.push(`/spots/${id}`);
+      } else {
+        await api.post('spots', data, {
+          headers: {
+            user_id: localStorage.getItem('aircnc_user'),
+          },
+        });
+        history.push('/dashboard');
+      }
     },
-    [history, thumbnail]
+    [history, id, thumbnail]
   );
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} initialData={spot}>
       <Thumbnail url={preview}>
         <input type="file" onChange={showPreview} />
         <img src={Camera} alt="Selecionar imagem" />

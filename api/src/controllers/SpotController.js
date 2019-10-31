@@ -54,6 +54,34 @@ class SpotController {
     return res.json(spot);
   }
 
+  async update(req, res) {
+    const { id } = req.params;
+    const { user_id: user } = req.headers;
+    const { company, techs, price } = req.body;
+    const data = {
+      company,
+      techs,
+      price,
+    };
+
+    if (typeof req.file === 'object') {
+      data.thumbnail = req.file.filename;
+    }
+
+    const spot = await Spot.findOneAndUpdate(
+      {
+        _id: id,
+        user,
+      },
+      data
+    );
+
+    return res.json({
+      ...spot.toObject(),
+      ...data,
+    });
+  }
+
   async delete(req, res) {
     const { id } = req.params;
     const { user_id: user } = req.headers;

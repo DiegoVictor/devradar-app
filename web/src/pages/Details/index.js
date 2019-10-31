@@ -1,7 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 
-import { Container, Spot, Banner, Techs, Bookings } from './styles';
+import {
+  Container,
+  Spot,
+  Banner,
+  Techs,
+  Bookings,
+  Actions,
+  LinkButton,
+} from './styles';
 import api from '~/services/api';
 
 export default function Details({ match, history }) {
@@ -60,8 +68,7 @@ export default function Details({ match, history }) {
               ))}
             </Techs>
           </Spot>
-
-          {spot.bookings.length > 0 ? (
+          {spot.bookings.length > 0 && (
             <Bookings>
               <thead>
                 <tr>
@@ -82,11 +89,16 @@ export default function Details({ match, history }) {
                 ))}
               </tbody>
             </Bookings>
-          ) : (
+          )}
+
+          <Actions>
+            {spot.bookings.length === 0 && (
             <button type="button" onClick={() => deleteSpot(id)}>
               Remover Spot
             </button>
           )}
+            <LinkButton to={`/spots/${id}/edit`}>Editar</LinkButton>
+          </Actions>
         </>
       )}
     </Container>

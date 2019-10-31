@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div``;
 
@@ -28,7 +29,7 @@ export const Spot = styled.li`
 `;
 
 export const Techs = styled.div`
-  margin-top: 10px;
+  margin-bottom: 10px;
 
   span {
     background-color: #3588bd;
@@ -53,7 +54,6 @@ export const Bookings = styled.table`
   td,
   th {
     color: #555;
-    padding: 5px;
 
     button {
       height: 35px;
@@ -70,4 +70,30 @@ export const Bookings = styled.table`
       border-top: 1px solid #eee;
     }
   }
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 50%;
+  }
+`;
+
+export const LinkButton = styled(Link)`
+  background-color: #f05a5b;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  height: 42px;
+  line-height: 44px;
+  padding: 0px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.25s;
+  width: calc(50% - 10px);
 `;

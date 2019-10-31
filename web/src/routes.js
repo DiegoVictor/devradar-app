@@ -11,6 +11,7 @@ export default () => (
     <Switch>
       <Route path="/" exact component={SignIn} />
       <Route path="/dashboard" exact component={Dashboard} />
+      <Route path="/spots/:id/edit" exact component={Spot} />
       <Route path="/spots/:id" exact component={Details} />
       <Route path="/spot" exact component={Spot} />
     </Switch>
