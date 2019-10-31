@@ -91,7 +91,7 @@ export default function Spot({ history, match }) {
           </label>
           <Input id="price" name="price" placeholder="Valor cobrado por dia" />
 
-          <button type="submit">Cadastrar</button>
+          <button type="submit">Enviar</button>
         </Form>
       </Box>
     </>

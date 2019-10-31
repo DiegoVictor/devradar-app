@@ -1,10 +1,10 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 
-import SignIn from '~/pages/SignIn';
-import Dashboard from '~/pages/Dashboard';
-import Details from '~/pages/Details';
-import Spot from '~/pages/Spot';
+import SignIn from '~/components/pages/SignIn';
+import Dashboard from '~/components/pages/Dashboard';
+import Details from '~/components/pages/Details';
+import Spot from '~/components/pages/Spot';
 import history from '~/services/history';
 
 export default () => (
