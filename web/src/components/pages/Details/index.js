@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import { Spot, Banner, Techs, Bookings, Actions, LinkButton } from './styles';
 import api from '~/services/api';
@@ -110,3 +111,14 @@ export default function Details({ match, history }) {
     </>
   );
 }
+
+Details.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
