@@ -4,6 +4,7 @@ import socketio from 'socket.io-client';
 import { parseISO, format } from 'date-fns';
 
 import api from '~/services/api';
+import Box from '~/components/Box';
 
 import {
   Spots,
@@ -86,7 +87,7 @@ export default function Dashboard() {
   );
 
   return (
-    <>
+    <Box>
       {requests.length > 0 && (
         <Notifications>
           {requests.map(request => (
@@ -122,6 +123,6 @@ export default function Dashboard() {
       <Link to="/spot">
         <button type="button">Novo spot</button>
       </Link>
-    </>
+    </Box>
   );
 }

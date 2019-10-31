@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.div``;
-
 export const Banner = styled.header`
   background-image: url(${props => props.url});
   background-size: cover;

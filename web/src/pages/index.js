@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Box } from './styles';
+import { Container } from './styles';
 import Logo from '~/assets/logo.svg';
 
 export default function Default({ children }) {
@@ -8,7 +8,7 @@ export default function Default({ children }) {
     <Container>
       <img src={Logo} alt="Aircnc" />
 
-      <Box>{children}</Box>
+      {children}
     </Container>
   );
 }

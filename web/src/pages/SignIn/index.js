@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
+
+import Box from '~/components/Box';
 import api from '~/services/api';
 
 export default function SignIn({ history }) {
@@ -17,7 +19,7 @@ export default function SignIn({ history }) {
   );
 
   return (
-    <>
+    <Box>
       <p>
         Ofereça <strong>spots</strong> para programadores e encontre{' '}
         <strong>talentos</strong> para sua empresa
@@ -34,7 +36,7 @@ export default function SignIn({ history }) {
 
         <button type="submit">Enviar</button>
       </Form>
-    </>
+    </Box>
   );
 }
 

@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 
 import SignIn from '~/pages/SignIn';
 import Dashboard from '~/pages/Dashboard';
 import Details from '~/pages/Details';
 import Spot from '~/pages/Spot';
+import history from '~/services/history';
 
 export default () => (
-  <BrowserRouter>
+  <Router history={history}>
     <Switch>
       <Route path="/" exact component={SignIn} />
       <Route path="/dashboard" exact component={Dashboard} />
@@ -15,5 +16,5 @@ export default () => (
       <Route path="/spots/:id" exact component={Details} />
       <Route path="/spot" exact component={Spot} />
     </Switch>
-  </BrowserRouter>
+  </Router>
 );

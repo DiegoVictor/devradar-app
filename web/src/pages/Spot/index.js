@@ -3,8 +3,10 @@ import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
+import Box from '~/components/Box';
 import Camera from '~/assets/camera.svg';
 import { Thumbnail } from './styles';
+import Back from '~/components/Back';
 
 export default function Spot({ history, match }) {
   const [spot, setSpot] = useState({});
@@ -59,27 +61,40 @@ export default function Spot({ history, match }) {
   );
 
   return (
-    <Form onSubmit={handleSubmit} initialData={spot}>
-      <Thumbnail url={preview}>
-        <input type="file" onChange={showPreview} />
-        <img src={Camera} alt="Selecionar imagem" />
-      </Thumbnail>
+    <>
+      <Back />
+      <Box>
+        <Form onSubmit={handleSubmit} initialData={spot}>
+          <Thumbnail url={preview}>
+            <input type="file" onChange={showPreview} />
+            <img src={Camera} alt="Selecionar imagem" />
+          </Thumbnail>
 
-      <label htmlFor="company">EMRESA *</label>
-      <Input id="company" name="company" placeholder="Sua empresa incrível" />
+          <label htmlFor="company">EMRESA *</label>
+          <Input
+            id="company"
+            name="company"
+            placeholder="Sua empresa incrível"
+          />
 
-      <label htmlFor="techs">
-        TECNOLOGIAS * <span>(separadas por vírgula)</span>
-      </label>
-      <Input id="techs" name="techs" placeholder="Quais tecnologias usam?" />
+          <label htmlFor="techs">
+            TECNOLOGIAS * <span>(separadas por vírgula)</span>
+          </label>
+          <Input
+            id="techs"
+            name="techs"
+            placeholder="Quais tecnologias usam?"
+          />
 
-      <label htmlFor="price">
-        DIÁRIA * <span>(em branco para gratuito)</span>
-      </label>
-      <Input id="price" name="price" placeholder="Valor cobrado por dia" />
+          <label htmlFor="price">
+            DIÁRIA * <span>(em branco para gratuito)</span>
+          </label>
+          <Input id="price" name="price" placeholder="Valor cobrado por dia" />
 
-      <button type="submit">Cadastrar</button>
-    </Form>
+          <button type="submit">Cadastrar</button>
+        </Form>
+      </Box>
+    </>
   );
 }
 
