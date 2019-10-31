@@ -1,3 +1,10 @@
+# About
+This web version permit to companies add, update and remove their spots and accept/reject booking requests.
+<img src="https://i.ibb.co/8zBc3rf/dashboard.jpg" width="49%"/>
+<img src="https://i.ibb.co/8ckvwF7/details.jpg" width="49%"/>
+<img src="https://i.ibb.co/N6PHf0g/details-bookings.jpg" width="49%"/>
+<img src="https://i.ibb.co/JkHTC9z/edit.jpg" width="49%" />
+
 # Dependencies
 Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
 
