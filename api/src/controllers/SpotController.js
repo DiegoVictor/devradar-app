@@ -60,7 +60,7 @@ class SpotController {
     const { company, techs, price } = req.body;
     const data = {
       company,
-      techs,
+      techs: techs.split(',').map(tech => tech.trim()),
       price,
     };
 

@@ -27,7 +27,9 @@ export const Spot = styled.li`
 `;
 
 export const Techs = styled.div`
+  float: left;
   margin-bottom: 10px;
+  width: 70%;
 
   span {
     background-color: #3588bd;
@@ -41,6 +43,7 @@ export const Techs = styled.div`
 
 export const Bookings = styled.table`
   font-size: 14px;
+  margin-bottom: 10px;
   text-align: left;
   width: 100%;
 
@@ -54,7 +57,14 @@ export const Bookings = styled.table`
     color: #555;
 
     button {
+      align-items: center;
+      background-color: #f5f5f5;
+      color: #555;
+      display: flex;
+      float: right;
+      font-weight: 400;
       height: 35px;
+      padding: 2px 10px;
       width: auto;
     }
   }
@@ -70,28 +80,8 @@ export const Bookings = styled.table`
   }
 `;
 
-export const Actions = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  button {
-    width: 50%;
-  }
-`;
-
 export const LinkButton = styled(Link)`
-  background-color: #f05a5b;
-  border-radius: 2px;
-  color: #fff;
-  cursor: pointer;
-  display: block;
-  font-size: 16px;
-  font-weight: bold;
-  height: 42px;
-  line-height: 44px;
-  padding: 0px 20px;
-  text-align: center;
-  text-decoration: none;
-  transition: all 0.25s;
-  width: calc(50% - 10px);
+  color: #555;
+  float: right;
+  width: auto;
 `;
