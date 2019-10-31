@@ -58,15 +58,14 @@ export default function Details({ match, history }) {
       {spot && (
         <>
           <Spot>
-            <Banner url={spot.thumbnail_url} />
-            <strong>{spot.company}</strong>
-            <span>{spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}</span>
-
             <Techs>
               {spot.techs.map(tech => (
                 <span key={tech}>{tech}</span>
               ))}
             </Techs>
+            <Banner url={spot.thumbnail_url} />
+            <strong>{spot.company}</strong>
+            <span>{spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}</span>
           </Spot>
           {spot.bookings.length > 0 && (
             <Bookings>
@@ -93,10 +92,10 @@ export default function Details({ match, history }) {
 
           <Actions>
             {spot.bookings.length === 0 && (
-            <button type="button" onClick={() => deleteSpot(id)}>
-              Remover Spot
-            </button>
-          )}
+              <button type="button" onClick={() => deleteSpot(id)}>
+                Remover Spot
+              </button>
+            )}
             <LinkButton to={`/spots/${id}/edit`}>Editar</LinkButton>
           </Actions>
         </>
