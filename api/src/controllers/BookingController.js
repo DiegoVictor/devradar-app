@@ -1,6 +1,15 @@
 import Booking from '../models/Booking';
 
 class BookingController {
+  async index(req, res) {
+    const { user_id: user } = req.headers;
+    const bookings = await Booking.find({
+      date: { $gte: new Date() },
+      user,
+    }).populate('spot');
+    return res.json(bookings);
+  }
+
   async store(req, res) {
     const { user_id: user } = req.headers;
     const { spot_id: spot } = req.params;

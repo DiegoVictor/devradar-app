@@ -28,6 +28,8 @@ Route.delete('/spots/:id', SpotController.delete);
 Route.get('/dashboard', DashboardController.index);
 
 Route.get('/pending', PendingController.index);
+
+Route.get('/bookings', BookingController.index);
 Route.post('/bookings/:booking_id/approval', ApprovalController.store);
 Route.post('/bookings/:booking_id/rejection', RejectionController.store);
 
