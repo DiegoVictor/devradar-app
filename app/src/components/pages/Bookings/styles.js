@@ -23,8 +23,12 @@ export const Bold = styled.Text`
   font-weight: bold;
 `;
 
-export const List = styled.FlatList`
+export const Centralize = styled.View`
   padding: 0px 20px;
+  width: 100%;
+`;
+
+export const List = styled.FlatList`
   width: 100%;
 `;
 

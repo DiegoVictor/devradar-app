@@ -9,6 +9,7 @@ import {
   Brand,
   Title,
   Bold,
+  Centralize,
   List,
   Spot,
   Columns,
@@ -26,6 +27,17 @@ import api from '~/services/api';
 
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
+  const [refreshing, setRefreshing] = useState(true);
+  const handleRefresh = useCallback(() => {
+    AsyncStorage.getItem('aircnc_user').then(async user_id => {
+      const { data } = await api.get('bookings', {
+        headers: { user_id },
+      });
+
+      setBookings(data);
+      setRefreshing(false);
+    });
+  });
   const handleCancelation = useCallback(id => {
     AsyncStorage.getItem('aircnc_user').then(async user_id => {
       try {
@@ -49,13 +61,7 @@ export default function Bookings() {
   });
 
   useEffect(() => {
-    AsyncStorage.getItem('aircnc_user').then(async user_id => {
-      const { data } = await api.get('bookings', {
-        headers: { user_id },
-      });
-
-      setBookings(data);
-    });
+    handleRefresh();
   }, []);
 
   return (
@@ -66,42 +72,46 @@ export default function Bookings() {
         <Title>
           Seus spots <Bold>reservados/pendentes</Bold>
         </Title>
-        <List
-          data={bookings}
-          keyExtractor={booking => booking._id}
-          renderItem={({ item: booking }) => (
-            <Spot>
-              <Columns>
-                <About>
-                  <Thumbnail
-                    resizeMode="cover"
-                    source={{ uri: booking.spot.thumbnail_url }}
-                  />
-                </About>
-                <Status>
-                  <Text>Reserva para o dia:</Text>
-                  <Big>
-                    {format(parseISO(booking.date), "dd'/'MM'/'yyyy", {
-                      locale: pt,
-                    })}
-                  </Big>
-                  <Text>Status:</Text>
-                  <Big>{booking.approved ? 'Aprovado' : 'Em aprovação'}</Big>
-                </Status>
-              </Columns>
+        <Centralize>
+          <List
+            data={bookings}
+            keyExtractor={booking => booking._id}
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            renderItem={({ item: booking }) => (
+              <Spot>
+                <Columns>
+                  <About>
+                    <Thumbnail
+                      resizeMode="cover"
+                      source={{ uri: booking.spot.thumbnail_url }}
+                    />
+                  </About>
+                  <Status>
+                    <Text>Reserva para o dia:</Text>
+                    <Big>
+                      {format(parseISO(booking.date), "dd'/'MM'/'yyyy", {
+                        locale: pt,
+                      })}
+                    </Big>
+                    <Text>Status:</Text>
+                    <Big>{booking.approved ? 'Aprovado' : 'Em aprovação'}</Big>
+                  </Status>
+                </Columns>
 
-              <Company>{booking.spot.company}</Company>
-              <Price>
-                {booking.spot.price
-                  ? `R$ ${booking.spot.price}/DIA`
-                  : 'GRATUITO'}
-              </Price>
-              <Button onPress={() => handleCancelation(booking._id)}>
-                <WhiteText>Cancelar reserva</WhiteText>
-              </Button>
-            </Spot>
-          )}
-        />
+                <Company>{booking.spot.company}</Company>
+                <Price>
+                  {booking.spot.price
+                    ? `R$ ${booking.spot.price}/DIA`
+                    : 'GRATUITO'}
+                </Price>
+                <Button onPress={() => handleCancelation(booking._id)}>
+                  <WhiteText>Cancelar reserva</WhiteText>
+                </Button>
+              </Spot>
+            )}
+          />
+        </Centralize>
       </ScrollView>
     </Container>
   );
