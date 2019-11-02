@@ -1,9 +1,22 @@
 import Booking from '../models/Booking';
+import Spot from '../models/Spot';
 
 class ApprovalController {
   async store(req, res) {
     const { booking_id } = req.params;
-    const booking = await Booking.findById(booking_id).populate('spot');
+    const { user_id: user } = req.headers;
+
+    const spots = await Spot.find({ user });
+    const booking = await Booking.findOne({
+      _id: booking_id,
+      spot: { $in: spots.map(spot => spot._id) },
+    }).populate('spot');
+
+    if (!booking) {
+      return res.status(401).json({
+        error: 'Only the spot owner can approve bookings',
+      });
+    }
 
     booking.approved = true;
     await booking.save();
