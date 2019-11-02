@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
-import { parseISO, format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 import api from '~/services/api';
 import Box from '~/components/Box';
@@ -62,7 +62,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     socket.on('booking_request', data => {
-      setRequests([...requests, data]);
+      setRequests([
+        ...requests,
+        {
+          ...data,
+          date: format(parseISO(data.date), "dd'/'MM'/'yyyy"),
+        },
+      ]);
     });
   }, [requests, socket]);
 
@@ -104,41 +110,44 @@ export default function Dashboard() {
 
   return (
     <Box>
-      {requests.length > 0 && (
-        <Notifications>
-          {requests.map(request => (
-            <Notification key={request._id}>
-              <p>
-                <strong>{request.user.email}</strong> está solicitando uma nova
-                reserva em <strong>{request.spot.company}</strong> para a
-                data:&nbsp;<strong>{request.date}</strong>
-              </p>
-              <Accept type="button" onClick={() => approve(request._id)}>
-                ACEITAR
-              </Accept>
-              <Cancel type="button" onClick={() => reject(request._id)}>
-                REJEITAR
-              </Cancel>
-            </Notification>
+      <>
+        {requests.length > 0 && (
+          <Notifications>
+            {requests.map(request => (
+              <Notification key={request._id}>
+                <p>
+                  <strong>{request.user.email}</strong> está solicitando uma
+                  nova reserva em <strong>{request.spot.company}</strong> para a
+                  data:&nbsp;
+                  <strong>{request.date}</strong>
+                </p>
+                <Accept type="button" onClick={() => approve(request._id)}>
+                  ACEITAR
+                </Accept>
+                <Cancel type="button" onClick={() => reject(request._id)}>
+                  REJEITAR
+                </Cancel>
+              </Notification>
+            ))}
+          </Notifications>
+        )}
+        <Spots>
+          {spots.map(spot => (
+            <Link to={`/spots/${spot._id}`} key={spot._id}>
+              <Spot key={spot._id}>
+                <Banner url={spot.thumbnail_url} />
+                <strong>{spot.company}</strong>
+                <span>
+                  {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
+                </span>
+              </Spot>
+            </Link>
           ))}
-        </Notifications>
-      )}
-      <Spots>
-        {spots.map(spot => (
-          <Link to={`/spots/${spot._id}`} key={spot._id}>
-            <Spot key={spot._id}>
-              <Banner url={spot.thumbnail_url} />
-              <strong>{spot.company}</strong>
-              <span>
-                {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
-              </span>
-            </Spot>
-          </Link>
-        ))}
-      </Spots>
-      <Link to="/spot">
-        <button type="button">Novo spot</button>
-      </Link>
+        </Spots>
+        <Link to="/spot">
+          <button type="button">Novo spot</button>
+        </Link>
+      </>
     </Box>
   );
 }
