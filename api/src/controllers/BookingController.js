@@ -5,6 +5,7 @@ class BookingController {
     const { user_id: user } = req.headers;
     const bookings = await Booking.find({
       date: { $gte: new Date() },
+      approved: { $ne: false },
       user,
     }).populate('spot');
     return res.json(bookings);
