@@ -19,7 +19,7 @@ export default createAppContainer(
             Book,
           }),
           navigationOptions: () => ({
-            tabBarLabel: 'Bookings',
+            tabBarLabel: 'Spots',
             tabBarIcon: ({ tintColor }) => (
               <Icon name="place" size={20} color={tintColor} />
             ),
