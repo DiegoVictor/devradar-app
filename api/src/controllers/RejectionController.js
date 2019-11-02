@@ -7,13 +7,14 @@ class RejectioController {
     const { booking_id } = req.params;
     const booking = await Booking.findById(booking_id).populate('spot');
 
-    if (user) {
-      if (isAfter(new Date(), subDays(booking.date, 1))) {
+    if (
+      booking.user.equals(user) &&
+      isAfter(new Date(), subDays(booking.date, 1))
+    ) {
         return res.status(401).json({
           error: 'You can only cancel bookings with 24 hours in advance',
         });
       }
-    }
 
     booking.approved = false;
     await booking.save();
