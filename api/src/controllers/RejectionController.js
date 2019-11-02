@@ -1,7 +1,7 @@
 import { isAfter, subDays } from 'date-fns';
 import Booking from '../models/Booking';
 
-class RejectioController {
+class RejectionController {
   async store(req, res) {
     const { user_id: user } = req.headers;
     const { booking_id } = req.params;
@@ -30,4 +30,4 @@ class RejectioController {
   }
 }
 
-export default new RejectioController();
+export default new RejectionController();
