@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { format, parseISO } from 'date-fns';
 import { AsyncStorage, ScrollView, Alert } from 'react-native';
 import socketio from 'socket.io-client';
 
@@ -16,8 +17,9 @@ export default function List() {
       });
 
       socket.on('booking_response', booking => {
+        const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
         Alert.alert(
-          `Sua reserva em ${booking.spot.company} em ${booking.date} foi ${
+          `Sua reserva em ${booking.spot.company} para ${date} foi ${
             booking.approved ? 'APROVADA' : 'REJEITADA'
           }`
         );
