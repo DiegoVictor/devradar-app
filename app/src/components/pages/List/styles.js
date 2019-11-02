@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding: 30px 0px;
+  padding: 30px 0px 0px;
 `;
 
 export const Brand = styled.Image`
