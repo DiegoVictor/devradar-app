@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { AsyncStorage, Alert } from 'react-native';
+import { AsyncStorage, Alert, DatePickerAndroid } from 'react-native';
+import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
@@ -7,7 +8,7 @@ import { Container, Label, Input, Button, WhiteText, Cancel } from './styles';
 
 export default function Book({ navigation }) {
   const id = navigation.getParam('id');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(new Date());
 
   const handleSubmit = useCallback(() => {
     AsyncStorage.getItem('aircnc_user').then(async user_id => {
@@ -38,8 +39,16 @@ export default function Book({ navigation }) {
         placeholderTextColor="#999"
         autoCapitalize="words"
         autoCorrect={false}
-        value={date}
-        onChangeText={setDate}
+        value={format(date, "dd'/'MM'/'yyyy")}
+        onFocus={async () => {
+          const { action, year, month, day } = await DatePickerAndroid.open({
+            mode: 'spinner',
+            date,
+          });
+          if (action === DatePickerAndroid.dateSetAction) {
+            setDate(new Date(year, month, day));
+          }
+        }}
       />
 
       <Button onPress={handleSubmit}>
