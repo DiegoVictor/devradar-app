@@ -69,7 +69,15 @@ export default function Dashboard() {
   const approve = useCallback(
     id => {
       (async () => {
-        await api.post(`bookings/${id}/approval`);
+        await api.post(
+          `bookings/${id}/approval`,
+          {},
+          {
+            headers: {
+              user_id: localStorage.getItem('aircnc_user'),
+            },
+          }
+        );
         setRequests(requests.filter(request => request._id !== id));
       })();
     },
@@ -79,7 +87,15 @@ export default function Dashboard() {
   const reject = useCallback(
     id => {
       (async () => {
-        await api.post(`bookings/${id}/rejection`);
+        await api.post(
+          `bookings/${id}/rejection`,
+          {},
+          {
+            headers: {
+              user_id: localStorage.getItem('aircnc_user'),
+            },
+          }
+        );
         setRequests(requests.filter(request => request._id !== id));
       })();
     },
