@@ -1,12 +1,14 @@
-const Express = require('express');
-const App = Express();
-const Mongoose = require('mongoose');
-const CORS = require('cors');
-const Server = require('http').Server(App);
-const SocketIo = require('socket.io')(Server);
+import 'dotenv/config';
+import Express from 'express';
+import Mongoose from 'mongoose';
+import http from 'http';
+import cors from 'cors';
+import socketio from 'socket.io';
+import routes from './routes';
 
-const { port } = require('./config/app');
-const { host, name, username, password } = require('./config/database');
+const App = Express();
+const Server = http.Server(App);
+const io = socketio(Server);
 
 const connected = {};
 

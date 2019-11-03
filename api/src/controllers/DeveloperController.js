@@ -1,5 +1,5 @@
-const Axios = require('axios');
-const Developer = require('../models/Developers');
+import Axios from 'axios';
+import Developer from '../models/Developers';
 
 module.exports = {
   async index(req, res) {
@@ -43,4 +43,5 @@ module.exports = {
 
     res.json(developer);
   }
-};
+
+export default new DeveloperController();

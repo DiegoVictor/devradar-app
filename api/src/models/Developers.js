@@ -1,6 +1,8 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-module.exports = model('Developer', new Schema(
+export default model(
+  'Developer',
+  new Schema(
   {
     name: {
       type: String,
@@ -26,4 +28,5 @@ module.exports = model('Developer', new Schema(
     }]
   },
   { timestamps: true }
-));
+  )
+);

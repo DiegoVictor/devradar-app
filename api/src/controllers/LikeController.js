@@ -1,4 +1,4 @@
-const Developer = require('../models/Developers');
+import Developer from '../models/Developers';
 
 module.exports = {
   async store(req, res) {
@@ -37,4 +37,5 @@ module.exports = {
       data: authenticated_developer
     });
   }
-};
+
+export default new LikeController();
