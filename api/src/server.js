@@ -12,10 +12,11 @@ const io = socketio(Server);
 
 const connected = {};
 
-SocketIo.on('connection', socket => {
+io.on('connection', socket => {
   const { developer_id } = socket.handshake.query;
   connected[developer_id] = socket.id;
-  
+});
+
 Mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -23,11 +24,13 @@ Mongoose.connect(process.env.MONGO_URL, {
 });
 
 App.use((req, res, next) => {
-  req.io = SocketIo;
+  req.io = io;
   req.connected = connected;
   return next();
 });
 
-App.use(CORS());
+App.use(cors());
 App.use(Express.json());
+App.use(routes);
+
 Server.listen(process.env.PORT);
