@@ -1,6 +1,6 @@
 import Developer from '../models/Developers';
 
-module.exports = {
+class DislikeController {
   async store(req, res) {
     const { liked_user_id } = req.params;
     const { user: authenticated_user_id } = req.headers;
@@ -19,10 +19,7 @@ module.exports = {
       await authenticated_developer.save();
     }
 
-    res.json({
-      success: true,
-      data: authenticated_developer
-    });
+  }
   }
 
 export default new DislikeController();

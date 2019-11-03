@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import Developer from '../models/Developers';
 
-module.exports = {
+class DeveloperController {
   async index(req, res) {
     const { user: authenticated_user_id } = req.headers;
 
@@ -14,13 +14,11 @@ module.exports = {
       ]
     });
 
-    res.json(developers);
-  },
+  }
 
   async show(req, res) {
     const { avatar, name } = await Developer.findById(req.params.id);
-    res.json({ avatar, name });
-  },
+  }
 
   async store(req, res) {
     const username = req.body.username.toLowerCase();
@@ -41,7 +39,7 @@ module.exports = {
       });
     }
 
-    res.json(developer);
+  }
   }
 
 export default new DeveloperController();
