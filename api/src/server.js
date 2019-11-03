@@ -16,12 +16,11 @@ SocketIo.on('connection', socket => {
   const { developer_id } = socket.handshake.query;
   connected[developer_id] = socket.id;
   
+Mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
-
-Mongoose.connect(
-  `mongodb+srv://${username}:${password}@${host}/${name}?retryWrites=true&w=majority`,
-  { useNewUrlParser: true }
-);
 
 App.use((req, res, next) => {
   req.io = SocketIo;
@@ -31,6 +30,4 @@ App.use((req, res, next) => {
 
 App.use(CORS());
 App.use(Express.json());
-App.use(require('./routes/main'));
-
-Server.listen(port);
+Server.listen(process.env.PORT);
