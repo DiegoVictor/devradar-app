@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import Developer from '../models/Developers';
 
 class DeveloperController {
@@ -28,7 +28,7 @@ class DeveloperController {
     let developer = await Developer.findOne({ user: username });
 
     if (!developer) {
-      const response = await Axios.get(
+      const response = await axios.get(
         `https://api.github.com/users/${username}`
       );
       const { name, bio, avatar_url: avatar } = response.data;
