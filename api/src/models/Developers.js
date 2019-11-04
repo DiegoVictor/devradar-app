@@ -17,7 +17,6 @@ export default model(
         type: String,
         required: true,
       },
-
       likes: [
         {
           type: Schema.Types.ObjectId,
