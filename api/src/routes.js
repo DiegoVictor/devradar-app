@@ -10,6 +10,7 @@ Route.get('/developer/:id', DeveloperConotroller.show);
 Route.post('/developers', DeveloperConotroller.store);
 
 Route.post('/developers/:liked_user_id/like', LikeController.store);
-Route.post('/developers/:liked_user_id/dislike', DislikeController.store);
+Route.post('/developers/:disliked_user_id/dislike', DislikeController.store);
+
 
 export default Route;
