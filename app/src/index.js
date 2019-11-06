@@ -1,5 +1,5 @@
 import React from 'react';
-import Routes from './routes';
+import '~/config/ReactotronConfig';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings([
