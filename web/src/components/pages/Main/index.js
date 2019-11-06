@@ -67,7 +67,7 @@ export default function Main({ match, history }) {
 
   return (
     <Container>
-      <Menu history={history} id={id} />
+      <Menu history={history} id={id} active="developers" />
 
       {developers.length > 0 ? (
         <Developers>
