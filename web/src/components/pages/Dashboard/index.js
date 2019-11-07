@@ -35,7 +35,7 @@ export default function Dashboard() {
 
   const socket = useMemo(
     () =>
-      socketio('http://localhost:3333', {
+      socketio(process.env.REACT_APP_API_URL, {
         query: { user_id },
       }),
     [user_id]
