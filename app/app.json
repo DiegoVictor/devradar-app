@@ -25,6 +25,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "API_URL": "http://localhost:3333"
     }
   }
 }
