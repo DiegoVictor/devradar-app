@@ -1,6 +1,6 @@
 {
-  "name": "public",
-  "version": "0.1.0",
+  "name": "tindev",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@rocketseat/unform": "^1.6.1",
