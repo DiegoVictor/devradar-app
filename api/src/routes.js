@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import DeveloperConotroller from './controllers/DeveloperController';
-import LikeController from './controllers/LikeController';
-import DislikeController from './controllers/DislikeController';
-import MatchController from './controllers/MatchController';
+
+import DeveloperConotroller from './app/controllers/DeveloperController';
+import LikeController from './app/controllers/LikeController';
+import DislikeController from './app/controllers/DislikeController';
+import MatchController from './app/controllers/MatchController';
 
 const Route = Router();
 
