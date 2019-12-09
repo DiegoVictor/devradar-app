@@ -1,11 +1,12 @@
-import 'dotenv/config';
+import './bootstrap';
+
 import Express from 'express';
-import Mongoose from 'mongoose';
 import http from 'http';
 import cors from 'cors';
 import socketio from 'socket.io';
 
 import routes from './routes';
+import './database';
 
 const App = Express();
 const Server = http.Server(App);
