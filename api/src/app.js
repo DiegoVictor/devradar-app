@@ -18,12 +18,6 @@ io.on('connection', socket => {
   connected[developer_id] = socket.id;
 });
 
-Mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
-
 App.use((req, res, next) => {
   req.io = io;
   req.connected = connected;
