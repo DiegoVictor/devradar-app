@@ -8,7 +8,7 @@ import MatchController from './app/controllers/MatchController';
 const Route = Router();
 
 Route.get('/developers', DeveloperConotroller.index);
-Route.get('/developer/:id', DeveloperConotroller.show);
+Route.get('/developers/:id', DeveloperConotroller.show);
 Route.post('/developers', DeveloperConotroller.store);
 
 Route.post('/developers/:liked_user_id/like', LikeController.store);
