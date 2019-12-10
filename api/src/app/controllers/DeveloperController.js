@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import Developer from '../models/Developers';
+import Developer from '../models/Developer';
 
 class DeveloperController {
   async index(req, res) {

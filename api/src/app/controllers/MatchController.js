@@ -1,4 +1,4 @@
-import Developer from '../models/Developers';
+import Developer from '../models/Developer';
 
 class MatchController {
   async index(req, res) {
