@@ -24,19 +24,18 @@ class DeveloperController {
   }
 
   async store(req, res) {
-    const username = req.body.username.toLowerCase();
+    const user = req.body.username.toLowerCase();
 
-    let developer = await Developer.findOne({ user: username });
+    let developer = await Developer.findOne({ user });
 
     if (!developer) {
-      const response = await axios.get(
-        `https://api.github.com/users/${username}`
-      );
+      const response = await axios.get(`https://api.github.com/users/${user}`);
+
       const { name, bio, avatar_url: avatar } = response.data;
 
       developer = await Developer.create({
         name,
-        user: username,
+        user,
         bio,
         avatar,
       });
