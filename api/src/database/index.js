@@ -2,9 +2,7 @@ import Mongoose from 'mongoose';
 
 class Database {
   constructor() {
-    const { DB_HOST, DB_PORT, DB_NAME } = process.env;
-
-    Mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+    Mongoose.connect(`${process.env.MONGO_URL}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
