@@ -7,7 +7,7 @@ class DislikeController {
 
     const disliked_developer = await Developer.findById(disliked_user_id);
     if (!disliked_developer) {
-      res.status(400).json({
+      return res.status(400).json({
         error: 'Developer not exist!',
       });
     }
