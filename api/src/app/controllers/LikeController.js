@@ -7,12 +7,17 @@ class LikeController {
 
     const liked_developer = await Developer.findById(liked_user_id);
     if (!liked_developer) {
-      res.status(400).json({
-        error: 'Developer not exist!',
+      return res.status(400).json({
+        error: 'Developer not exists!',
       });
     }
 
     const developer = await Developer.findById(user_id);
+    if (!developer) {
+      return res.status(400).json({
+        error: 'Developer not exists!',
+      });
+    }
 
     if (liked_developer.likes.includes(developer._id)) {
       const developer_socket = req.connected[user_id];
