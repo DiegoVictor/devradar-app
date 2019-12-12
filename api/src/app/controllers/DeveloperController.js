@@ -7,6 +7,12 @@ class DeveloperController {
     const { user_id } = req.headers;
 
     const user = await Developer.findById(user_id);
+    if (!user) {
+      return res.status(400).json({
+        error: 'User not exists',
+      });
+    }
+
     const developers = await Developer.find({
       $and: [
         { _id: { $ne: user_id } },
