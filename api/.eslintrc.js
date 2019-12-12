@@ -16,6 +16,7 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'import/prefer-default-export': 'off',
     'prettier/prettier': 'error',
     camelcase: 'off',
     'class-methods-use-this': 'off',
