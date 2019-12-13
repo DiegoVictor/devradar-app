@@ -24,11 +24,11 @@ class LikeController {
       const liked_developer_socket = req.connected[liked_user_id];
 
       if (developer_socket) {
-        req.io.to(developer_socket).emit('match', liked_developer);
+        req.io.to(developer_socket).emit('match', liked_developer.toObject());
       }
 
       if (liked_developer_socket) {
-        req.io.to(liked_developer_socket).emit('match', developer);
+        req.io.to(liked_developer_socket).emit('match', developer.toObject());
       }
     }
 
