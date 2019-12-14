@@ -4,11 +4,8 @@ import axios from 'axios';
 import app from '../../src/app';
 import factory from '../utils/factories';
 import Developer from '../../src/app/models/Developer';
-import { connect } from '../db';
 
 describe('Developer', () => {
-  beforeAll(connect);
-
   beforeEach(async () => {
     await Developer.deleteMany();
   });
