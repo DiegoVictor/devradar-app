@@ -2,15 +2,15 @@ import 'dotenv/config';
 import Express from 'express';
 import http from 'http';
 import cors from 'cors';
-import socketio from 'socket.io';
+import Socket from 'socket.io';
 
 import routes from './routes';
 import './database';
 
 const App = Express();
 const Server = http.Server(App);
-const io = socketio(Server);
 
+const io = Socket(Server);
 const connected = {};
 
 io.on('connection', socket => {
