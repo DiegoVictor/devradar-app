@@ -8,7 +8,7 @@ const mongod = new MongoMemoryServer({
     port: 27018,
   },
   autoStart: false,
-  debug: true,
+  debug: false,
 });
 
 module.exports = async () => {
