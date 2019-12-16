@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Container, Dot } from './styles';
 
 export default function Loading() {

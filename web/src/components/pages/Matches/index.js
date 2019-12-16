@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
+
+import Match from '~/components/Match';
+import api from '~/services/api';
+import Menu from '~/components/Menu';
 import {
   Container,
   Developers,
@@ -9,9 +13,6 @@ import {
   Description,
   Bio,
 } from './styles';
-import Match from '~/components/Match';
-import api from '~/services/api';
-import Menu from '~/components/Menu';
 
 export default function Matches({ history }) {
   const id = localStorage.getItem('tindev_user');

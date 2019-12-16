@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItsAMatch from '~/assets/itsamatch.png';
 
+import ItsAMatch from '~/assets/itsamatch.png';
 import { Container, Avatar } from './styles';
 
 export default function Match({ developer, setDeveloper }) {

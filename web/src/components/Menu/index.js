@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import Logo from '~/assets/logo.svg';
-import { Container, Nav, Href, Profile } from './styles';
 import api from '~/services/api';
+import { Container, Nav, Href, Profile } from './styles';
 
 export default function Menu({ history, id, active }) {
   const handleLogout = () => {
