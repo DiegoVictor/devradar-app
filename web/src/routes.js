@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Login from '~/components/pages/Login';
 import Main from '~/components/pages/Main';
-import Matches from './components/pages/Matches';
+import Matches from '~/components/pages/Matches';
 
 export default function Routes() {
   return (
