@@ -25,10 +25,13 @@ export default function Menu({ history, id, active }) {
         <Container>
           <Nav>
             <img src={Logo} alt="Tindev" />
-            <Href to={`/developers/${id}`} active={active === 'developers'}>
+            <Href
+              to={`/developers/${id}`}
+              active={active === 'developers' ? 1 : 0}
+            >
               Developers
             </Href>
-            <Href to="/matches" active={active === 'matches'}>
+            <Href to="/matches" active={active === 'matches' ? 1 : 0}>
               Matches
             </Href>
           </Nav>
