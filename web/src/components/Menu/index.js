@@ -32,7 +32,12 @@ export default function Menu({ history, id, active }) {
               Matches
             </Href>
           </Nav>
-          <button type="button" onClick={handleLogout} title="Sair">
+          <button
+            data-testid="logout"
+            type="button"
+            onClick={handleLogout}
+            title="Sair"
+          >
             <Profile>
               <img title="Sair" src={me.avatar} alt={me.name} />
               <div className="logout">
