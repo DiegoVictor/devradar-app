@@ -14,7 +14,7 @@ export default function Menu({ history, id, active }) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get(`/developer/${id}`);
+      const { data } = await api.get(`/developers/${id}`);
       setMe(data);
     })();
   }, [id]);
