@@ -18,7 +18,30 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
+    "coverage": "react-app-rewired test --coverage --watchAll=false",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "collectCoverageFrom": [
+      "!src/index.js",
+      "!src/routes.js",
+      "!src/config/ReactotronConfig.js",
+      "!src/services/api.js",
+      "!src/components/Loading/index.js",
+      "!src/components/Loading/styles.js",
+      "!src/components/pages/index.js",
+      "!src/components/pages/styles.js"
+    ],
+    "coverageDirectory": "src/__tests__/coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,6 +59,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@types/jest": "^24.0.23",
+    "axios-mock-adapter": "^1.17.0",
     "babel-plugin-root-import": "^6.4.1",
     "customize-cra": "^0.8.0",
     "eslint-config-airbnb": "^18.0.1",
@@ -46,6 +73,9 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jest-dom": "^4.0.0",
     "prettier": "^1.18.2",
     "react-app-rewired": "^2.1.4",
     "reactotron-react-js": "^3.3.6"
