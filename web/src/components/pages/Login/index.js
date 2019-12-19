@@ -22,7 +22,9 @@ export default function Login({ history }) {
           type="text"
           placeholder="Digite seu usuário no Github"
         />
-        <Button type="submit">Enviar</Button>
+        <Button data-testid="login" type="submit">
+          Enviar
+        </Button>
       </Form>
     </Container>
   );

@@ -12,7 +12,11 @@ export default function Match({ developer, setDeveloper }) {
       <Avatar className="avatar" src={developer.avatar} alt={developer.name} />
       <strong>{developer.name}</strong>
       <p>{developer.bio}</p>
-      <button type="button" onClick={() => setDeveloper(null)}>
+      <button
+        data-testid="close"
+        type="button"
+        onClick={() => setDeveloper(null)}
+      >
         Fechar
       </button>
     </Container>

@@ -74,7 +74,7 @@ export default function Main({ match, history }) {
       {developers.length > 0 ? (
         <Developers>
           {developers.map(dev => (
-            <Developer key={dev._id}>
+            <Developer key={dev._id} data-testid={`developer_${dev._id}`}>
               <img src={dev.avatar} alt={dev.name} />
               <Bio>
                 <strong>{dev.name}</strong>
@@ -83,6 +83,7 @@ export default function Main({ match, history }) {
 
               <Actions>
                 <button
+                  data-testid={`developer_dislike_${dev._id}`}
                   title="Sai da minha stack developer nutela"
                   type="button"
                   onClick={() => handleDislike(dev._id)}
@@ -90,6 +91,7 @@ export default function Main({ match, history }) {
                   <img src={Dislike} alt="Dislike" />
                 </button>
                 <button
+                  data-testid={`developer_like_${dev._id}`}
                   title="Bora #codar"
                   type="button"
                   onClick={() => handleLike(dev._id)}
