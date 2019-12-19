@@ -22,15 +22,16 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "testMatch": [
-      "**/__tests__/**/*.test.js"
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "jest-localstorage-mock"
     ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ],
-    "moduleNameMapper": {
-      "^~/(.*)": "<rootDir>/src/$1"
-    },
+    "coverageDirectory": "src/__tests__/coverage",
     "collectCoverageFrom": [
       "!src/index.js",
       "!src/routes.js",
@@ -39,9 +40,19 @@
       "!src/components/Loading/index.js",
       "!src/components/Loading/styles.js",
       "!src/components/pages/index.js",
-      "!src/components/pages/styles.js"
+      "!src/components/pages/styles.js",
+      "!src/__tests__/utils/factories.js",
+      "!src/__tests__/coverage/lcov-report/block-navigation.js",
+      "!src/__tests__/coverage/lcov-report/prettify.js",
+      "!src/__tests__/coverage/lcov-report/sorter.js"
     ],
-    "coverageDirectory": "src/__tests__/coverage"
+    "testMatch": [
+      "src/__tests__/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "src\\__tests__\\utils",
+      "src\\__tests__\\coverage"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -76,6 +87,7 @@
     "factory-girl": "^5.0.4",
     "faker": "^4.1.0",
     "jest-dom": "^4.0.0",
+    "jest-localstorage-mock": "^2.4.0",
     "prettier": "^1.18.2",
     "react-app-rewired": "^2.1.4",
     "reactotron-react-js": "^3.3.6"
