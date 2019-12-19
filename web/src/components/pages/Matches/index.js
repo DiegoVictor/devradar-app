@@ -46,7 +46,7 @@ export default function Matches({ history }) {
 
       <Developers>
         {matches.map(match => (
-          <Developer key={match._id}>
+          <Developer key={match._id} data-testid={`developer_${match._id}`}>
             <Avatar src={match.avatar} />
             <Description>
               <strong>{match.name}</strong>
