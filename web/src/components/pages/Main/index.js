@@ -114,7 +114,7 @@ export default function Main({ match, history }) {
 Main.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     }).isRequired,
   }).isRequired,
   history: PropTypes.shape({
