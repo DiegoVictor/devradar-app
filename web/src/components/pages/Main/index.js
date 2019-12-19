@@ -20,15 +20,16 @@ import {
 export default function Main({ match, history }) {
   const [developers, setDevelopers] = useState([]);
   const [developer, setDeveloper] = useState(null);
-  const { id } = match.params;
-
   const [preload, setPreloading] = useState(false);
+
+  const { id } = match.params;
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('/developers', {
         headers: { user_id: id },
       });
+
       setDevelopers(data);
       setPreloading(true);
     })();
