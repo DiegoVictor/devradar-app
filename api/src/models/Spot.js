@@ -18,7 +18,7 @@ const SpotSchema = new Schema(
   }
 );
 
-SpotSchema.virtual('thumbnail_url').get(function() {
+SpotSchema.virtual('thumbnail_url').get(function getThumbnailUrl() {
   return `${process.env.APP_URL}:${process.env.APP_PORT}/files/${this.thumbnail}`;
 });
 
