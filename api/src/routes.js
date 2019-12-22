@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import Multer from 'multer';
 
-import SessionController from './controllers/SessionController';
-import PendingController from './controllers/PendingController';
-import SpotController from './controllers/SpotController';
-import BookingController from './controllers/BookingController';
-import DashboardController from './controllers/DashboardController';
-import ApprovalController from './controllers/ApprovalController';
-import RejectionController from './controllers/RejectionController';
 import storage from './config/storage';
+import SessionController from './app/controllers/SessionController';
+import PendingController from './app/controllers/PendingController';
+import SpotController from './app/controllers/SpotController';
+import BookingController from './app/controllers/BookingController';
+import DashboardController from './app/controllers/DashboardController';
+import ApprovalController from './app/controllers/ApprovalController';
+import RejectionController from './app/controllers/RejectionController';
 
 const Route = Router();
 
