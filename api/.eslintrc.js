@@ -21,7 +21,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
-    'camelcase': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
