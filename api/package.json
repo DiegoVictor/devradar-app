@@ -8,13 +8,15 @@
     "test": "jest"
   },
   "dependencies": {
+    "@sentry/node": "5.10.2",
     "cors": "^2.8.5",
     "date-fns": "^2.6.0",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.3",
     "multer": "^1.4.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "yup": "^0.28.0"
   },
   "devDependencies": {
     "@sucrase/jest-plugin": "^2.0.0",
@@ -25,9 +27,13 @@
     "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
     "jest": "^24.9.0",
+    "mongodb-memory-server": "^6.1.1",
     "nodemon": "^1.19.3",
     "prettier": "^1.18.2",
-    "sucrase": "^3.10.1"
+    "sucrase": "^3.10.1",
+    "supertest": "^4.0.2"
   }
 }
