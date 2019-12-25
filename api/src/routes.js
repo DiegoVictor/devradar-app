@@ -10,19 +10,30 @@ import DashboardController from './app/controllers/DashboardController';
 import ApprovalController from './app/controllers/ApprovalController';
 import RejectionController from './app/controllers/RejectionController';
 
+import SessionStore from './app/validators/SessionStore';
+import SpotStore from './app/validators/SpotStore';
+import SpotUpdate from './app/validators/SpotUpdate';
+import BookingStore from './app/validators/BookingStore';
+
 const Route = Router();
 
-Route.post('/sessions', SessionController.store);
+Route.post('/sessions', SessionStore, SessionController.store);
 
 Route.get('/spots', SpotController.index);
 Route.get('/spots/:id', SpotController.show);
-Route.post('/spots', Multer(storage).single('thumbnail'), SpotController.store);
+Route.post(
+  '/spots',
+  Multer(storage).single('thumbnail'),
+  SpotStore,
+  SpotController.store
+);
 Route.put(
   '/spots/:id',
   Multer(storage).single('thumbnail'),
+  SpotUpdate,
   SpotController.update
 );
-Route.post('/spots/:spot_id/booking', BookingController.store);
+Route.post('/spots/:spot_id/booking', BookingStore, BookingController.store);
 Route.delete('/spots/:id', SpotController.delete);
 
 Route.get('/dashboard', DashboardController.index);
