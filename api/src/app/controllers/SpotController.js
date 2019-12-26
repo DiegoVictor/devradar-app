@@ -80,7 +80,7 @@ class SpotController {
     );
 
     return res.json({
-      ...spot.toObject(),
+      ...spot,
       ...data,
     });
   }
