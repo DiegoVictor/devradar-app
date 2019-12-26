@@ -60,9 +60,12 @@ class SpotController {
     const { company, techs, price } = req.body;
     const data = {
       company,
-      techs: techs.split(',').map(tech => tech.trim()),
       price,
     };
+
+    if (techs) {
+      data.techs = techs.split(',').map(tech => tech.trim());
+    }
 
     if (typeof req.file === 'object') {
       data.thumbnail = req.file.filename;
