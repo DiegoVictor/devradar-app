@@ -9,7 +9,9 @@ const SpotSchema = new Schema(
     company: String,
     price: Number,
     thumbnail: String,
-    techs: [String],
+    techs: {
+      type: [String],
+    },
   },
   {
     toJSON: {
