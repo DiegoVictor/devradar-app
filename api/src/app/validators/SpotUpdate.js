@@ -3,9 +3,9 @@ import * as Yup from 'yup';
 export default async (req, res, next) => {
   try {
     const schema = Yup.object().shape({
-      company: Yup.string(),
-      techs: Yup.string(),
-      price: Yup.string(),
+      company: Yup.string().strict(),
+      techs: Yup.string().strict(),
+      price: Yup.string().strict(),
     });
 
     await schema.validate(req.body, { abortEarly: false });
