@@ -32,11 +32,9 @@ class RejectionController {
     booking.approved = false;
     await booking.save();
 
-    if (!user) {
-      const booking_user = req.connections[booking.user];
-      if (booking_user) {
-        req.io.to(booking_user).emit('booking_response', booking);
-      }
+    const booking_user = req.connections[booking.user];
+    if (booking_user) {
+      req.io.to(booking_user).emit('booking_response', booking);
     }
 
     return res.json(booking);
