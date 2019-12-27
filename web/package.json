@@ -20,7 +20,40 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
+    "coverage": "react-app-rewired test --coverage --watchAll=false",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ],
+    "coverageDirectory": "src/__tests__/coverage",
+    "collectCoverageFrom": [
+      "!src/index.js",
+      "!src/routes.js",
+      "!src/styles.js",
+      "!src/config/ReactotronConfig.js",
+      "!src/services/api.js",
+      "!src/services/history.js",
+      "!src/components/Box/index.js",
+      "!src/components/Box/styles.js",
+      "!src/components/pages/index.js",
+      "!src/components/pages/styles.js",
+      "!src/__tests__/coverage/lcov-report/block-navigation.js",
+      "!src/__tests__/coverage/lcov-report/prettify.js",
+      "!src/__tests__/coverage/lcov-report/sorter.js",
+      "!src/__tests__/utils/factories"
+    ],
+    "testMatch": [
+      "src/__tests__/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "src\\__tests__\\coverage",
+      "src\\__tests__\\utils"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +71,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@types/jest": "^24.0.25",
+    "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-root-import": "^6.4.1",
     "customize-cra": "^0.8.0",
@@ -50,6 +87,9 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.15.1",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jest-localstorage-mock": "^2.4.0",
     "prettier": "^1.18.2",
     "react-app-rewired": "^2.1.4",
     "reactotron-react-js": "^3.3.4"
