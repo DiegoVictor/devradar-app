@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+
 import Background from '~/assets/background.jpg';
 
 export default createGlobalStyle`

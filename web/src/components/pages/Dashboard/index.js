@@ -5,7 +5,6 @@ import { format, parseISO } from 'date-fns';
 
 import api from '~/services/api';
 import Box from '~/components/Box';
-
 import {
   Spots,
   Spot,

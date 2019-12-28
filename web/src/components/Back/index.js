@@ -1,6 +1,6 @@
 import React from 'react';
-import history from '~/services/history';
 
+import history from '~/services/history';
 import { Button } from './styles';
 
 export default function Back() {
