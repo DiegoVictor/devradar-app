@@ -30,6 +30,9 @@
     "setupFiles": [
       "jest-localstorage-mock"
     ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect"
+    ],
     "coverageDirectory": "src/__tests__/coverage",
     "collectCoverageFrom": [
       "!src/index.js",
