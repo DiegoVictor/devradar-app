@@ -15,7 +15,7 @@ import {
   Cancel,
 } from './styles';
 
-export default function Dashboard() {
+export default () => {
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
   const user_id = localStorage.getItem('aircnc_user');
@@ -149,4 +149,4 @@ export default function Dashboard() {
       </>
     </Box>
   );
-}
+};
