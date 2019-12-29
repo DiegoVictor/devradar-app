@@ -42,7 +42,7 @@ export default () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get(`pending`, {
+      const { data } = await api.get('pending', {
         headers: {
           user_id,
         },
