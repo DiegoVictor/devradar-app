@@ -56,9 +56,8 @@ export default function Details({ match, history }) {
   return (
     <>
       <Back />
-      <Box>
         {spot && (
-          <>
+        <Box>
             <ul>
               <Spot>
                 <div>
@@ -116,9 +115,8 @@ export default function Details({ match, history }) {
                 Remover Spot
               </button>
             )}
-          </>
-        )}
       </Box>
+      )}
     </>
   );
 }
