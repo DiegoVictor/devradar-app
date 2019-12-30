@@ -5,7 +5,22 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
     "eject": "expo eject"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/components/**/*.js"
+    ],
+    "coverageDirectory": "__tests__/coverage",
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ]
   },
   "dependencies": {
     "axios": "^0.19.0",
