@@ -20,6 +20,7 @@ export default createAppContainer(
           }),
           navigationOptions: () => ({
             tabBarLabel: 'Spots',
+            // eslint-disable-next-line react/prop-types
             tabBarIcon: ({ tintColor }) => (
               <Icon name="place" size={20} color={tintColor} />
             ),
