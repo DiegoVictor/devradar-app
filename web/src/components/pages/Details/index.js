@@ -56,66 +56,73 @@ export default function Details({ match, history }) {
   return (
     <>
       <Back />
-        {spot && (
+      {spot && (
         <Box>
-            <ul>
-              <Spot>
-                <div>
-                  <Techs>
-                    {spot.techs.map(tech => (
-                      <span key={tech}>{tech}</span>
-                    ))}
-                  </Techs>
-                  <LinkButton to={`/spots/${id}/edit`}>Editar</LinkButton>
-                </div>
-                <Banner url={spot.thumbnail_url} />
-                <strong>{spot.company}</strong>
-                <span>
-                  {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
-                </span>
-              </Spot>
-            </ul>
-            {spot.bookings.length > 0 && (
-              <Bookings>
-                <thead>
-                  <tr>
-                    <th colSpan="3">Reservas aprovadas</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {spot.bookings.map(booking => (
-                    <tr key={booking._id}>
-                      <td>{booking.user.email}</td>
-                      <td>{booking.date}</td>
-                      <td>
-                        <button
-                          type="button"
-                          onClick={() => reject(booking._id)}
-                        >
-                          <svg
-                            style={{ width: '23px', height: '23px' }}
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="#555"
-                              d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
-                            />
-                          </svg>
-                          Cancelar
-                        </button>
-                      </td>
-                    </tr>
+          <ul>
+            <Spot>
+              <div>
+                <Techs>
+                  {spot.techs.map(tech => (
+                    <span key={tech}>{tech}</span>
                   ))}
-                </tbody>
-              </Bookings>
-            )}
+                </Techs>
+                <LinkButton to={`/spots/${id}/edit`} data-testid="edit">
+                  Editar
+                </LinkButton>
+              </div>
+              <Banner url={spot.thumbnail_url} data-testid="banner" />
+              <strong>{spot.company}</strong>
+              <span>
+                {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
+              </span>
+            </Spot>
+          </ul>
+          {spot.bookings.length > 0 && (
+            <Bookings>
+              <thead>
+                <tr>
+                  <th colSpan="3">Reservas aprovadas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {spot.bookings.map(booking => (
+                  <tr key={booking._id}>
+                    <td>{booking.user.email}</td>
+                    <td>{booking.date}</td>
+                    <td>
+                      <button
+                        data-testid={`booking_reject_${booking.id}`}
+                        type="button"
+                        onClick={() => reject(booking._id)}
+                      >
+                        <svg
+                          style={{ width: '23px', height: '23px' }}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            fill="#555"
+                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+                          />
+                        </svg>
+                        Cancelar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Bookings>
+          )}
 
-            {spot.bookings.length === 0 && (
-              <button type="button" onClick={() => deleteSpot(id)}>
-                Remover Spot
-              </button>
-            )}
-      </Box>
+          {spot.bookings.length === 0 && (
+            <button
+              data-testid="delete"
+              type="button"
+              onClick={() => deleteSpot(id)}
+            >
+              Remover Spot
+            </button>
+          )}
+        </Box>
       )}
     </>
   );

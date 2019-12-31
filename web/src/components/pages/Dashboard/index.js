@@ -113,17 +113,28 @@ export default () => {
         {requests.length > 0 && (
           <Notifications>
             {requests.map(request => (
-              <Notification key={request._id}>
+              <Notification
+                key={request._id}
+                data-testid={`notification_${request._id}`}
+              >
                 <p>
                   <strong>{request.user.email}</strong> está solicitando uma
                   nova reserva em <strong>{request.spot.company}</strong> para a
                   data:&nbsp;
                   <strong>{request.date}</strong>
                 </p>
-                <Accept type="button" onClick={() => approve(request._id)}>
+                <Accept
+                  data-testid={`notification_approve_${request._id}`}
+                  type="button"
+                  onClick={() => approve(request._id)}
+                >
                   ACEITAR
                 </Accept>
-                <Cancel type="button" onClick={() => reject(request._id)}>
+                <Cancel
+                  data-testid={`notification_reject_${request._id}`}
+                  type="button"
+                  onClick={() => reject(request._id)}
+                >
                   REJEITAR
                 </Cancel>
               </Notification>
@@ -133,7 +144,7 @@ export default () => {
         <Spots>
           {spots.map(spot => (
             <Link to={`/spots/${spot._id}`} key={spot._id}>
-              <Spot key={spot._id}>
+              <Spot key={spot._id} data-testid={`spot_${spot._id}`}>
                 <Banner url={spot.thumbnail_url} />
                 <strong>{spot.company}</strong>
                 <span>
@@ -143,7 +154,7 @@ export default () => {
             </Link>
           ))}
         </Spots>
-        <Link to="/spot">
+        <Link to="/spot" data-testid="new">
           <button type="button">Novo spot</button>
         </Link>
       </>

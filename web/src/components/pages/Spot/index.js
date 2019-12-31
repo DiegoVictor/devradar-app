@@ -66,7 +66,7 @@ export default function Spot({ history, match }) {
       <Box>
         <Form onSubmit={handleSubmit} initialData={spot}>
           <Thumbnail url={preview}>
-            <input type="file" onChange={showPreview} />
+            <input data-testid="banner" type="file" onChange={showPreview} />
             <img src={Camera} alt="Selecionar imagem" />
           </Thumbnail>
 
