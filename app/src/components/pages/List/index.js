@@ -10,7 +10,7 @@ import { Container, Brand } from './styles';
 
 const { API_URL } = Constants.manifest.extra;
 
-export default function List() {
+export default () => {
   const [techs, setTechs] = useState([]);
 
   useEffect(() => {
@@ -49,4 +49,4 @@ export default function List() {
       </ScrollView>
     </Container>
   );
-}
+};
