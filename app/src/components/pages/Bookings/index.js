@@ -4,6 +4,8 @@ import { ScrollView, AsyncStorage, Text, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import pt from 'date-fns/locale/pt-BR';
 
+import Logo from '~/assets/logo.png';
+import api from '~/services/api';
 import {
   Container,
   Brand,
@@ -22,8 +24,6 @@ import {
   Button,
   WhiteText,
 } from './styles';
-import Logo from '~/assets/logo.png';
-import api from '~/services/api';
 
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);

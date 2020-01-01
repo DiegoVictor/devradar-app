@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Image, AsyncStorage } from 'react-native';
 
 import Logo from '~/assets/logo.png';
-import { Container, Form, Label, Input, Button, WhiteText } from './styles';
 import api from '~/services/api';
+import { Container, Form, Label, Input, Button, WhiteText } from './styles';
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState('');

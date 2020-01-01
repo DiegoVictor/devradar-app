@@ -5,8 +5,8 @@ import socketio from 'socket.io-client';
 import Constants from 'expo-constants';
 
 import Logo from '~/assets/logo.png';
-import { Container, Brand } from './styles';
 import SpotList from '~/components/SpotList';
+import { Container, Brand } from './styles';
 
 const { API_URL } = Constants.manifest.extra;
 
