@@ -28,6 +28,7 @@ import {
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+
   const handleRefresh = useCallback(() => {
     AsyncStorage.getItem('aircnc_user').then(async user_id => {
       const { data } = await api.get('bookings', {
@@ -38,6 +39,7 @@ export default function Bookings() {
       setRefreshing(false);
     });
   });
+
   const handleCancelation = useCallback(id => {
     AsyncStorage.getItem('aircnc_user').then(async user_id => {
       try {
