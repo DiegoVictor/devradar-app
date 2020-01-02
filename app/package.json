@@ -10,6 +10,9 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/components/**/*.js"
@@ -41,6 +44,10 @@
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
+    "@testing-library/jest-native": "^3.1.0",
+    "@testing-library/react-native": "^5.0.3",
+    "@types/jest": "^24.0.25",
+    "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-root-import": "^6.4.1",
     "babel-preset-expo": "^7.0.0",
@@ -54,9 +61,11 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.15.1",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
     "jest-expo": "^36.0.1",
     "prettier": "^1.18.2",
-    "react-test-renderer": "^16.12.0",
+    "react-test-renderer": "16.8.3",
     "reactotron-react-native": "^4.0.2"
   },
   "private": true
