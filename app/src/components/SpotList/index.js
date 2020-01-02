@@ -17,7 +17,7 @@ import {
   WhiteText,
 } from './styles';
 
-function SpotList({ tech, navigation }) {
+export function SpotList({ tech, navigation }) {
   const [spots, setSpots] = useState([]);
 
   useEffect(() => {
