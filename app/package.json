@@ -48,6 +48,20 @@
     "reactotron-react-native": "^4.0.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "@testing-library/react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)": "<rootDir>/src/$1"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/components/**/*.js"
+    ],
+    "coverageDirectory": "__tests__/coverage"
   }
 }
