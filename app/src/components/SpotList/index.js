@@ -46,7 +46,7 @@ export function SpotList({ tech, navigation }) {
           horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={({ item: spot }) => (
-            <Spot>
+            <Spot testID={`spot_${spot._id}`}>
               <Thumbnail
                 resizeMode="cover"
                 source={{ uri: spot.thumbnail_url }}
