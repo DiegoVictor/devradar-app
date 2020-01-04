@@ -6,6 +6,6 @@ import Routes from '~/routes';
 
 YellowBox.ignoreWarnings(['Unrecognized WebSocket']);
 
-export default function App() {
+export default () => {
   return <Routes />;
-}
+};
