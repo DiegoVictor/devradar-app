@@ -1,5 +1,6 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+
 import Login from '~/components/pages/Login';
 import Main from '~/components/pages/Main';
 import Matches from '~/components/pages/Matches';

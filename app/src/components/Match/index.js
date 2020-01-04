@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
+
 import ItsAMatch from '~/assets/itsamatch.png';
 import { Container, Image, Avatar, Name, Bio, Close } from './styles';
 

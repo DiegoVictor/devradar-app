@@ -4,8 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { API_URL } from 'react-native-dotenv';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
+
 import Logo from '~/assets/logo.png';
 import Match from '~/components/Match';
+import api from '~/services/api';
 import {
   Container,
   Brand,
@@ -18,7 +20,6 @@ import {
   Text,
   Empty,
 } from './styles';
-import api from '~/services/api';
 
 export default function Matches({ navigation }) {
   const [matches, setMatches] = useState([]);

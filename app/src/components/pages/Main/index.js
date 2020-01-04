@@ -4,12 +4,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { API_URL } from 'react-native-dotenv';
+
 import api from '~/services/api';
 import Logo from '~/assets/logo.png';
 import Dislike from '~/assets/dislike.png';
 import Like from '~/assets/like.png';
 import Match from '~/components/Match';
-
 import {
   Container,
   Brand,
