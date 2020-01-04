@@ -25,6 +25,7 @@ export function SpotList({ tech, navigation }) {
       const response = await api.get('spots', {
         params: { tech },
       });
+
       setSpots(response.data);
     })();
   }, []);
