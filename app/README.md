@@ -24,3 +24,9 @@ Start the server in the [`api`](https://github.com/DiegoVictor/omnistack-8/tree/
 $ yarn react-native run-android
 ```
 > This app was tested only with Android through USB connection, is strongly recommended to use the same operational system, but of course you can use an emulator or a real device connected through wifi or USB. Of course you can test on an iOS device, but there is no guarantee that the app will work as expected!
+
+
+# Tests
+```
+$ yarn test
+```
