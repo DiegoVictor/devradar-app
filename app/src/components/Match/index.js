@@ -5,9 +5,9 @@ import { TouchableOpacity } from 'react-native';
 import ItsAMatch from '~/assets/itsamatch.png';
 import { Container, Image, Avatar, Name, Bio, Close } from './styles';
 
-export default function Match({ developer, setDeveloper }) {
+export default function Match({ developer, setDeveloper, ...props }) {
   return (
-    <Container>
+    <Container {...props}>
       <Image source={ItsAMatch} resizeMode="contain" />
 
       <Avatar source={{ uri: developer.avatar }} />
