@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { API_URL } from 'react-native-dotenv';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 
+import { api_url } from '~/config/Env';
 import Logo from '~/assets/logo.png';
 import Match from '~/components/Match';
 import api from '~/services/api';
