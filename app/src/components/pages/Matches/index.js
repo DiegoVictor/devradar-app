@@ -27,7 +27,8 @@ export default function Matches({ navigation }) {
   const [developer, setDeveloper] = useState(null);
 
   const handleRefresh = useCallback(() => {
-    AsyncStorage.getItem('tindev_user').then(async user_id => {
+    (async () => {
+      const user_id = await AsyncStorage.getItem('tindev_user');
       const { data } = await api.get('matches', {
         headers: {
           user_id,
@@ -35,7 +36,7 @@ export default function Matches({ navigation }) {
       });
       setMatches(data);
       setRefreshing(false);
-    });
+    })();
   }, []);
 
   useEffect(() => {
@@ -43,15 +44,16 @@ export default function Matches({ navigation }) {
   }, [handleRefresh]);
 
   useEffect(() => {
-    AsyncStorage.getItem('tindev_user').then(async id => {
-      const socket = io(API_URL, {
-        query: { developer_id: id },
+    (async () => {
+      const developer_id = await AsyncStorage.getItem('tindev_user');
+      const socket = io(api_url, {
+        query: { developer_id },
       });
 
       socket.on('match', dev => {
         setDeveloper(dev);
       });
-    });
+    })();
   }, []);
 
   async function handleLogout() {

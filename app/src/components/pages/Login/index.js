@@ -11,11 +11,13 @@ export default function Login({ navigation }) {
   const [developer, setDeveloper] = useState('');
 
   useEffect(() => {
-    AsyncStorage.getItem('tindev_user').then(dev_id => {
+    (async () => {
+      const dev_id = await AsyncStorage.getItem('tindev_user');
+
       if (dev_id) {
         navigation.navigate('Main', { _id: dev_id });
       }
-    });
+    })();
   }, [navigation]);
 
   async function handleLogin() {

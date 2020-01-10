@@ -40,15 +40,17 @@ export default function Main({ navigation }) {
   }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem('tindev_user').then(async id => {
-      const socket = io(API_URL, {
-        query: { developer_id: id },
+    (async () => {
+      const developer_id = await AsyncStorage.getItem('tindev_user');
+
+      const socket = io(api_url, {
+        query: { developer_id },
       });
 
       socket.on('match', dev => {
         setDeveloper(dev);
       });
-    });
+    })();
   }, []);
 
   async function handleLike() {
