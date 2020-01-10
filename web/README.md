@@ -1,12 +1,20 @@
 # About
 This web version permit to user like or dislike another users.<br/><br/>
-<img src="https://i.imgur.com/xhn8sSt.png" width="49%" />
-<img src="https://i.imgur.com/0ech7X0.png" width="49%" />
-<img src="https://i.imgur.com/7kUO4Kw.png" width="49%" />
-<img src="https://i.imgur.com/79v2yo7.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/dashboard.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/login.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/match.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/matches.png" width="49%" />
+
+# Install
+```
+$ yarn
+```
 
 # Dependencies
 Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
+
+# Reactotron
+This project is configured with [Reactotron](https://github.com/infinitered/reactotron), just open the Reactotron GUI before the app is up and running, after start the app Reactotron will identify new connections.
 
 # .env
 Rename the `.env.example` to `.env` then just update with yours settings
