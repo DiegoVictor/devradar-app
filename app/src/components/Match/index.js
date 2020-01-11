@@ -10,10 +10,10 @@ export default function Match({ developer, setDeveloper, ...props }) {
     <Container {...props}>
       <Image source={ItsAMatch} resizeMode="contain" />
 
-      <Avatar source={{ uri: developer.avatar }} />
+      <Avatar testID="avatar" source={{ uri: developer.avatar }} />
       <Name>{developer.name}</Name>
       <Bio>{developer.bio}</Bio>
-      <TouchableOpacity onPress={() => setDeveloper(null)}>
+      <TouchableOpacity testID="close" onPress={() => setDeveloper(null)}>
         <Close>FECHAR</Close>
       </TouchableOpacity>
     </Container>

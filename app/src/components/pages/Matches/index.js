@@ -63,7 +63,7 @@ export default function Matches({ navigation }) {
 
   return (
     <Container>
-      <TouchableOpacity onPress={handleLogout}>
+      <TouchableOpacity testID="logout" onPress={handleLogout}>
         <Brand source={Logo} />
       </TouchableOpacity>
       <Title>Matches</Title>
@@ -93,7 +93,13 @@ export default function Matches({ navigation }) {
         </View>
       )}
 
-      {developer && <Match developer={developer} setDeveloper={setDeveloper} />}
+      {developer && (
+        <Match
+          testID="match"
+          developer={developer}
+          setDeveloper={setDeveloper}
+        />
+      )}
     </Container>
   );
 }

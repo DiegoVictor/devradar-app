@@ -86,7 +86,7 @@ export default function Main({ navigation }) {
 
   return (
     <Container>
-      <TouchableOpacity onPress={handleLogout}>
+      <TouchableOpacity testID="logout" onPress={handleLogout}>
         <Brand source={Logo} />
       </TouchableOpacity>
       <Title>Developers</Title>
@@ -94,7 +94,11 @@ export default function Main({ navigation }) {
       <Cards>
         {developers.length > 0 ? (
           developers.map((dev, index) => (
-            <Developer key={dev._id} index={developers.length - index}>
+            <Developer
+              testID={`developer_${dev._id}`}
+              key={dev._id}
+              index={developers.length - index}
+            >
               <Avatar source={{ uri: dev.avatar }} />
               <Bio>
                 <Name>{dev.name}</Name>
@@ -109,16 +113,22 @@ export default function Main({ navigation }) {
 
       {developers.length > 0 && (
         <Actions>
-          <Button onPress={handleDislike}>
+          <Button testID="dislike" onPress={handleDislike}>
             <Image source={Dislike} />
           </Button>
-          <Button onPress={handleLike}>
+          <Button testID="like" onPress={handleLike}>
             <Image source={Like} />
           </Button>
         </Actions>
       )}
 
-      {developer && <Match developer={developer} setDeveloper={setDeveloper} />}
+      {developer && (
+        <Match
+          testID="match"
+          developer={developer}
+          setDeveloper={setDeveloper}
+        />
+      )}
     </Container>
   );
 }

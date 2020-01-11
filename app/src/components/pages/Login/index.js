@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
         value={developer}
         onChangeText={setDeveloper}
       />
-      <Button onPress={handleLogin}>
+      <Button testID="submit" onPress={handleLogin}>
         <Text>Enviar</Text>
       </Button>
     </Container>
