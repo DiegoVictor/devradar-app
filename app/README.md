@@ -1,13 +1,13 @@
 # About
 This app permit users to booking spots from companies to specified date, be notified when the request is approved or rejected and see all requests made and its current status<br /><br />
-<img src="https://i.ibb.co/H208hxg/dashboard.png" width="24%" />
-<img src="https://i.ibb.co/sHvkcrD/book.png" width="24%" />
-<img src="https://i.ibb.co/KypLRKG/calendar.png" width="24%" />
-<img src="https://i.ibb.co/dr8h8MC/booked.png" width="24%" />
-<img src="https://i.ibb.co/cDH8sWg/approved.png" width="24%" />
-<img src="https://i.ibb.co/Lzr102b/bookings.png" width="24%" />
-<img src="https://i.ibb.co/KsQHYLb/canceled.png" width="24%" />
-
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/dashboard.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/book.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/calendar.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/booked.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/approved.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/bookings.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/canceled.jpg" width="24%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/app/screenshots/login.jpg" width="24%" />
 
 # Dependencies
 Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
