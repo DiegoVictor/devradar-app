@@ -17,7 +17,7 @@ import {
   WhiteText,
 } from './styles';
 
-export function SpotList({ tech, navigation }) {
+export function SpotList({ tech, navigation, ...props }) {
   const [spots, setSpots] = useState([]);
 
   useEffect(() => {
@@ -54,7 +54,10 @@ export function SpotList({ tech, navigation }) {
               />
               <Company>{spot.company}</Company>
               <Price>{spot.price ? `R$ ${spot.price}/DIA` : 'GRATUITO'}</Price>
-              <Button onPress={() => handleNavigate(spot)}>
+              <Button
+                testID={`spot_book_${spot._id}`}
+                onPress={() => handleNavigate(spot)}
+              >
                 <WhiteText>Solicitar reserva</WhiteText>
               </Button>
             </Spot>
