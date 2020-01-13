@@ -3,6 +3,7 @@ import { factory } from 'factory-girl';
 import faker from 'faker';
 
 class Spot {}
+class Booking {}
 
 factory.define('Spot', Spot, {
   _id: faker.random.uuid,
@@ -18,6 +19,20 @@ factory.define('Spot', Spot, {
     }
     return techs;
   },
+});
+
+factory.define('Booking', Booking, {
+  _id: faker.random.uuid,
+  date: () => faker.date.future().toISOString(),
+  user: {
+    email: faker.internet.email,
+  },
+  spot: {
+    company: faker.company.companyName,
+    thumbnail_url: faker.image.imageUrl,
+    price: () => Number(faker.finance.amount()),
+  },
+  approved: faker.random.boolean,
 });
 
 export default factory;
