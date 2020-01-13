@@ -23,11 +23,12 @@ export default function SignIn({ navigation }) {
   }, [email, techs]);
 
   useEffect(() => {
-    AsyncStorage.getItem('aircnc_user').then(user => {
+    (async () => {
+      const user = await AsyncStorage.getItem('aircnc_user');
       if (user) {
         navigation.navigate('List');
       }
-    });
+    })();
   }, []);
 
   return (

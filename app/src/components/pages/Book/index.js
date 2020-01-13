@@ -11,7 +11,8 @@ export default function Book({ navigation }) {
   const [date, setDate] = useState(new Date());
 
   const handleSubmit = useCallback(() => {
-    AsyncStorage.getItem('aircnc_user').then(async user_id => {
+    (async () => {
+      const user_id = await AsyncStorage.getItem('aircnc_user');
       await api.post(
         `spots/${id}/booking`,
         {
@@ -24,7 +25,7 @@ export default function Book({ navigation }) {
 
       Alert.alert('Solicitação de reserva enviada');
       navigation.navigate('List');
-    });
+    })();
   }, [date]);
 
   const handleCancel = useCallback(() => {

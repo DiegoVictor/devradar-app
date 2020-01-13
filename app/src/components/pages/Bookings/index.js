@@ -30,18 +30,21 @@ export default function Bookings() {
   const [refreshing, setRefreshing] = useState(true);
 
   const handleRefresh = useCallback(() => {
-    AsyncStorage.getItem('aircnc_user').then(async user_id => {
+    (async () => {
+      const user_id = await AsyncStorage.getItem('aircnc_user');
       const { data } = await api.get('bookings', {
         headers: { user_id },
       });
 
       setBookings(data);
       setRefreshing(false);
+    })();
     });
-  });
 
   const handleCancelation = useCallback(id => {
-    AsyncStorage.getItem('aircnc_user').then(async user_id => {
+    (async () => {
+      const user_id = await AsyncStorage.getItem('aircnc_user');
+
       try {
         await api.post(
           `bookings/${id}/rejection`,
@@ -59,8 +62,8 @@ export default function Bookings() {
         const { error } = err.response.data;
         Alert.alert(error);
       }
+    })();
     });
-  });
 
   useEffect(() => {
     handleRefresh();

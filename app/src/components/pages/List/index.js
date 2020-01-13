@@ -14,10 +14,12 @@ export default () => {
   const [techs, setTechs] = useState([]);
 
   useEffect(() => {
-    AsyncStorage.getItem('aircnc_user').then(user_id => {
+    (async () => {
+      const user_id = await AsyncStorage.getItem('aircnc_user');
       const socket = socketio(API_URL, {
         query: { user_id },
       });
+
       socket.on('booking_response', booking => {
         const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
         Alert.alert(
@@ -26,16 +28,17 @@ export default () => {
           }`
         );
       });
-    });
+    })();
   }, []);
 
   useEffect(() => {
-    AsyncStorage.getItem('aircnc_techs').then(technologies => {
+    (async () => {
+      const technologies = await AsyncStorage.getItem('aircnc_techs');
       if (technologies) {
         const list = technologies.split(',').map(tech => tech.trim());
         setTechs(list);
       }
-    });
+    })();
   }, []);
 
   return (
