@@ -25,7 +25,7 @@ import {
   WhiteText,
 } from './styles';
 
-export default function Bookings() {
+export default () => {
   const [bookings, setBookings] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
 
