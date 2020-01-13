@@ -26,7 +26,16 @@ export default createAppContainer(
             ),
           }),
         },
-        Bookings,
+        Bookings: {
+          screen: Bookings,
+          navigationOptions: () => ({
+            tabBarLabel: 'Bookings',
+            // eslint-disable-next-line react/prop-types
+            tabBarIcon: ({ tintColor }) => (
+              <Icon name="date-range" size={20} color={tintColor} />
+            ),
+          }),
+        },
       },
       {
         tabBarOptions: {
