@@ -1,3 +1,8 @@
+# Install
+```
+$ yarn 
+```
+
 # Dependencies
 Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
 
