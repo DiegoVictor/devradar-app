@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import Express from 'express';
 import Mongoose from 'mongoose';
+import cors from 'cors';
 
 import routes from './routes';
 
@@ -12,6 +13,7 @@ Mongoose.connect(process.env.MONGO_URL, {
   useCreateIndex: true,
 });
 
+App.use(cors());
 App.use(Express.json());
 App.use(routes);
 
