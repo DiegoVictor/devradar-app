@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import Developer from '../models/Developer';
 import parseStringAsArray from '../helpers/parseStringAsArray';
+import { findConnection, sendMessage } from '../../websocket';
 
 class DeveloperController {
   async index(req, res) {
@@ -17,6 +18,7 @@ class DeveloperController {
       const response = await axios.get(
         `https://api.github.com/users/${github_username}`
       );
+      // eslint-disable-next-line no-undef
       const { name = login, avatar_url, bio } = response.data;
 
       const techs_array = parseStringAsArray(techs);
@@ -31,6 +33,12 @@ class DeveloperController {
           coordinates: [longitude, latitude],
         },
       });
+
+      sendMessage(
+        findConnection({ latitude, longitude }, techs_array),
+        'new-developers',
+        developer
+      );
     }
 
     return res.json(developer);
@@ -40,7 +48,7 @@ class DeveloperController {
     const { id } = req.params;
     const { techs } = req.body;
 
-    let developer = await Developer.findById(id);
+    const developer = await Developer.findById(id);
     if (!developer) {
       return res.status(400).json({
         error: 'Developer does not exists',
