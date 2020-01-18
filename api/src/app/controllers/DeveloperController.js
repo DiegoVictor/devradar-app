@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import Developer from '../models/Developer';
-import ParseStringAsArray from '../services/ParseStringAsArray';
+import parseStringAsArray from '../helpers/parseStringAsArray';
 
 class DeveloperController {
   async index(req, res) {
@@ -19,12 +19,13 @@ class DeveloperController {
       );
       const { name = login, avatar_url, bio } = response.data;
 
+      const techs_array = parseStringAsArray(techs);
       developer = await Developer.create({
         name,
         avatar_url,
         bio,
         github_username,
-        techs: ParseStringAsArray.run(techs),
+        techs: techs_array,
         location: {
           type: 'Point',
           coordinates: [longitude, latitude],
@@ -47,7 +48,7 @@ class DeveloperController {
     }
 
     if (typeof techs === 'string') {
-      developer.techs = ParseStringAsArray.run(techs);
+      developer.techs = parseStringAsArray.run(techs);
     }
 
     ['name', 'avatar_url', 'bio'].forEach(field => {

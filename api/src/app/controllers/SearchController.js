@@ -1,4 +1,4 @@
-import ParseStringAsArray from '../services/ParseStringAsArray';
+import parseStringAsArray from '../helpers/parseStringAsArray';
 import Developer from '../models/Developer';
 
 class SearchController {
@@ -7,7 +7,7 @@ class SearchController {
 
     const developers = await Developer.find({
       techs: {
-        $in: ParseStringAsArray.run(techs),
+        $in: parseStringAsArray.run(techs),
       },
       location: {
         $near: {
