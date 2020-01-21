@@ -1,5 +1,5 @@
 import request from 'supertest';
-import axios from 'axios';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -8,6 +8,10 @@ import Developer from '../../src/app/models/Developer';
 describe('Developer', () => {
   beforeEach(async () => {
     await Developer.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be able to get a list of developers', async () => {

@@ -1,4 +1,5 @@
 import request from 'supertest';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -7,6 +8,10 @@ import Developer from '../../src/app/models/Developer';
 describe('Dislike', () => {
   beforeEach(async () => {
     await Developer.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be able to dislike an user', async () => {

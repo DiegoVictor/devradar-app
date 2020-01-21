@@ -1,5 +1,6 @@
 import request from 'supertest';
 import faker from 'faker';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -11,6 +12,10 @@ jest.mock('socket.io');
 describe('Like', () => {
   beforeEach(async () => {
     await Developer.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be able to like an user', async () => {
