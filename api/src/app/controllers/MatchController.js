@@ -2,7 +2,7 @@ import Developer from '../models/Developer';
 
 class MatchController {
   async index(req, res) {
-    const { user_id } = req.headers;
+    const { user_id } = req;
     const { likes } = await Developer.findById(user_id);
     const matches = await Developer.find({
       _id: { $in: likes },

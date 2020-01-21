@@ -5,6 +5,7 @@ import LikeController from './app/controllers/LikeController';
 import DislikeController from './app/controllers/DislikeController';
 import MatchController from './app/controllers/MatchController';
 import DeveloperStore from './app/validators/DeveloperStore';
+import Authenticate from './app/services/Authenticate';
 
 const Route = Router();
 
@@ -13,6 +14,8 @@ Route.post(
   DeveloperStore,
   DeveloperConotroller.store
 );
+
+Route.use(Authenticate);
 
 Route.get('/developers', DeveloperConotroller.index);
 Route.get('/developers/:id', DeveloperConotroller.show);
