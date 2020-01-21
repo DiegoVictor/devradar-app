@@ -1,23 +1,12 @@
-import Developer from '../models/Developer';
+import DeveloperExists from '../services/DeveloperExists';
 
 class DislikeController {
   async store(req, res) {
-    const { disliked_user_id } = req.params;
-    const { user_id } = req.headers;
-
-    const disliked_developer = await Developer.findById(disliked_user_id);
-    if (!disliked_developer) {
-      return res.status(400).json({
-        error: 'Developer not exists!',
-      });
-    }
-
-    const developer = await Developer.findById(user_id);
-    if (!developer) {
-      return res.status(400).json({
-        error: 'Developer not exists',
-      });
-    }
+    const { user_id } = req;
+    const disliked_developer = await DeveloperExists.run({
+      id: req.params.disliked_user_id,
+    });
+    const developer = await DeveloperExists.run({ id: user_id });
 
     if (!developer.dislikes.includes(disliked_developer._id)) {
       developer.dislikes.push(disliked_developer._id);

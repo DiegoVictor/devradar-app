@@ -1,18 +1,14 @@
 import axios from 'axios';
 
+import Api from '../services/Api';
 import Developer from '../models/Developer';
+import DeveloperExists from '../services/DeveloperExists';
 
 class DeveloperController {
   async index(req, res) {
     const { user_id } = req.headers;
 
-    const user = await Developer.findById(user_id);
-    if (!user) {
-      return res.status(400).json({
-        error: 'User not exists',
-      });
-    }
-
+    const user = await DeveloperExists.run({ id: user_id });
     const developers = await Developer.find({
       $and: [
         { _id: { $ne: user_id } },
@@ -25,7 +21,7 @@ class DeveloperController {
   }
 
   async show(req, res) {
-    const { avatar, name } = await Developer.findById(req.params.id);
+    const { avatar, name } = await DeveloperExists.run({ id: req.params.id });
     return res.json({ avatar, name });
   }
 
@@ -35,9 +31,11 @@ class DeveloperController {
     let developer = await Developer.findOne({ user });
 
     if (!developer) {
-      const response = await axios.get(`https://api.github.com/users/${user}`);
+      const { data } = await Api.get(`users/${user}`);
+      const { name, bio, avatar_url: avatar } = data;
 
-      const { name, bio, avatar_url: avatar } = response.data;
+      developer = await Developer.create({ name, user, bio, avatar });
+    }
 
       developer = await Developer.create({
         name,
