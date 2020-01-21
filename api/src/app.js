@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import Express from 'express';
 import http from 'http';
-import cors from 'cors';
-import Socket from 'socket.io';
+import RateLimit from 'express-rate-limit';
+import RedisStore from 'rate-limit-redis';
+import redis from 'redis';
 
 import routes from './routes';
 import './database';
@@ -26,6 +27,22 @@ App.use((req, res, next) => {
 
 App.use(cors());
 App.use(Express.json());
+
+if (process.env.NODE_ENV !== 'test') {
+  App.use(
+    new RateLimit({
+      max: 100,
+      windowMs: 1000 * 60 * 15,
+      store: new RedisStore({
+        client: redis.createClient({
+          host: process.env.REDIS_HOST,
+          port: process.env.REDIS_PORT,
+        }),
+      }),
+    })
+  );
+}
+
 App.use(routes);
 
 export default App;

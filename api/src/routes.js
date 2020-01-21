@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import ExpressBrute from 'express-brute';
+import RedisStore from 'express-brute-redis';
 
 import DeveloperConotroller from './app/controllers/DeveloperController';
 import LikeController from './app/controllers/LikeController';
@@ -11,6 +13,18 @@ const Route = Router();
 
 Route.post(
   '/developers',
+  (req, res, next) => {
+    if (process.env.NODE_ENV !== 'test') {
+      const BruteForce = new ExpressBrute(
+        new RedisStore({
+          host: process.env.REDIS_HOST,
+          port: process.env.REDIS_PORT,
+        })
+      );
+      return BruteForce.prevent;
+    }
+    return next();
+  },
   DeveloperStore,
   DeveloperConotroller.store
 );
