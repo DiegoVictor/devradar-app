@@ -9,23 +9,18 @@ import redis from 'redis';
 
 import routes from './routes';
 import './database';
+import { setupWebSocket } from './websocket';
 
 const App = Express();
 const Server = http.Server(App);
 
-const io = Socket(Server);
-const connected = {};
+setupWebSocket(Server);
 
 io.on('connection', socket => {
   const { developer_id } = socket.handshake.query;
   connected[developer_id] = socket.id;
 });
 
-App.use((req, res, next) => {
-  req.io = io;
-  req.connected = connected;
-  return next();
-});
 
 App.use(cors());
 App.use(Express.json());
@@ -58,3 +53,4 @@ App.use((err, req, res, next) => {
   return res.status(payload.statusCode).json(payload);
 });
 
+export default Server;
