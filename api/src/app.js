@@ -3,6 +3,7 @@ import 'dotenv/config';
 import 'express-async-errors';
 import Express from 'express';
 import http from 'http';
+import helmet from 'helmet';
 import RateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 import redis from 'redis';
@@ -21,6 +22,7 @@ io.on('connection', socket => {
   connected[developer_id] = socket.id;
 });
 
+App.use(helmet());
 
 App.use(cors());
 App.use(Express.json());
