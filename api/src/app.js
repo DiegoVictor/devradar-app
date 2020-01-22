@@ -1,4 +1,6 @@
 import 'dotenv/config';
+
+import 'express-async-errors';
 import Express from 'express';
 import http from 'http';
 import RateLimit from 'express-rate-limit';
@@ -45,4 +47,14 @@ if (process.env.NODE_ENV !== 'test') {
 
 App.use(routes);
 
-export default App;
+// eslint-disable-next-line no-unused-vars
+App.use((err, req, res, next) => {
+  const { payload } = err.output;
+
+  if (err.data) {
+    payload.details = err.data;
+  }
+
+  return res.status(payload.statusCode).json(payload);
+});
+

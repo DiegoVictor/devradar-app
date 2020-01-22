@@ -8,10 +8,12 @@
     "test": "set NODE_ENV=test&jest --runInBand"
   },
   "dependencies": {
+    "@hapi/boom": "^9.0.0",
     "axios": "^0.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-brute": "^1.0.1",
     "express-brute-redis": "^0.0.1",
     "express-rate-limit": "^5.0.0",
