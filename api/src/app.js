@@ -4,6 +4,7 @@ import 'express-async-errors';
 import Express from 'express';
 import http from 'http';
 import helmet from 'helmet';
+import Sentry from '@sentry/node';
 import RateLimit from 'express-rate-limit';
 import RedisStore from 'rate-limit-redis';
 import redis from 'redis';
@@ -17,10 +18,11 @@ const Server = http.Server(App);
 
 setupWebSocket(Server);
 
-io.on('connection', socket => {
-  const { developer_id } = socket.handshake.query;
-  connected[developer_id] = socket.id;
+if (process.env.SENTRY_DSN && process.env.LOG === 1) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
 });
+}
 
 App.use(helmet());
 
