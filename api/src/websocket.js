@@ -1,5 +1,6 @@
 import Socket from 'socket.io';
 import redis from 'redis';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import redis_mock from 'redis-mock';
 
 let { createClient } = redis;
