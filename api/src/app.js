@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
 import 'express-async-errors';
+import cors from 'cors';
 import Express from 'express';
 import http from 'http';
 import helmet from 'helmet';
@@ -21,7 +22,7 @@ setupWebSocket(Server);
 if (process.env.SENTRY_DSN && process.env.LOG === 1) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
-});
+  });
 }
 
 App.use(helmet());
