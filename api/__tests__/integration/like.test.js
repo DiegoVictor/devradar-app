@@ -3,6 +3,7 @@ import faker from 'faker';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
+import jwtoken from '../utils/jwtoken';
 import factory from '../utils/factories';
 import Developer from '../../src/app/models/Developer';
 import { connect, emit, to } from '../../__mocks__/socket.io';
@@ -20,9 +21,10 @@ describe('Like', () => {
 
   it('should be able to like an user', async () => {
     const [user, like_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body.likes).toContain(like_user._id.toString());
@@ -30,11 +32,12 @@ describe('Like', () => {
 
   it('should not be able to like an user', async () => {
     const [user, like_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     await user.delete();
 
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body).toStrictEqual({
@@ -44,11 +47,12 @@ describe('Like', () => {
 
   it('should not be able to like an user that not exists', async () => {
     const [user, like_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     like_user.remove();
 
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body).toStrictEqual({
@@ -61,6 +65,7 @@ describe('Like', () => {
     const match_user = await factory.create('Developer', {
       likes: [user._id.toString()],
     });
+    const token = jwtoken(user.id);
 
     const user_socket_id = faker.random.number();
     const match_user_socket_id = faker.random.number();
@@ -85,7 +90,7 @@ describe('Like', () => {
 
     await request(app)
       .post(`/developers/${match_user._id}/like`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(to).toHaveBeenNthCalledWith(1, user_socket_id);

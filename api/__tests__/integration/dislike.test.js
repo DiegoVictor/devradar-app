@@ -16,9 +16,10 @@ describe('Dislike', () => {
 
   it('should be able to dislike an user', async () => {
     const [user, dislike_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body.dislikes).toContain(dislike_user._id.toString());
@@ -26,11 +27,12 @@ describe('Dislike', () => {
 
   it('should not be able to dislike an user', async () => {
     const [user, dislike_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     await user.delete();
 
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body).toStrictEqual({
@@ -40,11 +42,12 @@ describe('Dislike', () => {
 
   it('should not be able to dislike an user that not exists', async () => {
     const [user, dislike_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
     dislike_user.remove();
 
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body).toStrictEqual({
@@ -54,13 +57,14 @@ describe('Dislike', () => {
 
   it('should be able to dislike an user twice', async () => {
     const [user, dislike_user] = await factory.createMany('Developer', 2);
+    const token = jwtoken(user.id);
 
     user.dislikes.push(dislike_user._id);
     await user.save();
 
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body.dislikes).toContain(dislike_user._id.toString());

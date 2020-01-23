@@ -4,6 +4,7 @@ import Mongoose from 'mongoose';
 import app from '../../src/app';
 import factory from '../utils/factories';
 import Developer from '../../src/app/models/Developer';
+import jwtoken from '../utils/jwtoken';
 
 describe('Match', () => {
   beforeEach(async () => {
@@ -19,6 +20,7 @@ describe('Match', () => {
     const developers = await factory.createMany('Developer', 3, {
       likes: [user._id],
     });
+    const token = jwtoken(user.id);
 
     developers.forEach(({ _id }) => {
       user.likes.push(_id);
@@ -27,7 +29,7 @@ describe('Match', () => {
 
     const response = await request(app)
       .get('/matches')
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send();
 
     expect(response.body.length).toBe(3);
