@@ -8,8 +8,6 @@ import factory from '../utils/factories';
 import Developer from '../../src/app/models/Developer';
 import { connect, emit, to } from '../../__mocks__/socket.io';
 
-jest.mock('socket.io');
-
 describe('Like', () => {
   beforeEach(async () => {
     await Developer.deleteMany();
@@ -38,10 +36,12 @@ describe('Like', () => {
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
       .set('Authorization', `Bearer ${token}`)
+      .expect(400)
       .send();
 
-    expect(response.body).toStrictEqual({
-      error: 'Developer not exists!',
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Developer not exists',
     });
   });
 
@@ -53,14 +53,16 @@ describe('Like', () => {
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
       .set('Authorization', `Bearer ${token}`)
+      .expect(400)
       .send();
 
-    expect(response.body).toStrictEqual({
-      error: 'Developer not exists!',
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Developer not exists',
     });
   });
 
-  it('should be able to emit a match to liking user', async () => {
+  it('should be able to emit a match to users', async () => {
     const user = await factory.create('Developer');
     const match_user = await factory.create('Developer', {
       likes: [user._id.toString()],

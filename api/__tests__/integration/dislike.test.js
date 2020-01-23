@@ -4,6 +4,7 @@ import Mongoose from 'mongoose';
 import app from '../../src/app';
 import factory from '../utils/factories';
 import Developer from '../../src/app/models/Developer';
+import jwtoken from '../utils/jwtoken';
 
 describe('Dislike', () => {
   beforeEach(async () => {
@@ -33,10 +34,12 @@ describe('Dislike', () => {
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
       .set('Authorization', `Bearer ${token}`)
+      .expect(400)
       .send();
 
-    expect(response.body).toStrictEqual({
-      error: 'Developer not exists',
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Developer not exists',
     });
   });
 
@@ -48,10 +51,12 @@ describe('Dislike', () => {
     const response = await request(app)
       .post(`/developers/${dislike_user._id}/dislike`)
       .set('Authorization', `Bearer ${token}`)
+      .expect(400)
       .send();
 
-    expect(response.body).toStrictEqual({
-      error: 'Developer not exists!',
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Developer not exists',
     });
   });
 
