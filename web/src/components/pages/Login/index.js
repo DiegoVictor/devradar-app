@@ -21,6 +21,7 @@ export default function Login({ history }) {
           name="username"
           type="text"
           placeholder="Digite seu usuário no Github"
+          required
         />
         <Button data-testid="login" type="submit">
           Enviar
