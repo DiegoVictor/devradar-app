@@ -9,7 +9,6 @@ import Logo from '~/assets/logo.png';
 import Dislike from '~/assets/dislike.png';
 import Like from '~/assets/like.png';
 import Match from '~/components/Match';
-import { api_url } from '~/config/Env';
 import {
   Container,
   Brand,

@@ -1,10 +1,10 @@
 import React from 'react';
-import { wait, render, act, fireEvent } from '@testing-library/react-native';
+import { wait, render, fireEvent } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
+import { API_URL } from 'react-native-dotenv';
 
-import { api_url } from '~/config/Env';
 import factory from '../../utils/factories';
 import Main from '~/components/pages/Main';
 import api from '~/services/api';
@@ -19,7 +19,7 @@ describe('Main page', () => {
     const navigate = jest.fn();
 
     AsyncStorage.setItem('tindev_user', _id);
-    api_mock.onGet(`${api_url}/developers`).reply(200, developers);
+    api_mock.onGet(`${API_URL}/developers`).reply(200, developers);
 
     const { getByTestId } = render(<Main navigation={{ navigate }} />);
 
@@ -32,8 +32,8 @@ describe('Main page', () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
 
     AsyncStorage.setItem('tindev_user', _id);
-    api_mock.onGet(`${api_url}/developers`).reply(200, [developer, ...rest]);
-    api_mock.onPost(`${api_url}/developers/${developer._id}/like`).reply(200);
+    api_mock.onGet(`${API_URL}/developers`).reply(200, [developer, ...rest]);
+    api_mock.onPost(`${API_URL}/developers/${developer._id}/like`).reply(200);
 
     const { getByTestId, queryByTestId } = render(
       <Main navigation={{ navigate: jest.fn() }} />
@@ -48,9 +48,9 @@ describe('Main page', () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
 
     AsyncStorage.setItem('tindev_user', _id);
-    api_mock.onGet(`${api_url}/developers`).reply(200, [developer, ...rest]);
+    api_mock.onGet(`${API_URL}/developers`).reply(200, [developer, ...rest]);
     api_mock
-      .onPost(`${api_url}/developers/${developer._id}/dislike`)
+      .onPost(`${API_URL}/developers/${developer._id}/dislike`)
       .reply(200);
 
     const { getByTestId, queryByTestId } = render(
@@ -66,7 +66,7 @@ describe('Main page', () => {
     const match_developer = await factory.attrs('Developer');
 
     AsyncStorage.setItem('tindev_user', _id);
-    api_mock.onGet(`${api_url}/developers`).reply(200, []);
+    api_mock.onGet(`${API_URL}/developers`).reply(200, []);
 
     const { getByTestId } = render(
       <Main navigation={{ navigate: jest.fn() }} />

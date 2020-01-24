@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 
-import { api_url } from '~/config/Env';
 import Logo from '~/assets/logo.png';
 import Match from '~/components/Match';
 import api from '~/services/api';
