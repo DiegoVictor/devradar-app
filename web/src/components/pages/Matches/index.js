@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 
+import { connect, subscribe, disconnect } from '~/services/socket';
 import Match from '~/components/Match';
 import api from '~/services/api';
 import Menu from '~/components/Menu';
@@ -20,11 +20,9 @@ export default function Matches({ history }) {
   const [matches, setMatches] = useState([]);
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_API_URL, {
-      query: { developer_id: id },
-    });
-
-    socket.on('match', dev => {
+    disconnect();
+    connect({ developer_id: id });
+    subscribe('match', dev => {
       setDeveloper(dev);
     });
   }, [id]);

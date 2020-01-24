@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';
@@ -23,6 +22,7 @@ import {
   Actions,
   Button,
 } from './styles';
+import { disconnect, connect, subscribe } from '~/services/socket';
 
 export default function Main({ navigation }) {
   const [developers, setDevelopers] = useState([]);
@@ -42,11 +42,9 @@ export default function Main({ navigation }) {
     (async () => {
       const developer_id = await AsyncStorage.getItem('tindev_user');
 
-      const socket = io(api_url, {
-        query: { developer_id },
-      });
-
-      socket.on('match', dev => {
+      disconnect();
+      connect({ developer_id });
+      subscribe('match', dev => {
         setDeveloper(dev);
       });
     })();

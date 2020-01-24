@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import io from 'socket.io-client';
 
+import { connect, subscribe, disconnect } from '~/services/socket';
 import Like from '~/assets/like.png';
 import Dislike from '~/assets/dislike.png';
 import Loading from '~/components/Loading';
@@ -36,11 +36,9 @@ export default function Main({ match, history }) {
   }, [id]);
 
   useEffect(() => {
-    const socket = io(process.env.REACT_APP_API_URL, {
-      query: { developer_id: id },
-    });
-
-    socket.on('match', dev => {
+    disconnect();
+    connect({ developer_id: id });
+    subscribe('match', dev => {
       setDeveloper(dev);
     });
   }, [id]);

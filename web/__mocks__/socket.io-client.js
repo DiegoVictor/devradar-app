@@ -11,4 +11,11 @@ export default (url, options) => ({
   url,
   options,
   on,
+  io: {
+    opts: {
+      query: {},
+    },
+  },
+  connect: jest.fn(),
+  disconnect: jest.fn(),
 });

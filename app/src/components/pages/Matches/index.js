@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 
 import Logo from '~/assets/logo.png';
@@ -19,6 +18,7 @@ import {
   Text,
   Empty,
 } from './styles';
+import { disconnect, connect, subscribe } from '~/services/socket';
 
 export default function Matches({ navigation }) {
   const [matches, setMatches] = useState([]);
@@ -45,11 +45,10 @@ export default function Matches({ navigation }) {
   useEffect(() => {
     (async () => {
       const developer_id = await AsyncStorage.getItem('tindev_user');
-      const socket = io(api_url, {
-        query: { developer_id },
-      });
 
-      socket.on('match', dev => {
+      disconnect();
+      connect({ developer_id });
+      subscribe('match', dev => {
         setDeveloper(dev);
       });
     })();
