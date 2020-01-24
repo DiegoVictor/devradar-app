@@ -31,7 +31,7 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ],
-    "coverageDirectory": "src/__tests__/coverage",
+    "coverageDirectory": "__tests__/coverage",
     "collectCoverageFrom": [
       "!src/index.js",
       "!src/routes.js",
@@ -47,7 +47,7 @@
       "!src/__tests__/coverage/lcov-report/sorter.js"
     ],
     "testMatch": [
-      "src/__tests__/**/*.test.js"
+      "**/__tests__/**/*.test.js"
     ],
     "testPathIgnorePatterns": [
       "src\\__tests__\\utils",

@@ -7,7 +7,7 @@ import faker from 'faker';
 import Matches from '~/components/pages/Matches';
 import factory from '../../utils/factories';
 import api from '~/services/api';
-import { emit } from '../../../../__mocks__/socket.io-client';
+import { emit } from '../../../__mocks__/socket.io-client';
 
 const push = jest.fn();
 const api_mock = new MockAdapter(api);

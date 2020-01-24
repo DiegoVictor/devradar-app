@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import { emit } from '../../../../__mocks__/socket.io-client';
+import { emit } from '../../../__mocks__/socket.io-client';
 import api from '~/services/api';
 import Main from '~/components/pages/Main';
 import factory from '../../utils/factories';
