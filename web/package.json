@@ -33,25 +33,14 @@
     ],
     "coverageDirectory": "__tests__/coverage",
     "collectCoverageFrom": [
-      "!src/index.js",
-      "!src/routes.js",
-      "!src/config/ReactotronConfig.js",
-      "!src/services/api.js",
+      "src/components",
       "!src/components/Loading/index.js",
       "!src/components/Loading/styles.js",
       "!src/components/pages/index.js",
-      "!src/components/pages/styles.js",
-      "!src/__tests__/utils/factories.js",
-      "!src/__tests__/coverage/lcov-report/block-navigation.js",
-      "!src/__tests__/coverage/lcov-report/prettify.js",
-      "!src/__tests__/coverage/lcov-report/sorter.js"
+      "!src/components/pages/styles.js"
     ],
     "testMatch": [
       "**/__tests__/**/*.test.js"
-    ],
-    "testPathIgnorePatterns": [
-      "src\\__tests__\\utils",
-      "src\\__tests__\\coverage"
     ]
   },
   "eslintConfig": {
