@@ -2,6 +2,7 @@ import request from 'supertest';
 import faker from 'faker';
 import path from 'path';
 import fs from 'fs';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -14,6 +15,10 @@ describe('Spot', () => {
     await User.deleteMany();
     await Spot.deleteMany();
     await Booking.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be able to get a list of spots', async () => {

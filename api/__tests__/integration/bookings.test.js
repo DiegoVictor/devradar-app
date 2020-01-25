@@ -1,7 +1,6 @@
 import request from 'supertest';
 import faker from 'faker';
-
-import {} from 'mongoose';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -16,6 +15,10 @@ describe('Booking', () => {
     await User.deleteMany();
     await Spot.deleteMany();
     await Booking.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it("should be able to user's bookings", async () => {

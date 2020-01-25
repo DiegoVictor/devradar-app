@@ -1,5 +1,4 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import Mongoose from 'mongoose';
 
 const mongod = new MongoMemoryServer({
   instance: {
@@ -13,11 +12,5 @@ const mongod = new MongoMemoryServer({
 
 module.exports = async () => {
   process.env.MONGO_URL = await mongod.getConnectionString();
-  await Mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  });
-
   global.__MONGOD__ = mongod;
 };

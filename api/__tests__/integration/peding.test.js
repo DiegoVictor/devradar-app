@@ -1,4 +1,5 @@
 import request from 'supertest';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -11,6 +12,10 @@ describe('Peding', () => {
     await User.deleteMany();
     await Spot.deleteMany();
     await Booking.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be able to get a list of peding bookings', async () => {

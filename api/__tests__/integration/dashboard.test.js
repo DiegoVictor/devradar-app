@@ -1,4 +1,5 @@
 import request from 'supertest';
+import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import factory from '../utils/factories';
@@ -9,6 +10,10 @@ describe('Dashboard', () => {
   beforeEach(async () => {
     await User.deleteMany();
     await Spot.deleteMany();
+  });
+
+  afterAll(async () => {
+    await Mongoose.disconnect();
   });
 
   it('should be get a list of spots of one user', async () => {
