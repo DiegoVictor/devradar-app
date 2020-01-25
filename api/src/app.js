@@ -8,6 +8,7 @@ import path from 'path';
 import socketio from 'socket.io';
 import http from 'http';
 import Sentry from '@sentry/node';
+import helmet from 'helmet';
 
 import routes from './routes';
 
@@ -38,6 +39,8 @@ Mongoose.connect(process.env.MONGO_URL, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
+
+App.use(helmet());
 
 App.use(cors());
 App.use(Express.json());
