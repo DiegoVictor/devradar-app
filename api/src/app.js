@@ -5,34 +5,23 @@ import Express from 'express';
 import Mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
-import socketio from 'socket.io';
 import http from 'http';
 import Sentry from '@sentry/node';
 import helmet from 'helmet';
 
 import routes from './routes';
+import { setupWebSocket } from './websocket';
 
 const App = Express();
-export const Server = http.Server(App);
-const io = socketio(Server);
+const Server = http.Server(App);
 
-if (process.env.LOG === '1') {
-  Sentry.init({ dsn: process.env.SENTRY_DSN });
+setupWebSocket(Server);
+
+if (process.env.SENTRY_DSN && process.env.LOG === '1') {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+});
 }
-
-// Use Redis to relate users and socket id
-const connections = {};
-
-io.on('connection', socket => {
-  const { user_id } = socket.handshake.query;
-  connections[user_id] = socket.id;
-});
-
-App.use((req, res, next) => {
-  req.io = io;
-  req.connections = connections;
-  return next();
-});
 
 Mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
@@ -57,3 +46,5 @@ App.use((err, req, res, next) => {
 
   return res.status(payload.statusCode).json(payload);
 });
+
+export default Server;
