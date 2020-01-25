@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import Multer from 'multer';
+import ExpressBrute from 'express-brute';
+import RedisStore from 'express-brute-redis';
 
 import storage from './config/storage';
 import SessionController from './app/controllers/SessionController';
@@ -17,7 +19,23 @@ import BookingStore from './app/validators/BookingStore';
 
 const Route = Router();
 
-Route.post('/sessions', SessionStore, SessionController.store);
+Route.post(
+  '/sessions',
+  (req, res, next) => {
+    if (process.env.NODE_ENV !== 'test') {
+      const BruteForce = new ExpressBrute(
+        new RedisStore({
+          host: process.env.REDIS_HOST,
+          port: process.env.REDIS_PORT,
+        })
+      );
+      return BruteForce.prevent;
+    }
+    return next();
+  },
+  SessionStore,
+  SessionController.store
+);
 
 Route.get('/spots', SpotController.index);
 Route.get('/spots/:id', SpotController.show);
