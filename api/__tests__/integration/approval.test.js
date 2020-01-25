@@ -47,10 +47,11 @@ describe('Approval', () => {
 
     const response = await request(app)
       .post(`/bookings/${booking_id}/approval`)
-      .set('user_id', _id);
+      .expect(401)
 
-    expect(response.body).toStrictEqual({
-      error: 'Only the spot owner can approve bookings',
+    expect(response.body).toMatchObject({
+      error: 'Unauthorized',
+      message: 'Only the spot owner can approve bookings',
     });
   });
 

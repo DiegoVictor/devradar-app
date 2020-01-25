@@ -91,20 +91,19 @@ describe('Spot', () => {
     }
   });
 
-  it('should be able to fail on validation while creating', async () => {
-    const { _id } = await factory.create('User');
-    const { company, techs } = await factory.attrs('Spot');
+  it('should not be able to store a new spot', async () => {
 
     const response = await request(app)
       .post('/spots')
-      .set('user_id', _id)
+      .expect(400)
       .send({
         company,
         techs,
       });
 
     expect(response.body).toMatchObject({
-      error: 'Validation fails',
+      error: 'Bad Request',
+      message: 'Validation fails',
     });
   });
 
@@ -118,15 +117,15 @@ describe('Spot', () => {
 
       const response = await request(app)
         .post('/spots')
-        .set('user_id', user._id)
+        .expect(400)
         .attach('thumbnail', file_path)
         .field('company', company)
         .field('price', price)
         .field('techs', techs);
 
-      expect(response.status).toBe(400);
-      expect(response.body).toStrictEqual({
-        error: 'User does not exists',
+      expect(response.body).toMatchObject({
+        error: 'Bad Request',
+        message: 'User does not exists',
       });
     } else {
       throw Error('File does not exists!');
@@ -165,14 +164,15 @@ describe('Spot', () => {
 
     const response = await request(app)
       .put(`/spots/${spot._id}`)
-      .set('user_id', _id)
+      .expect(400)
       .send({
         company: faker.random.number(),
         price: faker.random.boolean(),
       });
 
     expect(response.body).toMatchObject({
-      error: 'Validation fails',
+      error: 'Bad Request',
+      message: 'Validation fails',
     });
   });
 
@@ -202,10 +202,11 @@ describe('Spot', () => {
 
     const response = await request(app)
       .delete(`/spots/${spot._id}`)
-      .set('user_id', _id);
+      .expect(400)
 
-    expect(response.body).toStrictEqual({
-      error: 'Spot does not exists',
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Spot does not exists',
     });
   });
 
@@ -223,8 +224,9 @@ describe('Spot', () => {
       .delete(`/spots/${spot._id}`)
       .set('user_id', _id);
 
-    expect(response.body).toStrictEqual({
-      error: 'You can not remove spot with bookings approved',
+    expect(response.body).toMatchObject({
+      error: 'Unauthorized',
+      message: 'You can not remove spot with bookings approved',
     });
   });
 });

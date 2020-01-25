@@ -37,9 +37,12 @@ describe('Session', () => {
   it('should fail in validation', async () => {
     const response = await request(app)
       .post('/sessions')
+      .expect(400)
       .send({});
 
-    expect(response.status).toBe(400);
-    expect(response.body).toMatchObject({ error: 'Validation fails' });
+    expect(response.body).toMatchObject({
+      error: 'Bad Request',
+      message: 'Validation fails',
+    });
   });
 });

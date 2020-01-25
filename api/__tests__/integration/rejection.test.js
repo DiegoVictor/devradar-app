@@ -51,12 +51,12 @@ describe('Rejection', () => {
 
     const response = await request(app)
       .post(`/bookings/${booking_id}/rejection`)
-      .set('user_id', _id);
+      .expect(401)
 
-    expect(response.status).toBe(401);
-    expect(response.body).toStrictEqual({
-      error:
-        "You did't request a booking to this spot or is not the spot owner",
+    expect(response.body).toMatchObject({
+      error: 'Unauthorized',
+      message:
+        "You dind't request a booking to this spot or is not the spot owner",
     });
   });
 
@@ -75,11 +75,11 @@ describe('Rejection', () => {
 
     const response = await request(app)
       .post(`/bookings/${booking_id}/rejection`)
-      .set('user_id', _id);
+      .expect(401)
 
-    expect(response.status).toBe(401);
-    expect(response.body).toStrictEqual({
-      error: 'You can only cancel bookings with 24 hours in advance',
+    expect(response.body).toMatchObject({
+      error: 'Unauthorized',
+      message: 'You can only cancel bookings with 24 hours in advance',
     });
   });
 

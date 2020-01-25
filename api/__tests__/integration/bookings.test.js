@@ -71,12 +71,12 @@ describe('Booking', () => {
     const spot = await factory.create('Spot');
 
     const response = await request(app)
-      .post(`/spots/${spot._id}/booking`)
-      .set('user_id', user._id)
+      .expect(400)
       .send();
 
     expect(response.body).toMatchObject({
-      error: 'Validation fails',
+      error: 'Bad Request',
+      message: 'Validation fails',
     });
   });
 
