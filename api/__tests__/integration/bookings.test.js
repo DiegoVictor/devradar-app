@@ -9,12 +9,19 @@ import '../utils/extend';
 import User from '../../src/app/models/User';
 import Spot from '../../src/app/models/Spot';
 import Booking from '../../src/app/models/Booking';
+import jwtoken from '../utils/jwtoken';
+
+let token;
+let user;
 
 describe('Booking', () => {
   beforeEach(async () => {
     await User.deleteMany();
     await Spot.deleteMany();
     await Booking.deleteMany();
+
+    user = await factory.create('User');
+    token = jwtoken(user.id);
   });
 
   afterAll(async () => {
@@ -22,12 +29,11 @@ describe('Booking', () => {
   });
 
   it("should be able to user's bookings", async () => {
-    const { _id } = await factory.create('User');
-    const bookings = await factory.createMany('Booking', 3, { user: _id });
+    const bookings = await factory.createMany('Booking', 3, { user: user._id });
 
     const response = await request(app)
       .get('/bookings')
-      .set('user_id', _id);
+      .set('Authorization', `Bearer ${token}`);
 
     bookings.forEach(booking => {
       expect(response.body).toContainEqual(
@@ -39,13 +45,14 @@ describe('Booking', () => {
   });
 
   it('should be able to book a spot', async () => {
-    const user = await factory.create('User');
-    let spot = await factory.create('Spot');
+    let spot = await factory.create('Spot', {
+      user: user._id.toString(),
+    });
     const date = faker.date.future();
 
     const response = await request(app)
       .post(`/spots/${spot._id}/booking`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         date,
       });
@@ -59,6 +66,7 @@ describe('Booking', () => {
     spot = spot.toJSON();
     delete spot.techs;
     spot._id = spot._id.toString();
+    spot.user = spot.user.toString();
 
     expect(response.body).toMatchObject({
       spot,
@@ -67,10 +75,11 @@ describe('Booking', () => {
   });
 
   it('should be able to fail on validation', async () => {
-    const user = await factory.create('User');
-    const spot = await factory.create('Spot');
+    const { _id } = await factory.create('Spot');
 
     const response = await request(app)
+      .post(`/spots/${_id}/booking`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(400)
       .send();
 
@@ -81,7 +90,6 @@ describe('Booking', () => {
   });
 
   it('should be able to emit event to requested spot', async () => {
-    const user = await factory.create('User');
     const { _id: spot_owner_id } = await factory.create('User');
     const spot = await factory.create('Spot', {
       user: spot_owner_id,
@@ -100,7 +108,7 @@ describe('Booking', () => {
 
     await request(app)
       .post(`/spots/${spot._id}/booking`)
-      .set('user_id', user._id)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         date,
       });

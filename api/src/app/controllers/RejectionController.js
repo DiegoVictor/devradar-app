@@ -4,7 +4,7 @@ import Booking from '../models/Booking';
 
 class RejectionController {
   async store(req, res) {
-    const { user_id: user } = req.headers;
+    const { user_id: user } = req;
     const { booking_id } = req.params;
 
     const spots = await Spot.find({ user });

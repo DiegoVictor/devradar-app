@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 import User from '../models/User';
 
 class SessionController {
@@ -9,7 +11,12 @@ class SessionController {
       user = await User.create({ email });
     }
 
-    return res.json(user);
+    return res.json({
+      user,
+      token: jwt.sign({ id: user._id }, process.env.APP_SECRET, {
+        expiresIn: process.env.JWT_EXPIRATION_TIME,
+      }),
+    });
   }
 }
 

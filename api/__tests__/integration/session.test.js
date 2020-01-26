@@ -21,7 +21,13 @@ describe('Session', () => {
       .post('/sessions')
       .send({ email });
 
-    expect(response.body).toMatchObject({ _id: _id.toString(), email });
+    expect(response.body).toMatchObject({
+      user: {
+        _id: _id.toString(),
+        email,
+      },
+      token: expect.any(String),
+    });
   });
 
   it('should be able to authenticate with new user', async () => {
@@ -31,7 +37,12 @@ describe('Session', () => {
       .post('/sessions')
       .send({ email });
 
-    expect(response.body).toMatchObject({ email });
+    expect(response.body).toMatchObject({
+      user: {
+        email,
+      },
+      token: expect.any(String),
+    });
   });
 
   it('should fail in validation', async () => {

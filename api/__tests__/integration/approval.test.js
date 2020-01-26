@@ -9,12 +9,19 @@ import '../utils/extend';
 import User from '../../src/app/models/User';
 import Spot from '../../src/app/models/Spot';
 import Booking from '../../src/app/models/Booking';
+import jwtoken from '../utils/jwtoken';
+
+let token;
+let user;
 
 describe('Approval', () => {
   beforeEach(async () => {
     await User.deleteMany();
     await Spot.deleteMany();
     await Booking.deleteMany();
+
+    user = await factory.create('User');
+    token = jwtoken(user.id);
   });
 
   afterAll(async () => {
@@ -22,15 +29,15 @@ describe('Approval', () => {
   });
 
   it('should be able to approve a booking', async () => {
-    const { _id } = await factory.create('User');
-    const { _id: spot_id } = await factory.create('Spot', { user: _id });
+    const { _id: spot_id } = await factory.create('Spot', { user: user._id });
     const { _id: booking_id } = await factory.create('Booking', {
       spot: spot_id,
+      user: user._id.toString(),
     });
 
     const response = await request(app)
       .post(`/bookings/${booking_id}/approval`)
-      .set('user_id', _id);
+      .set('Authorization', `Bearer ${token}`);
 
     expect(response.body).toMatchObject({
       _id: booking_id.toString(),
@@ -39,7 +46,6 @@ describe('Approval', () => {
   });
 
   it('should not be able to approve a booking with wrong user', async () => {
-    const { _id } = await factory.create('User');
     const { _id: spot_id } = await factory.create('Spot');
     const { _id: booking_id } = await factory.create('Booking', {
       spot: spot_id,
@@ -48,6 +54,7 @@ describe('Approval', () => {
     const response = await request(app)
       .post(`/bookings/${booking_id}/approval`)
       .expect(401)
+      .set('Authorization', `Bearer ${token}`);
 
     expect(response.body).toMatchObject({
       error: 'Unauthorized',
@@ -56,9 +63,8 @@ describe('Approval', () => {
   });
 
   it('should be able to emit a approved booking event', async () => {
-    const { _id } = await factory.create('User');
     const { _id: booking_user_id } = await factory.create('User');
-    const spot = await factory.create('Spot', { user: _id });
+    const spot = await factory.create('Spot', { user: user._id });
     const { _id: booking_id, date } = await factory.create('Booking', {
       spot: spot._id,
       user: booking_user_id,
@@ -76,7 +82,7 @@ describe('Approval', () => {
 
     await request(app)
       .post(`/bookings/${booking_id}/approval`)
-      .set('user_id', _id);
+      .set('Authorization', `Bearer ${token}`);
 
     expect(to).toHaveBeenCalledWith(socket_id);
     expect(emit).toHaveBeenCalledWithMatch('booking_response', {

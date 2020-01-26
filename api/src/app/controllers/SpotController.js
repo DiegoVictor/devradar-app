@@ -34,9 +34,9 @@ class SpotController {
   }
 
   async store(req, res) {
+    const { user_id } = req;
     const { filename } = req.file;
     const { company, techs, price } = req.body;
-    const { user_id } = req.headers;
 
     const user = await User.findById(user_id);
     if (!user) {
@@ -55,8 +55,8 @@ class SpotController {
   }
 
   async update(req, res) {
-    const { id } = req.params;
-    const { user_id: user } = req.headers;
+    const { user_id: user } = req;
+    const { id: _id } = req.params;
     const { company, techs, price } = req.body;
     const data = {
       company,
@@ -86,8 +86,8 @@ class SpotController {
   }
 
   async delete(req, res) {
-    const { id } = req.params;
-    const { user_id: user } = req.headers;
+    const { id: _id } = req.params;
+    const { user_id: user } = req;
 
     const spot = await Spot.findOne({
       _id: id,

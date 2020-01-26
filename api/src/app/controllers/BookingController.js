@@ -2,7 +2,7 @@ import Booking from '../models/Booking';
 
 class BookingController {
   async index(req, res) {
-    const { user_id: user } = req.headers;
+    const { user_id: user } = req;
     const bookings = await Booking.find({
       date: { $gte: new Date() },
       approved: { $ne: false },
@@ -12,7 +12,7 @@ class BookingController {
   }
 
   async store(req, res) {
-    const { user_id: user } = req.headers;
+    const { user_id: user } = req;
     const { spot_id: spot } = req.params;
     const { date } = req.body;
 

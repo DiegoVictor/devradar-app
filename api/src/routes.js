@@ -11,7 +11,7 @@ import BookingController from './app/controllers/BookingController';
 import DashboardController from './app/controllers/DashboardController';
 import ApprovalController from './app/controllers/ApprovalController';
 import RejectionController from './app/controllers/RejectionController';
-
+import Authenticate from './app/middlewares/Authenticate';
 import SessionStore from './app/validators/SessionStore';
 import SpotStore from './app/validators/SpotStore';
 import SpotUpdate from './app/validators/SpotUpdate';
@@ -36,6 +36,8 @@ Route.post(
   SessionStore,
   SessionController.store
 );
+
+Route.use(Authenticate);
 
 Route.get('/spots', SpotController.index);
 Route.get('/spots/:id', SpotController.show);
