@@ -20,5 +20,6 @@ module.exports = {
     camelcase: 'off',
     'class-methods-use-this': 'off',
     'no-underscore-dangle': 'off',
+    'no-param-reassign': 'off',
   },
 };
