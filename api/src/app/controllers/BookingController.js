@@ -1,4 +1,5 @@
 import Booking from '../models/Booking';
+import EmitBooking from '../services/EmitBooking';
 
 class BookingController {
   async index(req, res) {
@@ -23,10 +24,11 @@ class BookingController {
       .populate('user')
       .execPopulate();
 
-    const spot_owner = req.connections[booking.spot.user];
-    if (spot_owner) {
-      req.io.to(spot_owner).emit('booking_request', booking);
-    }
+    await EmitBooking.run({
+      user_id: booking.spot.user,
+      booking,
+      event: 'booking_request',
+    });
 
     return res.json(booking);
   }
