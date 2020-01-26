@@ -9,16 +9,14 @@ import UpdateSpot from '../services/UpdateSpot';
 class SpotController {
   async index(req, res) {
     const { tech } = req.query;
-
     return res.json(await Spot.find({ techs: tech }));
   }
 
   async show(req, res) {
     const { id } = req.params;
-
-    const spot = await Spot.findById(id);
-
-    const { thumbnail_url, company, price, techs, user } = spot;
+    const { thumbnail_url, company, price, techs, user } = await Spot.findById(
+      id
+    );
     const bookings = await Booking.find({
       spot: id,
       date: { $gte: new Date() },
