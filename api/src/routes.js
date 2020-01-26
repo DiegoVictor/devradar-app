@@ -13,7 +13,7 @@ const Route = Router();
 
 Route.post(
   '/developers',
-  (req, res, next) => {
+  (() => {
     if (process.env.NODE_ENV !== 'test') {
       const BruteForce = new ExpressBrute(
         new RedisStore({
@@ -23,8 +23,10 @@ Route.post(
       );
       return BruteForce.prevent;
     }
-    return next();
-  },
+    return (req, res, next) => {
+      return next();
+    };
+  })(),
   DeveloperStore,
   DeveloperConotroller.store
 );
