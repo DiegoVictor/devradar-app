@@ -21,7 +21,7 @@ const Route = Router();
 
 Route.post(
   '/sessions',
-  (req, res, next) => {
+  (() => {
     if (process.env.NODE_ENV !== 'test') {
       const BruteForce = new ExpressBrute(
         new RedisStore({
@@ -31,8 +31,11 @@ Route.post(
       );
       return BruteForce.prevent;
     }
-    return next();
-  },
+
+    return (req, res, next) => {
+      next();
+    };
+  })(),
   SessionStore,
   SessionController.store
 );
