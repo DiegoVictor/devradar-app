@@ -108,7 +108,6 @@ describe('Spot', () => {
       .expect(400)
       .send({
         company,
-        techs,
       });
 
     expect(response.body).toMatchObject({
