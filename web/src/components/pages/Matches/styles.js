@@ -18,21 +18,20 @@ export const Developer = styled.div`
   border-radius: 4px;
   box-shadow: 0px 0px 3px #ccc;
   display: flex;
-  height: 120px;
   padding: 10px;
+  height: auto;
   width: 316px;
 `;
 
 export const Avatar = styled.img`
   border-radius: 4px;
   height: 100px;
-  min-height: 100px;
-  min-width: 100px;
-  width: 100px;
+  min-height: 100%;
+  width: auto;
 `;
 
 export const Description = styled.div`
-  padding: 0px 10px;
+  padding: 0px 10px 10px;
   text-align: left;
 `;
 
