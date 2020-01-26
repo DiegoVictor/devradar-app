@@ -95,10 +95,10 @@ describe('Like', () => {
       .set('Authorization', `Bearer ${token}`)
       .send();
 
-    expect(to).toHaveBeenNthCalledWith(1, user_socket_id);
+    expect(to).toHaveBeenNthCalledWith(1, user_socket_id.toString());
     expect(emit).toHaveBeenNthCalledWith(1, 'match', match_user.toObject());
 
-    expect(to).toHaveBeenNthCalledWith(2, match_user_socket_id);
+    expect(to).toHaveBeenNthCalledWith(2, match_user_socket_id.toString());
     expect(emit).toHaveBeenNthCalledWith(2, 'match', user.toObject());
   });
 });
