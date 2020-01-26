@@ -35,8 +35,12 @@ class SpotController {
 
   async store(req, res) {
     const { user_id } = req;
-    const { filename } = req.file;
     const { company, techs, price } = req.body;
+    let filename;
+
+    if (typeof req.file === 'object') {
+      filename = req.file.filename;
+    }
 
     const user = await User.findById(user_id);
     if (!user) {
@@ -58,7 +62,11 @@ class SpotController {
     const { user_id: user } = req;
     const { id: _id } = req.params;
     const { company, techs, price } = req.body;
-    const { file } = req;
+    let file;
+
+    if (typeof req.file === 'object') {
+      file = req.file;
+    }
 
     const spot = await UpdateSpot.run({
       _id,
