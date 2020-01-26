@@ -9,8 +9,14 @@ import { Container, Button } from './styles';
 export default function Login({ history }) {
   async function handleSubmit({ username }) {
     const { data } = await api.post('developers', { username });
-    localStorage.setItem('tindev_user', data._id);
-    history.push(`/developers/${data._id}`);
+    localStorage.setItem(
+      'tindev_user',
+      JSON.stringify({
+        token: data.token,
+        id: data.developer._id,
+      })
+    );
+    history.push(`/developers/${data.developer._id}`);
   }
 
   return (

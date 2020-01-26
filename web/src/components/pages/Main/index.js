@@ -21,19 +21,20 @@ export default function Main({ match, history }) {
   const [developers, setDevelopers] = useState([]);
   const [developer, setDeveloper] = useState(null);
   const [preload, setPreloading] = useState(false);
+  const { token } = JSON.parse(localStorage.getItem('tindev_user'));
 
   const { id } = match.params;
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('/developers', {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setDevelopers(data);
       setPreloading(true);
     })();
-  }, [id]);
+  }, [id, token]);
 
   useEffect(() => {
     disconnect();
@@ -48,7 +49,7 @@ export default function Main({ match, history }) {
       `/developers/${dev_id}/like`,
       {},
       {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     setDevelopers(developers.filter(dev => dev._id !== dev_id));
@@ -59,7 +60,7 @@ export default function Main({ match, history }) {
       `/developers/${dev_id}/dislike`,
       {},
       {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     setDevelopers(developers.filter(dev => dev._id !== dev_id));

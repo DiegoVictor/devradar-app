@@ -11,13 +11,16 @@ export default function Menu({ history, id, active }) {
     history.push('/');
   };
   const [me, setMe] = useState(null);
+  const { token } = JSON.parse(localStorage.getItem('tindev_user'));
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get(`/developers/${id}`);
+      const { data } = await api.get(`/developers/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setMe(data);
     })();
-  }, [id]);
+  }, [id, token]);
 
   return (
     <>

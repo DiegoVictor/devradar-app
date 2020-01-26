@@ -15,9 +15,9 @@ import {
 } from './styles';
 
 export default function Matches({ history }) {
-  const id = localStorage.getItem('tindev_user');
   const [developer, setDeveloper] = useState(null);
   const [matches, setMatches] = useState([]);
+  const { id, token } = JSON.parse(localStorage.getItem('tindev_user'));
 
   useEffect(() => {
     disconnect();
@@ -30,13 +30,11 @@ export default function Matches({ history }) {
   useEffect(() => {
     (async () => {
       const { data } = await api.get('matches', {
-        headers: {
-          user_id: id,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
       setMatches(data);
     })();
-  }, [id]);
+  }, [id, token]);
 
   return (
     <Container>
