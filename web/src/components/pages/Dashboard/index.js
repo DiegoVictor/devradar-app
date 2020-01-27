@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import socketio from 'socket.io-client';
 import { format, parseISO } from 'date-fns';
 
+import { disconnect, connect, subscribe } from '~/services/socket';
 import api from '~/services/api';
 import Box from '~/components/Box';
 import {
@@ -54,7 +54,9 @@ export default () => {
   }, [token]);
 
   useEffect(() => {
-    socket.on('booking_request', data => {
+    disconnect();
+    connect({ user_id });
+    subscribe('booking_request', data => {
       setRequests([
         ...requests,
         {
@@ -63,7 +65,7 @@ export default () => {
         },
       ]);
     });
-  }, [requests, socket]);
+  }, [requests, user_id]);
 
   const approve = useCallback(
     id => {
