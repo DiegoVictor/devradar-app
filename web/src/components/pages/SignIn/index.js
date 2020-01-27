@@ -8,10 +8,10 @@ import api from '~/services/api';
 export default function SignIn({ history }) {
   const handleSubmit = useCallback(
     async ({ email }) => {
-      const response = await api.post('sessions', { email });
+      const { data } = await api.post('sessions', { email });
 
-      const { _id } = response.data;
-      localStorage.setItem('aircnc_user', _id);
+      const { _id, token } = data;
+      localStorage.setItem('aircnc_user', JSON.stringify({ id: _id, token }));
 
       history.push('/dashboard');
     },

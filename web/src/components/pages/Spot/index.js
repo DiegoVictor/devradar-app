@@ -12,6 +12,8 @@ export default function Spot({ history, match }) {
   const [spot, setSpot] = useState({});
   const [thumbnail, setThumbnail] = useState(null);
   const [preview, setPreview] = useState('');
+  const { token } = JSON.parse(localStorage.getItem('aircnc_user'));
+
   const showPreview = useCallback(event => {
     const file = event.target.files[0];
     setThumbnail(file);
@@ -22,12 +24,16 @@ export default function Spot({ history, match }) {
   useEffect(() => {
     (async () => {
       if (id) {
-        const { data } = await api.get(`spots/${id}`, {});
+        const { data } = await api.get(`spots/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setSpot(data);
         setPreview(data.thumbnail_url);
       }
     })();
-  }, [id]);
+  }, [id, token]);
 
   const handleSubmit = useCallback(
     async ({ company, techs, price }) => {
@@ -44,20 +50,20 @@ export default function Spot({ history, match }) {
       if (id) {
         await api.put(`spots/${id}`, data, {
           headers: {
-            user_id: localStorage.getItem('aircnc_user'),
+            Authorization: `Bearer ${token}`,
           },
         });
         history.push(`/spots/${id}`);
       } else {
         await api.post('spots', data, {
           headers: {
-            user_id: localStorage.getItem('aircnc_user'),
+            Authorization: `Bearer ${token}`,
           },
         });
         history.push('/dashboard');
       }
     },
-    [history, id, thumbnail]
+    [history, id, thumbnail, token]
   );
 
   return (

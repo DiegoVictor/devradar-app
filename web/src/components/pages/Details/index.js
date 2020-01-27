@@ -2,19 +2,23 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { parseISO, format } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import { Spot, Banner, Techs, Bookings, LinkButton } from './styles';
 import api from '~/services/api';
 import Box from '~/components/Box';
 import Back from '~/components/Back';
+import { Spot, Banner, Techs, Bookings, LinkButton } from './styles';
 
 export default function Details({ match, history }) {
   const [spot, setSpot] = useState(null);
   const { id } = match.params;
-  const user_id = localStorage.getItem('aircnc_user');
+  const { token } = JSON.parse(localStorage.getItem('aircnc_user'));
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get(`spots/${id}`);
+      const { data } = await api.get(`spots/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setSpot({
         ...data,
@@ -24,19 +28,23 @@ export default function Details({ match, history }) {
         })),
       });
     })();
-  }, [id]);
+  }, [id, token]);
 
   const reject = useCallback(
     booking_id => {
       (async () => {
-        await api.post(`bookings/${booking_id}/rejection`);
+        await api.post(`bookings/${booking_id}/rejection`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const bookings = spot.bookings.filter(
           booking => booking._id !== booking_id
         );
         setSpot({ ...spot, bookings });
       })();
     },
-    [spot]
+    [spot, token]
   );
 
   const deleteSpot = useCallback(
@@ -44,13 +52,13 @@ export default function Details({ match, history }) {
       (async () => {
         await api.delete(`spots/${spot_id}`, {
           headers: {
-            user_id,
+            Authorization: `Bearer ${token}`,
           },
         });
         history.push('/dashboard');
       })();
     },
-    [history, user_id]
+    [history, token]
   );
 
   return (

@@ -18,33 +18,27 @@ import {
 export default () => {
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
-  const user_id = localStorage.getItem('aircnc_user');
+  const { id: user_id, token } = JSON.parse(
+    localStorage.getItem('aircnc_user')
+  );
 
   useEffect(() => {
     (async () => {
       const response = await api.get(`/dashboard`, {
         headers: {
-          user_id,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       setSpots(response.data);
     })();
-  }, [user_id]);
-
-  const socket = useMemo(
-    () =>
-      socketio(process.env.REACT_APP_API_URL, {
-        query: { user_id },
-      }),
-    [user_id]
-  );
+  }, [token]);
 
   useEffect(() => {
     (async () => {
       const { data } = await api.get('pending', {
         headers: {
-          user_id,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -57,7 +51,7 @@ export default () => {
         })
       );
     })();
-  }, [user_id]);
+  }, [token]);
 
   useEffect(() => {
     socket.on('booking_request', data => {
@@ -79,14 +73,14 @@ export default () => {
           {},
           {
             headers: {
-              user_id: localStorage.getItem('aircnc_user'),
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         setRequests(requests.filter(request => request._id !== id));
       })();
     },
-    [requests]
+    [requests, token]
   );
 
   const reject = useCallback(
@@ -97,14 +91,14 @@ export default () => {
           {},
           {
             headers: {
-              user_id: localStorage.getItem('aircnc_user'),
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         setRequests(requests.filter(request => request._id !== id));
       })();
     },
-    [requests]
+    [requests, token]
   );
 
   return (
