@@ -1,12 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
+import * as Yup from 'yup';
 
 import api from '~/services/api';
 import Box from '~/components/Box';
 import Camera from '~/assets/camera.svg';
-import { Thumbnail } from './styles';
 import Back from '~/components/Back';
+import { Thumbnail } from './styles';
+
+const schema = Yup.object().shape({
+  company: Yup.string().required('Informe o nome da sua empresa'),
+  techs: Yup.string().required('Informe as tecnologias vocês usam'),
+});
 
 export default function Spot({ history, match }) {
   const [spot, setSpot] = useState({});
@@ -45,7 +51,10 @@ export default function Spot({ history, match }) {
 
       data.append('company', company);
       data.append('techs', techs);
-      data.append('price', price);
+
+      if (price) {
+        data.append('price', price);
+      }
 
       if (id) {
         await api.put(`spots/${id}`, data, {
@@ -70,13 +79,13 @@ export default function Spot({ history, match }) {
     <>
       <Back />
       <Box>
-        <Form onSubmit={handleSubmit} initialData={spot}>
+        <Form schema={schema} onSubmit={handleSubmit} initialData={spot}>
           <Thumbnail url={preview}>
             <input data-testid="banner" type="file" onChange={showPreview} />
             <img src={Camera} alt="Selecionar imagem" />
           </Thumbnail>
 
-          <label htmlFor="company">EMRESA *</label>
+          <label htmlFor="company">EMPRESA *</label>
           <Input
             id="company"
             name="company"
