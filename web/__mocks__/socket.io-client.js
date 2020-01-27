@@ -17,4 +17,11 @@ export default () => ({
   to,
   emit,
   on,
+  io: {
+    opts: {
+      query: {},
+    },
+  },
+  connect: jest.fn(),
+  disconnect: jest.fn(),
 });

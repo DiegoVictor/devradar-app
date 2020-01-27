@@ -12,7 +12,7 @@
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.1.2",
+    "react-scripts": "3.0.1",
     "socket.io-client": "^2.3.0",
     "styled-components": "^4.4.0"
   },
@@ -33,29 +33,23 @@
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom/extend-expect"
     ],
-    "coverageDirectory": "src/__tests__/coverage",
+    "coverageDirectory": "__tests__/coverage",
     "collectCoverageFrom": [
+      "src/components",
+      "!src/components/Box/index.js",
+      "!src/components/Box/styles.js",
+      "!src/components/pages/index.js",
+      "!src/components/pages/styles.js",
       "!src/index.js",
       "!src/routes.js",
       "!src/styles.js",
       "!src/config/ReactotronConfig.js",
       "!src/services/api.js",
       "!src/services/history.js",
-      "!src/components/Box/index.js",
-      "!src/components/Box/styles.js",
-      "!src/components/pages/index.js",
-      "!src/components/pages/styles.js",
-      "!src/__tests__/coverage/lcov-report/block-navigation.js",
-      "!src/__tests__/coverage/lcov-report/prettify.js",
-      "!src/__tests__/coverage/lcov-report/sorter.js",
-      "!src/__tests__/utils/factories"
+      "!src/services/socket.js"
     ],
     "testMatch": [
-      "src/__tests__/**/*.test.js"
-    ],
-    "testPathIgnorePatterns": [
-      "src\\__tests__\\coverage",
-      "src\\__tests__\\utils"
+      "**/__tests__/**/*.test.js"
     ]
   },
   "eslintConfig": {

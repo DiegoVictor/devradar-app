@@ -4,11 +4,11 @@ import MockAdapter from 'axios-mock-adapter';
 import faker from 'faker';
 import { Router } from 'react-router-dom';
 
-import factory from '../utils/factories';
+import factory from '../../utils/factories';
 import api from '~/services/api';
 import Dashboard from '~/components/pages/Dashboard';
 import history from '~/services/history';
-import { run } from '~/../src/__mocks__/socket.io-client';
+import { run } from '../../../__mocks__/socket.io-client';
 
 const api_mock = new MockAdapter(api);
 const id = faker.random.number();
@@ -23,7 +23,13 @@ describe('Dashboard page', () => {
   beforeEach(async () => {
     await act(async () => {
       localStorage.clear();
-      localStorage.setItem('aircnc_user', id);
+      localStorage.setItem(
+        'aircnc_user',
+        JSON.stringify({
+          id: faker.random.number(),
+          token: faker.random.uuid(),
+        })
+      );
     });
   });
 

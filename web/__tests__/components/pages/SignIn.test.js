@@ -22,15 +22,15 @@ describe('SignIn page', () => {
       <SignIn history={history} />
     );
 
-    fireEvent.change(
-      getByPlaceholderText('Seu melhor email', { target: { value: email } })
-    );
+    fireEvent.change(getByPlaceholderText('Seu melhor email'), {
+      target: { value: email },
+    });
 
     await act(async () => {
       fireEvent.submit(getByTestId('form'));
     });
 
     expect(history.push).toHaveBeenCalledWith('/dashboard');
-    expect(localStorage).toHaveProperty('aircnc_user', id.toString());
+    expect(localStorage).toHaveProperty('aircnc_user', JSON.stringify({ id }));
   });
 });

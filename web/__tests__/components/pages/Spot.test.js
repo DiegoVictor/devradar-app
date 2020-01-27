@@ -7,12 +7,25 @@ import MockAdapter from 'axios-mock-adapter';
 import history from '~/services/history';
 import Spot from '~/components/pages/Spot';
 import api from '~/services/api';
-import factory from '../utils/factories';
+import factory from '../../utils/factories';
 
 const id = faker.random.number();
 const api_mock = new MockAdapter(api);
 
 describe('Spot page', () => {
+  beforeEach(async () => {
+    await act(async () => {
+      localStorage.clear();
+      localStorage.setItem(
+        'aircnc_user',
+        JSON.stringify({
+          id: faker.random.number(),
+          token: faker.random.uuid(),
+        })
+      );
+    });
+  });
+
   it('should be able to edit a spot ', async () => {
     const spot = await factory.attrs('Spot');
     const { company, techs, price } = await factory.attrs('Spot');
@@ -35,21 +48,15 @@ describe('Spot page', () => {
       getByTestId = component.getByTestId;
     });
 
-    fireEvent.change(
-      getByPlaceholderText('Sua empresa incrível', {
-        target: { value: company },
-      })
-    );
-    fireEvent.change(
-      getByPlaceholderText('Quais tecnologias usam?', {
-        target: { value: techs.join(',') },
-      })
-    );
-    fireEvent.change(
-      getByPlaceholderText('Valor cobrado por dia', {
-        target: { value: price },
-      })
-    );
+    fireEvent.change(getByPlaceholderText('Sua empresa incrível'), {
+      target: { value: company },
+    });
+    fireEvent.change(getByPlaceholderText('Quais tecnologias usam?'), {
+      target: { value: techs.join(',') },
+    });
+    fireEvent.change(getByPlaceholderText('Valor cobrado por dia'), {
+      target: { value: price },
+    });
 
     await act(async () => {
       fireEvent.submit(getByTestId('form'));
@@ -81,21 +88,15 @@ describe('Spot page', () => {
       getByTestId = component.getByTestId;
     });
 
-    fireEvent.change(
-      getByPlaceholderText('Sua empresa incrível', {
-        target: { value: company },
-      })
-    );
-    fireEvent.change(
-      getByPlaceholderText('Quais tecnologias usam?', {
-        target: { value: techs.join(',') },
-      })
-    );
-    fireEvent.change(
-      getByPlaceholderText('Valor cobrado por dia', {
-        target: { value: price },
-      })
-    );
+    fireEvent.change(getByPlaceholderText('Sua empresa incrível'), {
+      target: { value: company },
+    });
+    fireEvent.change(getByPlaceholderText('Quais tecnologias usam?'), {
+      target: { value: techs.join(',') },
+    });
+    fireEvent.change(getByPlaceholderText('Valor cobrado por dia'), {
+      target: { value: price },
+    });
 
     await act(async () => {
       fireEvent.change(getByTestId('banner'), {
