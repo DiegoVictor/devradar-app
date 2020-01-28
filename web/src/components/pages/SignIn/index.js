@@ -32,6 +32,7 @@ export default function SignIn({ history }) {
           name="email"
           type="email"
           placeholder="Seu melhor email"
+          required
         />
 
         <button type="submit">Enviar</button>
