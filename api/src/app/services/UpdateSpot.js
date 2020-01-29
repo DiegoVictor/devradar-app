@@ -20,7 +20,7 @@ class UpdateSpot {
     );
 
     return {
-      ...spot,
+      spot: spot.toJSON(),
       company,
       price,
       techs,
