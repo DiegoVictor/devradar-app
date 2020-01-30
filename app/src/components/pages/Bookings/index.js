@@ -39,7 +39,7 @@ export default () => {
       setBookings(data);
       setRefreshing(false);
     })();
-    });
+  });
 
   const handleCancelation = useCallback(id => {
     (async () => {
@@ -63,7 +63,7 @@ export default () => {
         Alert.alert(error);
       }
     })();
-    });
+  });
 
   useEffect(() => {
     handleRefresh();
@@ -84,7 +84,7 @@ export default () => {
             refreshing={refreshing}
             onRefresh={handleRefresh}
             renderItem={({ item: booking }) => (
-              <Spot>
+              <Spot testID={`booking_${booking._id}`}>
                 <Columns>
                   <About>
                     <Thumbnail
@@ -94,23 +94,28 @@ export default () => {
                   </About>
                   <Status>
                     <Text>Reserva para o dia:</Text>
-                    <Big>
+                    <Big testID={`booking_date_${booking._id}`}>
                       {format(parseISO(booking.date), "dd'/'MM'/'yyyy", {
                         locale: pt,
                       })}
                     </Big>
                     <Text>Status:</Text>
-                    <Big>{booking.approved ? 'Aprovado' : 'Em aprovação'}</Big>
+                    <Big testID={`booking_status_${booking._id}`}>
+                      {booking.approved ? 'Aprovado' : 'Em aprovação'}
+                    </Big>
                   </Status>
                 </Columns>
 
                 <Company>{booking.spot.company}</Company>
-                <Price>
+                <Price testID={`booking_price_${booking._id}`}>
                   {booking.spot.price
                     ? `R$ ${booking.spot.price}/DIA`
                     : 'GRATUITO'}
                 </Price>
-                <Button onPress={() => handleCancelation(booking._id)}>
+                <Button
+                  testID={`booking_cancel_${booking._id}`}
+                  onPress={() => handleCancelation(booking._id)}
+                >
                   <WhiteText>Cancelar reserva</WhiteText>
                 </Button>
               </Spot>
