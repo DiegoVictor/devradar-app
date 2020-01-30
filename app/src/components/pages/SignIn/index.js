@@ -57,7 +57,7 @@ export default function SignIn({ navigation }) {
           onChangeText={setTechs}
         />
 
-        <Button onPress={handleSubmit}>
+        <Button testID="submit" onPress={handleSubmit}>
           <WhiteText>Encontrar spots</WhiteText>
         </Button>
       </Form>
