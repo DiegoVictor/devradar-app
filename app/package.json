@@ -12,7 +12,7 @@
     "preset": "jest-expo",
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect",
-      "./src/setup-tests.js"
+      "./__tests__/setup-tests.js"
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
