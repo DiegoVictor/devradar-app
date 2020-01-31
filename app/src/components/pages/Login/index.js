@@ -12,19 +12,24 @@ export default function Login({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const dev_id = await AsyncStorage.getItem('tindev_user');
+      const user = JSON.parse(await AsyncStorage.getItem('tindev_user'));
 
-      if (dev_id) {
-        navigation.navigate('Main', { _id: dev_id });
+      if (user) {
+        navigation.navigate('Main', user);
       }
     })();
   }, [navigation]);
 
   async function handleLogin() {
-    const response = await api.post('developers', { username: developer });
-    const { _id } = response.data;
+    const { data } = await api.post('developers', { username: developer });
 
-    await AsyncStorage.setItem('tindev_user', _id);
+    await AsyncStorage.setItem(
+      'tindev_user',
+      JSON.stringify({
+        id: data.developer._id,
+        token: data.token,
+      })
+    );
     navigation.navigate('Main');
   }
 
