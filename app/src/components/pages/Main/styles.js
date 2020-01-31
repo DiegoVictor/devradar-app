@@ -4,7 +4,6 @@ export const Container = styled.SafeAreaView`
   align-items: center;
   background-color: #f5f5f5;
   flex: 1;
-  justify-content: space-between;
 `;
 
 export const Brand = styled.Image`
