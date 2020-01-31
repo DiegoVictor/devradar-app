@@ -12,7 +12,7 @@ const developer = {
   _id: faker.random.number(),
 };
 
-api_mock.onPost('developers', { username }).reply(200, developer);
+api_mock.onPost('developers', { username }).reply(200, { developer });
 
 describe('Login', () => {
   it('should be able to login', async () => {
