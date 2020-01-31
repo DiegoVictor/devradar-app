@@ -8,7 +8,8 @@ import { API_URL } from 'react-native-dotenv';
 import Login from '~/components/pages/Login';
 import api from '~/services/api';
 
-const _id = faker.random.uuid();
+const id = faker.random.number();
+const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 
 describe('Login page', () => {
@@ -18,7 +19,9 @@ describe('Login page', () => {
       <Login navigation={{ navigate, getParam: jest.fn() }} />
     );
 
-    api_mock.onPost(`${API_URL}/developers`).reply(200, { _id });
+    api_mock
+      .onPost(`${API_URL}/developers`)
+      .reply(200, { developer: { _id: id }, token });
 
     fireEvent.changeText(
       getByPlaceholderText('Digite seu usuáro no Github'),
@@ -27,18 +30,20 @@ describe('Login page', () => {
 
     await wait(() => fireEvent.press(getByTestId('submit')));
 
-    expect(await AsyncStorage.getItem('tindev_user')).toBe(_id);
+    expect(await AsyncStorage.getItem('tindev_user')).toBe(
+      JSON.stringify({ id, token })
+    );
     expect(navigate).toHaveBeenCalledWith('Main');
   });
 
-  it('should be able to login', async () => {
+  it('should be able to already be logged in', async () => {
     const navigate = jest.fn();
-    await AsyncStorage.setItem('tindev_user', _id);
+    await AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
 
     await wait(() =>
       render(<Login navigation={{ navigate, getParam: jest.fn() }} />)
     );
 
-    expect(navigate).toHaveBeenCalledWith('Main', { _id });
+    expect(navigate).toHaveBeenCalledWith('Main', { id, token });
   });
 });

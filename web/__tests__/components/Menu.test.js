@@ -9,6 +9,7 @@ import api from '~/services/api';
 
 const api_mock = new MockAdapter(api);
 const id = faker.random.number();
+const token = faker.random.uuid();
 const developer = {
   avatar: faker.image.imageUrl(),
   name: faker.name.findName(),
@@ -17,6 +18,10 @@ const developer = {
 api_mock.onGet(`/developers/${id}`).reply(200, developer);
 
 describe('Menu', () => {
+  beforeAll(() => {
+    localStorage.setItem('tindev_user', JSON.stringify({ token }));
+  });
+
   it('should be able to see the menu', async () => {
     const push = jest.fn();
     let getByText;

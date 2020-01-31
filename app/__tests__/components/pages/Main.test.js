@@ -10,7 +10,8 @@ import Main from '~/components/pages/Main';
 import api from '~/services/api';
 import { emit } from '~/../__mocks__/socket.io-client';
 
-const _id = faker.random.uuid();
+const id = faker.random.number();
+const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 
 describe('Main page', () => {
@@ -18,7 +19,7 @@ describe('Main page', () => {
     const developers = await factory.attrsMany('Developer', 3);
     const navigate = jest.fn();
 
-    AsyncStorage.setItem('tindev_user', _id);
+    AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     api_mock.onGet(`${API_URL}/developers`).reply(200, developers);
 
     const { getByTestId } = render(<Main navigation={{ navigate }} />);
@@ -31,7 +32,7 @@ describe('Main page', () => {
   it('should be able to like a developer', async () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
 
-    AsyncStorage.setItem('tindev_user', _id);
+    AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     api_mock.onGet(`${API_URL}/developers`).reply(200, [developer, ...rest]);
     api_mock.onPost(`${API_URL}/developers/${developer._id}/like`).reply(200);
 
@@ -47,7 +48,7 @@ describe('Main page', () => {
   it('should be able to dislike a developer', async () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
 
-    AsyncStorage.setItem('tindev_user', _id);
+    AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     api_mock.onGet(`${API_URL}/developers`).reply(200, [developer, ...rest]);
     api_mock
       .onPost(`${API_URL}/developers/${developer._id}/dislike`)
@@ -65,7 +66,7 @@ describe('Main page', () => {
   it('should be able to have a match', async () => {
     const match_developer = await factory.attrs('Developer');
 
-    AsyncStorage.setItem('tindev_user', _id);
+    AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     api_mock.onGet(`${API_URL}/developers`).reply(200, []);
 
     const { getByTestId } = render(

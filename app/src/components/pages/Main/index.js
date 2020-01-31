@@ -30,17 +30,20 @@ export default function Main({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const id = await AsyncStorage.getItem('tindev_user');
+      const { token } = JSON.parse(await AsyncStorage.getItem('tindev_user'));
       const { data } = await api.get('developers', {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       });
+
       setDevelopers(data);
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      const developer_id = await AsyncStorage.getItem('tindev_user');
+      const { id: developer_id } = JSON.parse(
+        await AsyncStorage.getItem('tindev_user')
+      );
 
       disconnect();
       connect({ developer_id });
@@ -51,26 +54,26 @@ export default function Main({ navigation }) {
   }, []);
 
   async function handleLike() {
-    const id = await AsyncStorage.getItem('tindev_user');
+    const { token } = JSON.parse(await AsyncStorage.getItem('tindev_user'));
     const [dev, ...rest] = developers;
     await api.post(
       `developers/${dev._id}/like`,
       {},
       {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     setDevelopers(rest);
   }
 
   async function handleDislike() {
-    const id = await AsyncStorage.getItem('tindev_user');
+    const { token } = JSON.parse(await AsyncStorage.getItem('tindev_user'));
     const [dev, ...rest] = developers;
     await api.post(
       `developers/${dev._id}/dislike`,
       {},
       {
-        headers: { user_id: id },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     setDevelopers(rest);

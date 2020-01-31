@@ -10,12 +10,14 @@ import Main from '~/components/pages/Main';
 import factory from '../../utils/factories';
 
 const id = faker.random.number();
+const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 
 describe('Main', () => {
   beforeAll(async () => {
     const developer = await factory.attrs('Developer');
     api_mock.onGet(`/developers/${id}`).reply(200, developer);
+    localStorage.setItem('tindev_user', JSON.stringify({ token }));
   });
 
   it('should be able to see a list of developers', async () => {

@@ -27,10 +27,10 @@ export default function Matches({ navigation }) {
 
   const handleRefresh = useCallback(() => {
     (async () => {
-      const user_id = await AsyncStorage.getItem('tindev_user');
+      const { token } = JSON.parse(await AsyncStorage.getItem('tindev_user'));
       const { data } = await api.get('matches', {
         headers: {
-          user_id,
+          Authorization: `Bearer ${token}`,
         },
       });
       setMatches(data);
@@ -44,7 +44,9 @@ export default function Matches({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const developer_id = await AsyncStorage.getItem('tindev_user');
+      const { id: developer_id } = JSON.parse(
+        await AsyncStorage.getItem('tindev_user')
+      );
 
       disconnect();
       connect({ developer_id });

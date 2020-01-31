@@ -12,12 +12,13 @@ import { emit } from '../../../__mocks__/socket.io-client';
 const push = jest.fn();
 const api_mock = new MockAdapter(api);
 const id = faker.random.number();
+const token = faker.random.uuid();
 
 describe('Matches', () => {
   beforeEach(async () => {
     await act(async () => {
       localStorage.clear();
-      localStorage.setItem('tindev_user', id);
+      localStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     });
   });
 
