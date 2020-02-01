@@ -130,7 +130,7 @@ describe('Spot', () => {
         .attach('thumbnail', file_path)
         .field('company', company)
         .field('price', price)
-        .field('techs', techs);
+        .field('techs', techs.join(', '));
 
       expect(response.body).toMatchObject({
         error: 'Bad Request',
