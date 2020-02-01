@@ -4,7 +4,9 @@ import { badRequest } from '@hapi/boom';
 export default async (req, res, next) => {
   try {
     const schema = Yup.object().shape({
-      date: Yup.string().required(),
+      date: Yup.string()
+        .required()
+        .strict(),
     });
 
     await schema.validate(req.body, { abortEarly: false });

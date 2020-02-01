@@ -4,9 +4,13 @@ import { badRequest } from '@hapi/boom';
 export default async (req, res, next) => {
   try {
     const schema = Yup.object().shape({
-      company: Yup.string().required(),
-      techs: Yup.string().required(),
-      price: Yup.string(),
+      company: Yup.string()
+        .required()
+        .strict(),
+      techs: Yup.string()
+        .required()
+        .strict(),
+      price: Yup.string().strict(),
     });
 
     await schema.validate(req.body, { abortEarly: false });
