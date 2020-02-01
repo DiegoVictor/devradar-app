@@ -52,11 +52,11 @@ export default function Book({ navigation }) {
         }}
       />
 
-      <Button onPress={handleSubmit}>
+      <Button testID="submit" onPress={handleSubmit}>
         <WhiteText>Solicitar reserva</WhiteText>
       </Button>
 
-      <Cancel onPress={handleCancel}>
+      <Cancel testID="cancel" onPress={handleCancel}>
         <WhiteText>Cancelar</WhiteText>
       </Cancel>
     </Container>
