@@ -57,7 +57,7 @@ Route.put(
   SpotController.update
 );
 Route.post('/spots/:spot_id/booking', BookingStore, BookingController.store);
-Route.delete('/spots/:id', SpotController.delete);
+Route.delete('/spots/:id', SpotController.destroy);
 
 Route.get('/dashboard', DashboardController.index);
 

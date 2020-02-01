@@ -80,7 +80,7 @@ class SpotController {
     return res.json(spot);
   }
 
-  async delete(req, res) {
+  async destroy(req, res) {
     const { id: _id } = req.params;
     const { user_id: user } = req;
 
