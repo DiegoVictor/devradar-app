@@ -28,7 +28,7 @@ export function SpotList({ tech, navigation }) {
 
       setSpots(response.data);
     })();
-  }, []);
+  }, [tech]);
 
   const handleNavigate = useCallback(spot => {
     navigation.navigate('Book', { id: spot._id });
