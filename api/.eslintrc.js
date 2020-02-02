@@ -13,10 +13,13 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
+  plugins: ['prettier'],
   rules: {
+    'prettier/prettier': 'error',
     'import/prefer-default-export': 'off',
     'prettier/prettier': 'error',
     camelcase: 'off',
     'class-methods-use-this': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
