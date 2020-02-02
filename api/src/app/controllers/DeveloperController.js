@@ -1,44 +1,19 @@
-import axios from 'axios';
-
 import Developer from '../models/Developer';
-import parseStringAsArray from '../helpers/parseStringAsArray';
-import { findConnection, sendMessage } from '../../websocket';
+import ExistsDeveloper from '../services/ExistsDeveloper';
+import StoreDeveloper from '../services/StoreDeveloper';
+import UpdateDeveloper from '../services/UpdateDeveloper';
 
 class DeveloperController {
   async index(req, res) {
-    const developers = await Developer.find();
-    res.json(developers);
+    return res.json(await Developer.find());
   }
 
   async store(req, res) {
-    const { github_username, techs, latitude, longitude } = req.body;
+    const { github_username } = req.body;
 
     let developer = await Developer.findOne({ github_username });
     if (!developer) {
-      const response = await axios.get(
-        `https://api.github.com/users/${github_username}`
-      );
-      // eslint-disable-next-line no-undef
-      const { name = login, avatar_url, bio } = response.data;
-
-      const techs_array = parseStringAsArray(techs);
-      developer = await Developer.create({
-        name,
-        avatar_url,
-        bio,
-        github_username,
-        techs: techs_array,
-        location: {
-          type: 'Point',
-          coordinates: [longitude, latitude],
-        },
-      });
-
-      sendMessage(
-        findConnection({ latitude, longitude }, techs_array),
-        'new-developers',
-        developer
-      );
+      developer = await StoreDeveloper.run(req.body);
     }
 
     return res.json(developer);
@@ -46,39 +21,21 @@ class DeveloperController {
 
   async update(req, res) {
     const { id } = req.params;
-    const { techs } = req.body;
 
-    const developer = await Developer.findById(id);
-    if (!developer) {
-      return res.status(400).json({
-        error: 'Developer does not exists',
-      });
-    }
-
-    if (typeof techs === 'string') {
-      developer.techs = parseStringAsArray.run(techs);
-    }
-
-    ['name', 'avatar_url', 'bio'].forEach(field => {
-      if (typeof req.body[field] === 'string') {
-        developer[field] = req.body[field];
-      }
-    });
-
-    return res.json(await developer.save());
+    return res.json(
+      await UpdateDeveloper.run({
+        developer: await ExistsDeveloper.run({ id }),
+        ...req.body,
+      })
+    );
   }
 
   async destroy(req, res) {
     const { id } = req.params;
-
-    const developer = await Developer.findById(id);
-    if (!developer) {
-      return res.status(400).json({
-        error: 'Developer does not exists',
-      });
-    }
+    const developer = await ExistsDeveloper.run({ id });
 
     await developer.remove();
+
     return res.json(developer);
   }
 }
