@@ -7,18 +7,18 @@ class SearchController {
 
     return res.json(
       await Developer.find({
-      techs: {
-        $in: parseStringAsArray.run(techs),
-      },
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [longitude, latitude],
-          },
-          $maxDistance: 10000,
+        techs: {
+          $in: parseStringAsArray(techs),
         },
-      },
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [longitude, latitude],
+            },
+            $maxDistance: 10000,
+          },
+        },
       })
     );
   }
