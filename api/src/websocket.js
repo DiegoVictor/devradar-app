@@ -5,7 +5,7 @@ import calculateDistance from './app/helpers/calculateDistance';
 const connections = [];
 let io;
 
-export const setupWebSocket = server => {
+export function setupWebSocket(server) {
   io = socketio(server);
 
   io.on('connection', socket => {
@@ -19,18 +19,18 @@ export const setupWebSocket = server => {
       techs: parseStringAsArray.run(techs),
     });
   });
-};
+}
 
-export const findConnection = (coordinates, techs) => {
+export async function findConnection(coordinates, techs) {
   return connections.filter(connection => {
     if (connection.techs.some(tech => techs.includes(tech))) {
       return calculateDistance(coordinates, connection.coordinates) < 10;
     }
   });
-};
+}
 
-export const sendMessage = (to, message, data) => {
+export function sendMessage(to, message, data) {
   to.forEach(connection => {
     io.to(connection.id).emit(message, data);
   });
-};
+}
