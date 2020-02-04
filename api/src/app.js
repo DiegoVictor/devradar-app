@@ -5,6 +5,7 @@ import Express from 'express';
 import Mongoose from 'mongoose';
 import http from 'http';
 import cors from 'cors';
+import helmet from 'helmet';
 import Sentry from '@sentry/node';
 
 import routes from './routes';
@@ -26,6 +27,8 @@ Mongoose.connect(process.env.MONGO_URL, {
   useUnifiedTopology: true,
   useCreateIndex: true,
 });
+
+App.use(helmet());
 
 App.use(cors());
 App.use(Express.json());
