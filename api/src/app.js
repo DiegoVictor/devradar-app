@@ -45,3 +45,4 @@ App.use((err, req, res, next) => {
   return res.status(payload.statusCode).json(payload);
 });
 
+export default Server;
