@@ -1,5 +1,6 @@
 import 'dotenv/config';
 
+import 'express-async-errors';
 import Express from 'express';
 import Mongoose from 'mongoose';
 import http from 'http';
@@ -29,3 +30,15 @@ Mongoose.connect(process.env.MONGO_URL, {
 App.use(cors());
 App.use(Express.json());
 App.use(routes);
+
+// eslint-disable-next-line no-unused-vars
+App.use((err, req, res, next) => {
+  const { payload } = err.output;
+
+  if (err.data) {
+    payload.details = err.data;
+  }
+
+  return res.status(payload.statusCode).json(payload);
+});
+
