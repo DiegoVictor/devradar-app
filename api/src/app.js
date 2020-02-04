@@ -4,6 +4,7 @@ import Express from 'express';
 import Mongoose from 'mongoose';
 import http from 'http';
 import cors from 'cors';
+import Sentry from '@sentry/node';
 
 import routes from './routes';
 import { setupWebSocket } from './websocket';
@@ -13,6 +14,11 @@ const Server = http.Server(App);
 
 setupWebSocket(Server);
 
+if (process.env.SENTRY_DSN && process.env.LOG === '1') {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+  });
+}
 
 Mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
