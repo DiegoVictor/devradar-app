@@ -36,17 +36,11 @@
     "coverageDirectory": "__tests__/coverage",
     "collectCoverageFrom": [
       "src/components",
-      "!src/components/Box/index.js",
-      "!src/components/Box/styles.js",
-      "!src/components/pages/index.js",
-      "!src/components/pages/styles.js",
-      "!src/index.js",
-      "!src/routes.js",
-      "!src/styles.js",
-      "!src/config/ReactotronConfig.js",
-      "!src/services/api.js",
-      "!src/services/history.js",
-      "!src/services/socket.js"
+      "!src/components/Box/*.js",
+      "!src/components/pages/*.js",
+      "!src/*.js",
+      "!src/config/*",
+      "!src/services/*"
     ],
     "testMatch": [
       "**/__tests__/**/*.test.js"
