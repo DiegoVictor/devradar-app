@@ -12,6 +12,7 @@ import { Thumbnail } from './styles';
 const schema = Yup.object().shape({
   company: Yup.string().required('Informe o nome da sua empresa'),
   techs: Yup.string().required('Informe as tecnologias vocês usam'),
+  price: Yup.string(),
 });
 
 export default function Spot({ history, match }) {
