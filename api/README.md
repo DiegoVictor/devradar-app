@@ -8,7 +8,7 @@ Was installed and configured the `eslint` and `prettier` to keep the code clean 
 
 # Databases
 The application use two different databases: MongoDB and Redis. For the fastest setup is recommended to use docker, see how to do it below.
-> Windows users using Docker Toolbox, maybe be necessary in your `env`file set the MongoDB and Redis' host to `192.168.99.100` (docker machine IP) instead of `localhost` or `127.0.0.1`
+> Windows users using Docker Toolbox, maybe be necessary in your `env` file set the MongoDB and Redis' host to `192.168.99.100` (docker machine IP) instead of `localhost` or `127.0.0.1`
 
 ## MongoDB
 ```
