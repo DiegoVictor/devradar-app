@@ -11,7 +11,6 @@ import history from '~/services/history';
 import { run } from '../../../__mocks__/socket.io-client';
 
 const api_mock = new MockAdapter(api);
-const id = faker.random.number();
 let spots;
 
 describe('Dashboard page', () => {
