@@ -43,6 +43,9 @@ export default function Book({ navigation }) {
         autoCapitalize="words"
         autoCorrect={false}
         value={format(date, "dd'/'MM'/'yyyy")}
+        onChangeText={value => {
+          setDate(parse(value, 'dd/MM/yyyy', new Date()));
+        }}
         onFocus={async () => {
           const { action, year, month, day } = await DateTimePicker.open({
             mode: 'spinner',
