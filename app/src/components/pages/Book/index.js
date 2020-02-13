@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 import { format, parse } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -43,11 +44,11 @@ export default function Book({ navigation }) {
         autoCorrect={false}
         value={format(date, "dd'/'MM'/'yyyy")}
         onFocus={async () => {
-          const { action, year, month, day } = await DatePickerAndroid.open({
+          const { action, year, month, day } = await DateTimePicker.open({
             mode: 'spinner',
             date,
           });
-          if (action === DatePickerAndroid.dateSetAction) {
+          if (action === DateTimePicker.dateSetAction) {
             setDate(new Date(year, month, day));
           }
         }}

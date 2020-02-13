@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, act } from 'react-native-testing-library';
 import { Alert } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 import { format, getDate, getMonth, getYear } from 'date-fns';
 import MockAdapter from 'axios-mock-adapter';
@@ -63,10 +64,10 @@ describe('Book page', () => {
 
     await AsyncStorage.setItem('aircnc_user', _id);
 
-    DatePickerAndroid.open = () =>
+    DateTimePicker.open = () =>
       new Promise(resolve => {
         resolve({
-          action: DatePickerAndroid.dateSetAction,
+          action: DateTimePicker.dateSetAction,
           year: getYear(date),
           month: getMonth(date),
           day: getDate(date),
