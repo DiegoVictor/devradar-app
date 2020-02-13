@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, wait } from '@testing-library/react-native';
+import { act } from 'react-native-testing-library';
 import faker from 'faker';
 import { Alert, AsyncStorage } from 'react-native';
 import MockAdapter from 'axios-mock-adapter';
 import { format, parseISO } from 'date-fns';
+import { create } from 'react-test-renderer';
 
 import List from '~/components/pages/List';
 import api from '~/services/api';
@@ -32,7 +33,9 @@ describe('List page', () => {
 
     Alert.alert = jest.fn();
 
-    await wait(() => render(<List />));
+    await act(async () => {
+      create(<List />);
+    });
     emit(booking);
 
     const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");

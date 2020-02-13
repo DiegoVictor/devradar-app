@@ -1,8 +1,9 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import { render, fireEvent, act, wait } from '@testing-library/react-native';
+import { render, fireEvent, act } from 'react-native-testing-library';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
+import { create } from 'react-test-renderer';
 
 import SignIn from '~/components/pages/SignIn';
 import api from '~/services/api';
@@ -17,16 +18,13 @@ describe('SignIn page', () => {
     const navigate = jest.fn();
 
     api_mock.onPost(`sessions`).reply(200, { _id });
-    const { getByPlaceholderText, getByTestId } = render(
+    const { getByPlaceholder, getByTestId } = render(
       <SignIn navigation={{ navigate }} />
     );
     AsyncStorage.setItem = jest.fn();
 
-    fireEvent.changeText(getByPlaceholderText('Seu email'), email);
-    fireEvent.changeText(
-      getByPlaceholderText('Tecnologias de interesse'),
-      tech
-    );
+    fireEvent.changeText(getByPlaceholder('Seu email'), email);
+    fireEvent.changeText(getByPlaceholder('Tecnologias de interesse'), tech);
 
     await act(async () => {
       fireEvent.press(getByTestId('submit'));
@@ -45,7 +43,9 @@ describe('SignIn page', () => {
     const navigate = jest.fn();
 
     AsyncStorage.getItem = jest.fn(() => _id);
-    await wait(() => render(<SignIn navigation={{ navigate }} />));
+    await act(async () => {
+      create(<SignIn navigation={{ navigate }} />);
+    });
 
     expect(navigate).toHaveBeenCalledWith('List');
   });

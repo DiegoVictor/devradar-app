@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, act } from '@testing-library/react-native';
+import { render, fireEvent, act } from 'react-native-testing-library';
 import { Alert, DatePickerAndroid, AsyncStorage } from 'react-native';
 import faker from 'faker';
 import { format, getDate, getMonth, getYear } from 'date-fns';
@@ -18,14 +18,14 @@ describe('Book page', () => {
 
     const navigate = jest.fn();
     const date = format(faker.date.future(), "dd'/'MM'/'yyyy");
-    const { getByPlaceholderText, getByTestId } = render(
+    const { getByPlaceholder, getByTestId } = render(
       <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
     );
 
     AsyncStorage.setItem = jest.fn(() => _id);
 
     fireEvent.changeText(
-      getByPlaceholderText('Qual data você quer reservar?'),
+      getByPlaceholder('Qual data você quer reservar?'),
       date
     );
 
@@ -75,11 +75,11 @@ describe('Book page', () => {
 
     Alert.alert = jest.fn();
 
-    const { getByPlaceholderText, getByTestId } = render(
+    const { getByPlaceholder, getByTestId } = render(
       <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
     );
 
-    fireEvent.focus(getByPlaceholderText('Qual data você quer reservar?'));
+    fireEvent(getByPlaceholder('Qual data você quer reservar?'), 'onFocus');
 
     await act(async () => {
       fireEvent.press(getByTestId('submit'));
