@@ -7,15 +7,14 @@ import SignIn from '~/components/pages/SignIn';
 import history from '~/services/history';
 import api from '~/services/api';
 
-const id = faker.random.number();
+const _id = faker.random.number();
+const token = faker.random.uuid();
 const email = faker.internet.email();
 const api_mock = new MockAdapter(api);
 
 describe('SignIn page', () => {
   it('should be able to login', async () => {
-    api_mock.onPost('sessions').reply(200, {
-      _id: id,
-    });
+    api_mock.onPost('sessions').reply(200, { user: { _id }, token });
     history.push = jest.fn();
 
     const { getByPlaceholderText, getByTestId } = render(
@@ -31,6 +30,9 @@ describe('SignIn page', () => {
     });
 
     expect(history.push).toHaveBeenCalledWith('/dashboard');
-    expect(localStorage).toHaveProperty('aircnc_user', JSON.stringify({ id }));
+    expect(localStorage).toHaveProperty(
+      'aircnc_user',
+      JSON.stringify({ _id, token })
+    );
   });
 });
