@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
-import { AsyncStorage, ScrollView, Alert } from 'react-native';
+import { ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import socketio from 'socket.io-client';
 import Constants from 'expo-constants';
 

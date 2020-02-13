@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
-import { ScrollView, AsyncStorage, Text, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ScrollView, Text, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import pt from 'date-fns/locale/pt-BR';
 
 import Logo from '~/assets/logo.png';

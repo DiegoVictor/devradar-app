@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, act } from 'react-native-testing-library';
-import { Alert, DatePickerAndroid, AsyncStorage } from 'react-native';
-import faker from 'faker';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { format, getDate, getMonth, getYear } from 'date-fns';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -22,7 +22,7 @@ describe('Book page', () => {
       <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
     );
 
-    AsyncStorage.setItem = jest.fn(() => _id);
+    await AsyncStorage.setItem('aircnc_user', _id);
 
     fireEvent.changeText(
       getByPlaceholder('Qual data você quer reservar?'),
@@ -43,7 +43,7 @@ describe('Book page', () => {
       <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
     );
 
-    AsyncStorage.setItem = jest.fn(() => _id);
+    await AsyncStorage.setItem('aircnc_user', _id);
 
     await act(async () => {
       fireEvent.press(getByTestId('cancel'));
@@ -61,7 +61,7 @@ describe('Book page', () => {
       })
       .reply(200);
 
-    AsyncStorage.setItem = jest.fn(() => _id);
+    await AsyncStorage.setItem('aircnc_user', _id);
 
     DatePickerAndroid.open = () =>
       new Promise(resolve => {

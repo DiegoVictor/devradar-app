@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { render, fireEvent, act } from 'react-native-testing-library';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
@@ -21,7 +21,6 @@ describe('SignIn page', () => {
     const { getByPlaceholder, getByTestId } = render(
       <SignIn navigation={{ navigate }} />
     );
-    AsyncStorage.setItem = jest.fn();
 
     fireEvent.changeText(getByPlaceholder('Seu email'), email);
     fireEvent.changeText(getByPlaceholder('Tecnologias de interesse'), tech);
@@ -30,19 +29,15 @@ describe('SignIn page', () => {
       fireEvent.press(getByTestId('submit'));
     });
 
-    expect(AsyncStorage.setItem).toHaveBeenNthCalledWith(1, 'aircnc_user', _id);
-    expect(AsyncStorage.setItem).toHaveBeenNthCalledWith(
-      2,
-      'aircnc_techs',
-      tech
-    );
+    expect(await AsyncStorage.getItem('aircnc_user')).toBe(_id);
+    expect(await AsyncStorage.getItem('aircnc_techs')).toBe(tech);
     expect(navigate).toHaveBeenCalledWith('List');
   });
 
   it('should be redirected to List', async () => {
     const navigate = jest.fn();
 
-    AsyncStorage.getItem = jest.fn(() => _id);
+    await AsyncStorage.setItem('aircnc_user', _id);
     await act(async () => {
       create(<SignIn navigation={{ navigate }} />);
     });

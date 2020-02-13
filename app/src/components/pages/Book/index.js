@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { AsyncStorage, Alert, DatePickerAndroid } from 'react-native';
-import { format } from 'date-fns';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { format, parse } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import api from '~/services/api';

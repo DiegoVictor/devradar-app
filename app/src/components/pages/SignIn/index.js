@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Image, AsyncStorage } from 'react-native';
+import { Image } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Logo from '~/assets/logo.png';
 import api from '~/services/api';

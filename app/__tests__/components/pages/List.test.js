@@ -1,7 +1,8 @@
 import React from 'react';
 import { act } from 'react-native-testing-library';
 import faker from 'faker';
-import { Alert, AsyncStorage } from 'react-native';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import MockAdapter from 'axios-mock-adapter';
 import { format, parseISO } from 'date-fns';
 import { create } from 'react-test-renderer';
@@ -24,12 +25,8 @@ describe('List page', () => {
 
     api_mock.onGet('spots', { params: { tech } }).reply(200, [spot, ...rest]);
 
-    AsyncStorage.setItem = jest.fn(key => {
-      if (key === 'aircnc_techs') {
-        return tech;
-      }
-      return _id;
-    });
+    await AsyncStorage.setItem('aircnc_techs', tech);
+    await AsyncStorage.setItem('aircnc_user', _id);
 
     Alert.alert = jest.fn();
 

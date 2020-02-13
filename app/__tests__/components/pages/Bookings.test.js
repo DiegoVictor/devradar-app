@@ -3,7 +3,8 @@ import { act, fireEvent } from 'react-native-testing-library';
 import MockAdapter from 'axios-mock-adapter';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
-import { Alert, AsyncStorage } from 'react-native';
+import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import { create } from 'react-test-renderer';
 
@@ -18,7 +19,7 @@ describe('Bookings page', () => {
     const spots = await factory.attrsMany('Spot', 3);
     const [booking, ...rest] = await factory.attrsMany('Booking', 3, spots);
 
-    AsyncStorage.setItem = jest.fn(() => faker.random.number());
+    await AsyncStorage.setItem('aircnc_user', faker.random.number());
     api_mock.onGet('bookings').reply(200, [booking, ...rest]);
 
     let root;
@@ -53,7 +54,7 @@ describe('Bookings page', () => {
     const spot = await factory.attrs('Spot');
     const booking = await factory.attrs('Booking', spot);
 
-    AsyncStorage.setItem = jest.fn(() => faker.random.number());
+    await AsyncStorage.setItem('aircnc_user', faker.random.number());
     api_mock.onGet('bookings').reply(200, [booking]);
     api_mock.onPost(`bookings/${booking._id}/rejection`).reply(200);
 
@@ -78,7 +79,7 @@ describe('Bookings page', () => {
     const booking = await factory.attrs('Booking', spot);
     const error = 'Error';
 
-    AsyncStorage.setItem = jest.fn(() => faker.random.number());
+    await AsyncStorage.setItem('aircnc_user', faker.random.number());
     api_mock.onGet('bookings').reply(200, [booking]);
     api_mock.onPost(`bookings/${booking._id}/rejection`).reply(400, { error });
 
