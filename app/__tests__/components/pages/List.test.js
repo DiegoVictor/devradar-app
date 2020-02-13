@@ -15,6 +15,12 @@ import { emit } from '../../../__mocks__/socket.io-client';
 const _id = faker.random.number();
 const api_mock = new MockAdapter(api);
 
+jest.mock('react-navigation', () => ({
+  withNavigation: Component => props => (
+    <Component navigation={{ navigate: jest.fn() }} {...props} />
+  ),
+}));
+
 describe('List page', () => {
   it('should be able to receive a booking confirmation', async () => {
     const booking = await factory.attrs('Booking');
