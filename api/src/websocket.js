@@ -24,11 +24,11 @@ export function setupWebSocket(server) {
 export async function findConnection(id) {
   const socket_id = await new Promise(resolve => {
     client.get(id.toString(), (err, reply) => {
-      resolve(Number(reply));
+      resolve(reply);
     });
   });
 
-  if (typeof socket_id === 'number') {
+  if (typeof socket_id === 'string') {
     return socket_id;
   }
   return null;

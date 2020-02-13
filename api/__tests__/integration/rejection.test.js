@@ -111,7 +111,7 @@ describe('Rejection', () => {
       .post(`/bookings/${booking_id}/rejection`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(to).toHaveBeenCalledWith(socket_id);
+    expect(to).toHaveBeenCalledWith(`${socket_id}`);
     expect(emit).toHaveBeenCalledWithMatch('booking_response', {
       approved: false,
       date,

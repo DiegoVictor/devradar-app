@@ -113,7 +113,7 @@ describe('Booking', () => {
         date,
       });
 
-    expect(to).toHaveBeenCalledWith(socket_id);
+    expect(to).toHaveBeenCalledWith(`${socket_id}`);
     expect(emit).toHaveBeenCalledWithMatch('booking_request', {
       spot: spot.toJSON(),
       user: user.toJSON(),

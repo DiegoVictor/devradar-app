@@ -84,7 +84,7 @@ describe('Approval', () => {
       .post(`/bookings/${booking_id}/approval`)
       .set('Authorization', `Bearer ${token}`);
 
-    expect(to).toHaveBeenCalledWith(socket_id);
+    expect(to).toHaveBeenCalledWith(`${socket_id}`);
     expect(emit).toHaveBeenCalledWithMatch('booking_response', {
       approved: true,
       date,
