@@ -23,6 +23,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     camelcase: 'off',
     'no-underscore-dangle': 'off',
+    'import/no-named-as-default': 'off',
   },
   settings: {
     'import/resolver': {
