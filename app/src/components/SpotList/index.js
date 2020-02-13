@@ -22,11 +22,11 @@ export function SpotList({ tech, navigation }) {
 
   useEffect(() => {
     (async () => {
-      const response = await api.get('spots', {
+      const { data } = await api.get('spots', {
         params: { tech },
       });
 
-      setSpots(response.data);
+      setSpots(data);
     })();
   }, [tech]);
 
