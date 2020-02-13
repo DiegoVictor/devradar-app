@@ -24,6 +24,7 @@ module.exports = {
     camelcase: 'off',
     'no-underscore-dangle': 'off',
     'import/no-named-as-default': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     'import/resolver': {
