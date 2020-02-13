@@ -5,6 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 import { format, getDate, getMonth, getYear } from 'date-fns';
 import MockAdapter from 'axios-mock-adapter';
+import faker from 'faker';
 
 import api from '~/services/api';
 import Book from '~/components/pages/Book';
