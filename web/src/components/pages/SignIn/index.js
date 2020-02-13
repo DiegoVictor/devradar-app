@@ -10,8 +10,11 @@ export default function SignIn({ history }) {
     async ({ email }) => {
       const { data } = await api.post('sessions', { email });
 
-      const { _id, token } = data;
-      localStorage.setItem('aircnc_user', JSON.stringify({ id: _id, token }));
+      const {
+        user: { _id },
+        token,
+      } = data;
+      localStorage.setItem('aircnc_user', JSON.stringify({ _id, token }));
 
       history.push('/dashboard');
     },
