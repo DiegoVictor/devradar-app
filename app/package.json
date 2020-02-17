@@ -53,7 +53,7 @@
     "preset": "@testing-library/react-native",
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect",
-      "./src/setup-tests.js"
+      "./__tests__/setup.js"
     ],
     "moduleNameMapper": {
       "^~/(.*)": "<rootDir>/src/$1"
