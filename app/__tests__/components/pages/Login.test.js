@@ -3,7 +3,6 @@ import { render, fireEvent, wait } from '@testing-library/react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
-import { API_URL } from 'react-native-dotenv';
 
 import Login from '~/components/pages/Login';
 import api from '~/services/api';
@@ -19,9 +18,7 @@ describe('Login page', () => {
       <Login navigation={{ navigate, getParam: jest.fn() }} />
     );
 
-    api_mock
-      .onPost(`${API_URL}/developers`)
-      .reply(200, { developer: { _id: id }, token });
+    api_mock.onPost('developers').reply(200, { developer: { _id: id }, token });
 
     fireEvent.changeText(
       getByPlaceholderText('Digite seu usuáro no Github'),

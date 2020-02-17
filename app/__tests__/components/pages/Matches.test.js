@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { fireEvent, wait, render } from '@testing-library/react-native';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
-import { API_URL } from 'react-native-dotenv';
 
 import factory from '../../utils/factories';
 import Matches from '~/components/pages/Matches';
@@ -20,7 +19,7 @@ describe('Matches page', () => {
     const navigate = jest.fn();
 
     AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
-    api_mock.onGet(`${API_URL}/matches`).reply(200, developers);
+    api_mock.onGet('matches').reply(200, developers);
 
     const { getByTestId } = render(<Matches navigation={{ navigate }} />);
 
@@ -33,7 +32,7 @@ describe('Matches page', () => {
     const match_developer = await factory.attrs('Developer');
 
     AsyncStorage.setItem('tindev_user', JSON.stringify({ id, token }));
-    api_mock.onGet(`${API_URL}/developers`).reply(200, []);
+    api_mock.onGet('developers').reply(200, []);
 
     const { getByTestId } = render(
       <Matches navigation={{ navigate: jest.fn() }} />
