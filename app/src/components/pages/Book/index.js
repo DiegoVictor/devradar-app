@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ export default function Book({ route }) {
   const { id } = route.params;
 
   const [date, setDate] = useState(new Date());
+  const [show_datepicker, setShowDatepicker] = useState(false);
 
   const handleSubmit = useCallback(() => {
     (async () => {
@@ -40,23 +41,26 @@ export default function Book({ route }) {
   return (
     <Container>
       <Label>DATA DE INTERESSE *</Label>
+      {show_datepicker && (
+        <DateTimePicker
+          testID="datepicker"
+          mode="date"
+          value={date}
+          onChange={(_, selected_date) => {
+            setDate(selected_date);
+            setShowDatepicker(false);
+          }}
+        />
+      )}
       <Input
+        testID="date"
         placeholder="Qual data você quer reservar?"
         placeholderTextColor="#999"
         autoCapitalize="words"
         autoCorrect={false}
         value={format(date, "dd'/'MM'/'yyyy")}
-        onChangeText={value => {
-          setDate(parse(value, 'dd/MM/yyyy', new Date()));
-        }}
-        onFocus={async () => {
-          const { action, year, month, day } = await DateTimePicker.open({
-            mode: 'spinner',
-            date,
-          });
-          if (action === DateTimePicker.dateSetAction) {
-            setDate(new Date(year, month, day));
-          }
+        onFocus={() => {
+          setShowDatepicker(true);
         }}
       />
 
