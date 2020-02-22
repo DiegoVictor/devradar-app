@@ -40,7 +40,7 @@ export default function SpotList({ tech, ...props }) {
   }, []);
 
   return (
-    <Container>
+    <Container {...props}>
       <Title>
         Empresas que usam <Bold>{tech}</Bold>
       </Title>
