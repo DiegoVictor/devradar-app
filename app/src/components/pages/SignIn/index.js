@@ -19,7 +19,7 @@ export default function SignIn({ navigation }) {
       await AsyncStorage.setItem('aircnc_user', JSON.stringify({ token, _id }));
       await AsyncStorage.setItem('aircnc_techs', techs);
 
-      navigation.navigate('List');
+      navigation.navigate('App', { screen: 'List' });
     })();
   }, [email, techs]);
 
@@ -27,7 +27,7 @@ export default function SignIn({ navigation }) {
     (async () => {
       const user = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       if (user) {
-        navigation.navigate('List');
+        navigation.navigate('App', { screen: 'List' });
       }
     })();
   }, []);

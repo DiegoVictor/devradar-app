@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Book from '~/components/pages/Book';
@@ -8,51 +10,64 @@ import Bookings from '~/components/pages/Bookings';
 import List from '~/components/pages/List';
 import SignIn from '~/components/pages/SignIn';
 
-export default createAppContainer(
-  createSwitchNavigator({
-    SignIn,
-    App: createBottomTabNavigator(
-      {
-        Spots: {
-          screen: createSwitchNavigator({
-            List,
-            Book,
-          }),
-          navigationOptions: () => ({
-            tabBarLabel: 'Spots',
-            // eslint-disable-next-line react/prop-types
-            tabBarIcon: ({ tintColor }) => (
-              <Icon name="place" size={20} color={tintColor} />
-            ),
-          }),
-        },
-        Bookings: {
-          screen: Bookings,
-          navigationOptions: () => ({
-            tabBarLabel: 'Bookings',
-            // eslint-disable-next-line react/prop-types
-            tabBarIcon: ({ tintColor }) => (
-              <Icon name="date-range" size={20} color={tintColor} />
-            ),
-          }),
-        },
-      },
-      {
-        tabBarOptions: {
-          keyboardHidesTabBar: true,
-          activeTintColor: '#FFF',
-          inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
-          style: {
-            backgroundColor: '#f05a5b',
-            border: 0,
-            borderTopColor: '#f05a5b',
-            fontSize: 13,
-            lineHeight: 14,
-            paddingBottom: 5,
-            paddingTop: 10,
-          },
-        },
-      }
-    ),
-  })
-);
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+export default () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="App">
+          {() => {
+            return (
+              <Tab.Navigator
+                tabBarOptions={{
+                  keyboardHidesTabBar: true,
+                  activeTintColor: '#FFF',
+                  inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
+                  style: {
+                    backgroundColor: '#f05a5b',
+                    border: 0,
+                    borderTopColor: '#e0494a',
+                    fontSize: 13,
+                    lineHeight: 14,
+                    paddingBottom: 5,
+                    paddingTop: 10,
+                  },
+                }}
+              >
+                <Tab.Screen
+                  name="Spots"
+                  options={{
+                    tabBarIcon: ({ color }) => (
+                      <Icon name="place" size={20} color={color} />
+                    ),
+                  }}
+                >
+                  {() => {
+                    return (
+                      <Stack.Navigator headerMode="none">
+                        <Stack.Screen name="List" component={List} />
+                        <Stack.Screen name="Book" component={Book} />
+                      </Stack.Navigator>
+                    );
+                  }}
+                </Tab.Screen>
+                <Tab.Screen
+                  name="Bookings"
+                  options={{
+                    tabBarIcon: ({ color }) => (
+                      <Icon name="date-range" size={20} color={color} />
+                    ),
+                  }}
+                  component={Bookings}
+                />
+              </Tab.Navigator>
+            );
+          }}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};

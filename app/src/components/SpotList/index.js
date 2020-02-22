@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { withNavigation } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -18,7 +18,8 @@ import {
   WhiteText,
 } from './styles';
 
-export function SpotList({ tech, navigation }) {
+export default function SpotList({ tech, ...props }) {
+  const navigation = useNavigation();
   const [spots, setSpots] = useState([]);
 
   useEffect(() => {
@@ -73,9 +74,4 @@ export function SpotList({ tech, navigation }) {
 
 SpotList.propTypes = {
   tech: PropTypes.string.isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
-
-export default withNavigation(SpotList);
