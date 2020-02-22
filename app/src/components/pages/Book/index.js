@@ -14,7 +14,7 @@ export default function Book({ navigation }) {
 
   const handleSubmit = useCallback(() => {
     (async () => {
-      const user_id = await AsyncStorage.getItem('aircnc_user');
+      const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       await api.post(
         `spots/${id}/booking`,
         {

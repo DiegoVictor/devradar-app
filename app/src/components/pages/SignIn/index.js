@@ -16,7 +16,7 @@ export default function SignIn({ navigation }) {
       const response = await api.post('sessions', { email });
       const { _id } = response.data;
 
-      await AsyncStorage.setItem('aircnc_user', _id);
+      await AsyncStorage.setItem('aircnc_user', JSON.stringify({ token, _id }));
       await AsyncStorage.setItem('aircnc_techs', techs);
 
       navigation.navigate('List');
@@ -25,7 +25,7 @@ export default function SignIn({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const user = await AsyncStorage.getItem('aircnc_user');
+      const user = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       if (user) {
         navigation.navigate('List');
       }

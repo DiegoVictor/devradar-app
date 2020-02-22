@@ -32,6 +32,10 @@ export default () => {
 
   useEffect(() => {
     (async () => {
+      const { _id: user_id } = JSON.parse(
+        await AsyncStorage.getItem('aircnc_user')
+      );
+
       disconnect();
       connect({ user_id });
 
@@ -48,7 +52,7 @@ export default () => {
 
   const handleRefresh = useCallback(() => {
     (async () => {
-      const user_id = await AsyncStorage.getItem('aircnc_user');
+      const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       const { data } = await api.get('bookings', {
         headers: { user_id },
       });
@@ -60,7 +64,7 @@ export default () => {
 
   const handleCancelation = useCallback(id => {
     (async () => {
-      const user_id = await AsyncStorage.getItem('aircnc_user');
+      const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
 
       try {
         await api.post(

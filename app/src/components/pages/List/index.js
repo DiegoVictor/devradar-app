@@ -13,6 +13,10 @@ export default () => {
 
   useEffect(() => {
     (async () => {
+      const { _id: user_id } = JSON.parse(
+        await AsyncStorage.getItem('aircnc_user')
+      );
+
       disconnect();
       connect({ user_id });
 

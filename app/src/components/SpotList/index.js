@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { withNavigation } from 'react-navigation';
 import { ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '~/services/api';
 import {
@@ -22,6 +23,8 @@ export function SpotList({ tech, navigation }) {
 
   useEffect(() => {
     (async () => {
+      const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
+
       const { data } = await api.get('spots', {
         params: { tech },
       });
