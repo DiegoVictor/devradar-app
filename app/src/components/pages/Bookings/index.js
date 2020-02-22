@@ -54,7 +54,7 @@ export default () => {
     (async () => {
       const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       const { data } = await api.get('bookings', {
-        headers: { user_id },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setBookings(data);
@@ -71,9 +71,7 @@ export default () => {
           `bookings/${id}/rejection`,
           {},
           {
-            headers: {
-              user_id,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
 

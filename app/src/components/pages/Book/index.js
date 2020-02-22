@@ -24,7 +24,7 @@ export default function Book({ route }) {
           date,
         },
         {
-          headers: { user_id },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 

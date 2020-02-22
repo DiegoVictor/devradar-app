@@ -28,6 +28,7 @@ export default function SpotList({ tech, ...props }) {
 
       const { data } = await api.get('spots', {
         params: { tech },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       setSpots(data);
