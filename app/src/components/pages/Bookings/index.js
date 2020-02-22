@@ -6,6 +6,7 @@ import pt from 'date-fns/locale/pt-BR';
 
 import Logo from '~/assets/logo.png';
 import api from '~/services/api';
+import { disconnect, connect, subscribe } from '~/services/socket';
 import {
   Container,
   Brand,
@@ -28,6 +29,22 @@ import {
 export default () => {
   const [bookings, setBookings] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      disconnect();
+      connect({ user_id });
+
+      subscribe('booking_response', booking => {
+        const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
+        Alert.alert(
+          `Sua reserva em ${booking.spot.company} para ${date} foi ${
+            booking.approved ? 'APROVADA' : 'REJEITADA'
+          }`
+        );
+      });
+    })();
+  }, []);
 
   const handleRefresh = useCallback(() => {
     (async () => {

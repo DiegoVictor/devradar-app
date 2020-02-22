@@ -2,26 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { format, parseISO } from 'date-fns';
 import { ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import socketio from 'socket.io-client';
-import Constants from 'expo-constants';
 
 import Logo from '~/assets/logo.png';
 import SpotList from '~/components/SpotList';
+import { connect, disconnect, subscribe } from '~/services/socket';
 import { Container, Brand } from './styles';
-
-const { API_URL } = Constants.manifest.extra;
 
 export default () => {
   const [techs, setTechs] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const user_id = await AsyncStorage.getItem('aircnc_user');
-      const socket = socketio(API_URL, {
-        query: { user_id },
-      });
+      disconnect();
+      connect({ user_id });
 
-      socket.on('booking_response', booking => {
+      subscribe('booking_response', booking => {
         const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
         Alert.alert(
           `Sua reserva em ${booking.spot.company} para ${date} foi ${
