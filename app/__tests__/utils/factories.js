@@ -5,7 +5,7 @@ factory.define(
   'Spot',
   {},
   {
-    _id: faker.random.uuid,
+    _id: () => String(faker.random.number()),
     user: null,
     company: faker.company.companyName,
     price: () => Number(faker.finance.amount()),
@@ -25,7 +25,7 @@ factory.define(
   'Booking',
   {},
   {
-    _id: faker.random.uuid,
+    _id: () => String(faker.random.number()),
     date: () => faker.date.future().toISOString(),
     user: {
       email: faker.internet.email,
