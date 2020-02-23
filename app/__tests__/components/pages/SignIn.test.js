@@ -10,6 +10,7 @@ import api from '~/services/api';
 
 const _id = faker.random.number();
 const api_mock = new MockAdapter(api);
+const token = faker.random.uuid();
 
 describe('SignIn page', () => {
   it('should be able to signin', async () => {
@@ -17,7 +18,7 @@ describe('SignIn page', () => {
     const tech = faker.random.word();
     const navigate = jest.fn();
 
-    api_mock.onPost(`sessions`).reply(200, { _id });
+    api_mock.onPost('sessions').reply(200, { token, user: { _id } });
     const { getByPlaceholder, getByTestId } = render(
       <SignIn navigation={{ navigate }} />
     );
@@ -29,19 +30,21 @@ describe('SignIn page', () => {
       fireEvent.press(getByTestId('submit'));
     });
 
-    expect(await AsyncStorage.getItem('aircnc_user')).toBe(_id);
+    expect(await AsyncStorage.getItem('aircnc_user')).toBe(
+      JSON.stringify({ token, _id })
+    );
     expect(await AsyncStorage.getItem('aircnc_techs')).toBe(tech);
-    expect(navigate).toHaveBeenCalledWith('List');
+    expect(navigate).toHaveBeenCalledWith('App', { screen: 'List' });
   });
 
   it('should be redirected to List', async () => {
     const navigate = jest.fn();
 
-    await AsyncStorage.setItem('aircnc_user', _id);
+    await AsyncStorage.setItem('aircnc_user', JSON.stringify({ _id }));
     await act(async () => {
       create(<SignIn navigation={{ navigate }} />);
     });
 
-    expect(navigate).toHaveBeenCalledWith('List');
+    expect(navigate).toHaveBeenCalledWith('App', { screen: 'List' });
   });
 });

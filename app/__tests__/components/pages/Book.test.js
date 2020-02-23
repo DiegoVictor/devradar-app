@@ -1,38 +1,57 @@
 import React from 'react';
 import { render, fireEvent, act } from 'react-native-testing-library';
 import { Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
-import { format, getDate, getMonth, getYear } from 'date-fns';
 import MockAdapter from 'axios-mock-adapter';
 import faker from 'faker';
+import { create } from 'react-test-renderer';
+import { useNavigation } from '@react-navigation/native';
 
 import api from '~/services/api';
 import Book from '~/components/pages/Book';
 
-const _id = faker.random.number();
+jest.mock('@react-navigation/native');
+
+const _id = faker.random.uuid();
 const api_mock = new MockAdapter(api);
+const navigate = jest.fn();
+
+useNavigation.mockReturnValue({ navigate });
 
 describe('Book page', () => {
   it('should be able to book a spot', async () => {
-    api_mock.onPost(`spots/${_id}/booking`).reply(200);
+    const date = faker.date.future();
+
+    await AsyncStorage.setItem('aircnc_user', JSON.stringify({ _id }));
+    api_mock.onPost(`spots/${_id}/booking`).reply(({ data }) => {
+      const { date: received_date } = JSON.parse(data);
+      expect(received_date).toBe(date.toISOString());
+      return [200, {}];
+    });
     Alert.alert = jest.fn();
 
-    const navigate = jest.fn();
-    const date = format(faker.date.future(), "dd'/'MM'/'yyyy");
-    const { getByPlaceholder, getByTestId } = render(
-      <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
-    );
-
-    await AsyncStorage.setItem('aircnc_user', _id);
-
-    fireEvent.changeText(
-      getByPlaceholder('Qual data você quer reservar?'),
-      date
-    );
+    let root;
+    await act(async () => {
+      root = create(<Book route={{ params: { id: _id } }} />);
+    });
 
     await act(async () => {
-      fireEvent.press(getByTestId('submit'));
+      fireEvent(root.root.findByProps({ testID: 'date' }), 'onFocus');
+    });
+
+    expect(root.root.findByProps({ testID: 'datepicker' })).toBeTruthy();
+
+    await act(async () => {
+      fireEvent(
+        root.root.findByProps({ testID: 'datepicker' }),
+        'onChange',
+        {},
+        date
+      );
+    });
+
+    await act(async () => {
+      fireEvent.press(root.root.findByProps({ testID: 'submit' }));
     });
 
     expect(Alert.alert).toHaveBeenCalledWith('Solicitação de reserva enviada');
@@ -40,53 +59,14 @@ describe('Book page', () => {
   });
 
   it('should be able to back to List', async () => {
-    const navigate = jest.fn();
-    const { getByTestId } = render(
-      <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
-    );
+    await AsyncStorage.setItem('aircnc_user', JSON.stringify({ _id }));
 
-    await AsyncStorage.setItem('aircnc_user', _id);
+    const { getByTestId } = render(<Book route={{ params: { id: _id } }} />);
 
     await act(async () => {
       fireEvent.press(getByTestId('cancel'));
     });
 
-    expect(navigate).toHaveBeenCalledWith('List');
-  });
-
-  it('should be able to open the datepicker', async () => {
-    const navigate = jest.fn();
-    const date = faker.date.future();
-    api_mock
-      .onPost(`spots/${_id}/booking`, {
-        params: { date: date.toISOString() },
-      })
-      .reply(200);
-
-    await AsyncStorage.setItem('aircnc_user', _id);
-
-    DateTimePicker.open = () =>
-      new Promise(resolve => {
-        resolve({
-          action: DateTimePicker.dateSetAction,
-          year: getYear(date),
-          month: getMonth(date),
-          day: getDate(date),
-        });
-      });
-
-    Alert.alert = jest.fn();
-
-    const { getByPlaceholder, getByTestId } = render(
-      <Book navigation={{ navigate, getParam: jest.fn(() => _id) }} />
-    );
-
-    fireEvent(getByPlaceholder('Qual data você quer reservar?'), 'onFocus');
-
-    await act(async () => {
-      fireEvent.press(getByTestId('submit'));
-    });
-    expect(Alert.alert).toHaveBeenCalledWith('Solicitação de reserva enviada');
     expect(navigate).toHaveBeenCalledWith('List');
   });
 });

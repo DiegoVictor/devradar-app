@@ -1,14 +1,22 @@
 import React from 'react';
 import MockAdapter from 'axios-mock-adapter';
-import { fireEvent, act } from 'react-native-testing-library';
+import { act, fireEvent } from 'react-native-testing-library';
+import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import { create } from 'react-test-renderer';
+import { useNavigation } from '@react-navigation/native';
 
 import api from '~/services/api';
-import { SpotList } from '~/components/SpotList';
+import SpotList from '~/components/SpotList';
 import factory from '../utils/factories';
 
+jest.mock('@react-navigation/native');
+
+const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
+const navigate = jest.fn();
+
+useNavigation.mockReturnValue({ navigate });
 
 describe('SpotList component', () => {
   it('should be able to see spot list', async () => {
@@ -17,13 +25,12 @@ describe('SpotList component', () => {
       techs: [tech],
     });
 
+    await AsyncStorage.setItem('aircnc_user', JSON.stringify({ token }));
     api_mock.onGet('/spots', { params: { tech } }).reply(200, [spot, ...rest]);
 
     let root;
     await act(async () => {
-      root = create(
-        <SpotList tech={tech} navigation={{ navigate: jest.fn() }} />
-      );
+      root = create(<SpotList tech={tech} />);
     });
 
     const nodes = root.root
@@ -41,7 +48,6 @@ describe('SpotList component', () => {
   });
 
   it('should be able to book a spot', async () => {
-    const navigate = jest.fn();
     const tech = faker.random.word();
     const [spot, ...rest] = await factory.attrsMany('Spot', 3, {
       techs: [tech],
@@ -51,7 +57,7 @@ describe('SpotList component', () => {
 
     let root;
     await act(async () => {
-      root = create(<SpotList tech={tech} navigation={{ navigate }} />);
+      root = create(<SpotList tech={tech} />);
     });
 
     fireEvent.press(root.root.findByProps({ testID: `spot_book_${spot._id}` }));
