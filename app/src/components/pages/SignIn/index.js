@@ -13,8 +13,11 @@ export default function SignIn({ navigation }) {
 
   const handleSubmit = useCallback(() => {
     (async () => {
-      const response = await api.post('sessions', { email });
-      const { _id } = response.data;
+      const { data } = await api.post('sessions', { email });
+      const {
+        token,
+        user: { _id },
+      } = data;
 
       await AsyncStorage.setItem('aircnc_user', JSON.stringify({ token, _id }));
       await AsyncStorage.setItem('aircnc_techs', techs);
