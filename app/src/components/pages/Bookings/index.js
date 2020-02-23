@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
-import { ScrollView, Text, Alert } from 'react-native';
+import { Text, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import pt from 'date-fns/locale/pt-BR';
 
@@ -90,58 +90,60 @@ export default () => {
 
   return (
     <Container>
-      <ScrollView>
-        <Brand resizeMode="contain" source={Logo} />
+      <Centralize>
+        <List
+          data={bookings}
+          keyExtractor={booking => booking._id}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListHeaderComponent={
+            <>
+              <Brand resizeMode="contain" source={Logo} />
 
-        <Title>
-          Seus spots <Bold>reservados/pendentes</Bold>
-        </Title>
-        <Centralize>
-          <List
-            data={bookings}
-            keyExtractor={booking => booking._id}
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            renderItem={({ item: booking }) => (
-              <Spot testID={`booking_${booking._id}`}>
-                <Columns>
-                  <About>
-                    <Thumbnail
-                      resizeMode="cover"
-                      source={{ uri: booking.spot.thumbnail_url }}
-                    />
-                  </About>
-                  <Status>
-                    <Text>Reserva para o dia:</Text>
-                    <Big testID={`booking_date_${booking._id}`}>
-                      {format(parseISO(booking.date), "dd'/'MM'/'yyyy", {
-                        locale: pt,
-                      })}
-                    </Big>
-                    <Text>Status:</Text>
-                    <Big testID={`booking_status_${booking._id}`}>
-                      {booking.approved ? 'Aprovado' : 'Em aprovação'}
-                    </Big>
-                  </Status>
-                </Columns>
+              <Title>
+                Seus spots <Bold>reservados/pendentes</Bold>
+              </Title>
+            </>
+          }
+          renderItem={({ item: booking }) => (
+            <Spot testID={`booking_${booking._id}`}>
+              <Columns>
+                <About>
+                  <Thumbnail
+                    resizeMode="cover"
+                    source={{ uri: booking.spot.thumbnail_url }}
+                  />
+                </About>
+                <Status>
+                  <Text>Reserva para o dia:</Text>
+                  <Big testID={`booking_date_${booking._id}`}>
+                    {format(parseISO(booking.date), "dd'/'MM'/'yyyy", {
+                      locale: pt,
+                    })}
+                  </Big>
+                  <Text>Status:</Text>
+                  <Big testID={`booking_status_${booking._id}`}>
+                    {booking.approved ? 'Aprovado' : 'Em aprovação'}
+                  </Big>
+                </Status>
+              </Columns>
 
-                <Company>{booking.spot.company}</Company>
-                <Price testID={`booking_price_${booking._id}`}>
-                  {booking.spot.price
-                    ? `R$ ${booking.spot.price}/DIA`
-                    : 'GRATUITO'}
-                </Price>
-                <Button
-                  testID={`booking_cancel_${booking._id}`}
-                  onPress={() => handleCancelation(booking._id)}
-                >
-                  <WhiteText>Cancelar reserva</WhiteText>
-                </Button>
-              </Spot>
-            )}
-          />
-        </Centralize>
-      </ScrollView>
+              <Company>{booking.spot.company}</Company>
+              <Price testID={`booking_price_${booking._id}`}>
+                {booking.spot.price
+                  ? `R$ ${booking.spot.price}/DIA`
+                  : 'GRATUITO'}
+              </Price>
+              <Button
+                testID={`booking_cancel_${booking._id}`}
+                onPress={() => handleCancelation(booking._id)}
+              >
+                <WhiteText>Cancelar reserva</WhiteText>
+              </Button>
+            </Spot>
+          )}
+        />
+      </Centralize>
     </Container>
   );
 };
