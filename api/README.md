@@ -7,11 +7,19 @@ $ yarn
 Was installed and configured the `eslint` and `prettier` to keep the code clean and patterned.
 
 # Databases
-The application use MongoDB database. For the fastest setup is recommended to use docker, see how to do it below.
-> Windows users using Docker Toolbox, maybe be necessary in your `env` file set the MongoDB's host to `192.168.99.100` (docker machine IP) instead of `localhost` or `127.0.0.1`
+The application use two different databases: MongoDB and Redis. For the fastest setup is recommended to use docker, see how to do it below.
+> Windows users using Docker Toolbox, maybe be necessary in your `env` file set the MongoDB and Redis' host to `192.168.99.100` (docker machine IP) instead of `localhost` or `127.0.0.1`
+
+## MongoDB
 ```
-$ docker run --name devradar -d -p 27017:27017 mongo
-$ docker start devradar
+$ docker run --name devradar-mongo -d -p 27017:27017 mongo
+$ docker start devradar-mongo
+```
+
+## Redis
+```
+$ docker run --name devradar-redis -d -p 6379:6379 redis
+$ docker start devradar-redis
 ```
 
 # .env
