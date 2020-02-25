@@ -11,19 +11,20 @@ export function setupWebSocket(server) {
 
   io.on('connection', async socket => {
     const { latitude, longitude, techs } = socket.handshake.query;
-    await Connection.save({
+
+    await Connection.create({
       socket_id: socket.id,
       coordinates: {
         latitude: Number(latitude),
         longitude: Number(longitude),
       },
-      techs: parseStringAsArray.run(techs),
+      techs: parseStringAsArray(techs),
     });
-  });
 
-  io.on('disconnect', async socket => {
-    const connection = await Connection.findById(socket.id);
+    io.on('disconnect', async () => {
+      const connection = await Connection.find({ socket_id: socket.id });
     await connection.remove();
+  });
   });
 }
 
