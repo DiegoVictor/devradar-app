@@ -24,7 +24,7 @@ class StoreDeveloper {
 
     sendMessage(
       await findConnection({ latitude, longitude }, techs_array),
-      'new-developers',
+      'new_developers',
       developer
     );
 

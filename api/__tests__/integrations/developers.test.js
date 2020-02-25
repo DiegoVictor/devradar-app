@@ -114,7 +114,7 @@ describe('Developer', () => {
       .send({ github_username, techs: techs.join(', '), latitude, longitude });
 
     expect(to).toHaveBeenCalledWith(socket_id);
-    expect(emit).toHaveBeenCalledWithMatch('new-developers', {
+    expect(emit).toHaveBeenCalledWithMatch('new_developers', {
       name,
       bio,
       avatar_url,
