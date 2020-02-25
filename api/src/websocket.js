@@ -23,8 +23,8 @@ export function setupWebSocket(server) {
 
     io.on('disconnect', async () => {
       const connection = await Connection.find({ socket_id: socket.id });
-    await connection.remove();
-  });
+      await connection.remove();
+    });
   });
 }
 
@@ -36,7 +36,7 @@ export async function findConnection(coordinates, techs) {
 }
 
 export function sendMessage(to, message, data) {
-  to.forEach(connection => {
-    io.to(connection.socket_id).emit(message, data);
+  to.forEach(({ socket_id }) => {
+    io.to(socket_id).emit(message, data);
   });
 }
