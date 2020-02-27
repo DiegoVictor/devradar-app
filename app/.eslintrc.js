@@ -1,6 +1,7 @@
 module.exports = {
   env: {
     es6: true,
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
   globals: {
@@ -23,5 +24,14 @@ module.exports = {
     'import/prefer-default-export': 'off',
     camelcase: 'off',
     'no-underscore-dangle': 'off',
+    'import/no-named-as-default': 'off',
+    'react/jsx-props-no-spreading': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      'babel-plugin-root-import': {
+        rootPathSuffix: 'src',
+      },
+    },
   },
 };
