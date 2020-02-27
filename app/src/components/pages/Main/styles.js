@@ -25,7 +25,7 @@ export const Button = styled.TouchableOpacity`
 `;
 
 export const Input = styled.TextInput`
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 25px;
   color: #333;
   flex: 1;
@@ -33,7 +33,7 @@ export const Input = styled.TextInput`
   height: 50px;
   padding: 0px 20px;
   shadow-color: #000;
-  shadow-offset: { width: 4px, height: 4px };
+  shadow-offset: 4px 4px;
   shadow-opacity: 0.2;
   elevation: 2;
 `;
