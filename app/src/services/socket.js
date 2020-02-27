@@ -1,6 +1,9 @@
 import socketio from 'socket.io-client';
+import Constants from 'expo-constants';
 
-const socket = socketio('http://192.168.0.9:3333', {
+const { API_URL } = Constants.manifest.extra;
+
+const socket = socketio(API_URL, {
   autoConnect: false,
 });
 
