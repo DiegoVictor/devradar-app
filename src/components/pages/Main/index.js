@@ -5,9 +5,9 @@ import {
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 
-import api from '../../../services/api';
-import { connect, disconnect, subscribe } from '../../../services/socket';
-import Dev from '../../Dev';
+import api from '~/services/api';
+import { connect, disconnect, subscribe } from '~/services/socket';
+import Dev from '~/components/Dev';
 import { Map, Search, Input, Button } from './styles';
 
 export default () => {
