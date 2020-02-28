@@ -28,3 +28,8 @@ Start the server in the [`api`](https://github.com/DiegoVictor/omnistack-10/tree
 $ yarn start
 ```
 > This project use Expo, to know how to run in your phone or simulator see [Open the app on your phone or simulator](https://docs.expo.io/versions/latest/workflow/up-and-running/#open-the-app-on-your-phone-or) documentation's section.
+
+# Tests
+```
+$ yarn test
+```
