@@ -4,6 +4,7 @@ import {
   getCurrentPositionAsync,
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
+import { View } from 'react-native';
 
 import api from '~/services/api';
 import { connect, disconnect, subscribe } from '~/services/socket';
@@ -66,7 +67,7 @@ export default () => {
   }, [current_region, techs]);
 
   if (!current_region) {
-    return null;
+    return <View />;
   }
 
   return (
