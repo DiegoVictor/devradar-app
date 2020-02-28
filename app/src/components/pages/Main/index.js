@@ -37,7 +37,7 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    subscribe('new-developer', developer => {
+    subscribe('new_developers', developer => {
       setDevelopers([...developers, developer]);
     });
   }, [developers]);
