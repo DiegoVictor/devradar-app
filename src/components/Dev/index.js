@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 
 import { Avatar, User, Name, Bio, Techs } from './styles';
 
-function Dev({ dev, navigation }) {
+export function Dev({ dev, navigation, ...props }) {
   const handleCalloutPress = useCallback(() => {
     navigation.navigate('Profile', { github_username: dev.github_username });
   }, []);
@@ -16,6 +16,7 @@ function Dev({ dev, navigation }) {
         latitude: dev.location.coordinates[1],
         longitude: dev.location.coordinates[0],
       }}
+      {...props}
     >
       <Avatar
         source={{
@@ -36,8 +37,8 @@ function Dev({ dev, navigation }) {
 Dev.propTypes = {
   dev: PropTypes.shape({
     github_username: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    bio: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    bio: PropTypes.string,
     techs: PropTypes.arrayOf(PropTypes.string).isRequired,
     avatar_url: PropTypes.string.isRequired,
     location: PropTypes.shape({
@@ -47,6 +48,13 @@ Dev.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+};
+
+Dev.defaulProp = {
+  dev: {
+    name: '',
+    bio: '',
+  },
 };
 
 export default withNavigation(Dev);
