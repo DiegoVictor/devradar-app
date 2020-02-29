@@ -19,11 +19,12 @@ export function Dev({ dev, navigation, ...props }) {
       {...props}
     >
       <Avatar
+        testID="avatar"
         source={{
           uri: dev.avatar_url,
         }}
       />
-      <Callout onPress={handleCalloutPress}>
+      <Callout onPress={handleCalloutPress} testID="profile">
         <User>
           <Name>{dev.name}</Name>
           <Bio>{dev.bio}</Bio>
