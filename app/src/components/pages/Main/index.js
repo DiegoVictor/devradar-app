@@ -77,7 +77,7 @@ export default () => {
         initialRegion={current_region}
       >
         {developers.map(dev => (
-          <Dev key={dev._id} dev={dev} />
+          <Dev testID={`developer_${dev._id}`} key={dev._id} dev={dev} />
         ))}
       </Map>
       <Search>
@@ -89,7 +89,7 @@ export default () => {
           value={techs}
           onChangeText={setTechs}
         />
-        <Button onPress={handleSearch}>
+        <Button onPress={handleSearch} testID="search">
           <MaterialIcons name="my-location" size={20} color="#FFF" />
         </Button>
       </Search>
