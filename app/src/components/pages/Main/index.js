@@ -88,6 +88,7 @@ export default () => {
           autoCorrect={false}
           value={techs}
           onChangeText={setTechs}
+          required
         />
         <Button onPress={handleSearch} testID="search">
           <MaterialIcons name="my-location" size={20} color="#FFF" />
