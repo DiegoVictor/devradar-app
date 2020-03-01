@@ -38,7 +38,7 @@ class DeveloperController {
 
     return res.json({
       developer,
-      token: jwt.sign({ id: developer._id }, process.env.APP_SECRET, {
+      token: jwt.sign({ id: developer._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRATION_TIME,
       }),
     });

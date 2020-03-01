@@ -19,7 +19,7 @@ const Server = http.Server(App);
 
 setupWebSocket(Server);
 
-if (process.env.SENTRY_DSN && process.env.LOG === 1) {
+if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
   });
