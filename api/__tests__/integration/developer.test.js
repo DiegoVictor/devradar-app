@@ -69,7 +69,9 @@ describe('Developer', () => {
   it('should be able to store a new developer', async () => {
     const { user, name, bio, avatar } = await factory.attrs('Developer');
 
-    api_mock.onGet().reply(200, { name, bio, avatar_url: avatar });
+    api_mock
+      .onGet(`users/${user.toLowerCase()}`)
+      .reply(200, { name, bio, avatar_url: avatar });
 
     const response = await request(app)
       .post('/developers')
