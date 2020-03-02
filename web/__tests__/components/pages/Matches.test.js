@@ -27,8 +27,11 @@ describe('Matches', () => {
     const developer = await factory.attrs('Developer');
     let getByTestId;
 
-    api_mock.onGet(`/developers/${id}`).reply(200, developer);
-    api_mock.onGet('/matches').reply(200, matches);
+    api_mock
+      .onGet(`/developers/${id}`)
+      .reply(200, developer)
+      .onGet('/matches')
+      .reply(200, matches);
 
     await act(async () => {
       const component = render(

@@ -49,12 +49,14 @@ describe('Main', () => {
 
   it('should be able to like a developer', async () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
-    api_mock.onGet('/developers').reply(200, [developer, ...rest]);
+    api_mock
+      .onGet('/developers')
+      .reply(200, [developer, ...rest])
+      .onPost(`/developers/${developer._id}/like`)
+      .reply(200);
 
     let getByTestId;
     let queryByTestId;
-
-    api_mock.onPost(`/developers/${developer._id}/like`).reply(200);
 
     await act(async () => {
       const component = render(
@@ -77,12 +79,14 @@ describe('Main', () => {
 
   it('should be able to dislike a developer', async () => {
     const [developer, ...rest] = await factory.attrsMany('Developer', 3);
-    api_mock.onGet('/developers').reply(200, [developer, ...rest]);
+    api_mock
+      .onGet('/developers')
+      .reply(200, [developer, ...rest])
+      .onPost(`/developers/${developer._id}/dislike`)
+      .reply(200);
 
     let getByTestId;
     let queryByTestId;
-
-    api_mock.onPost(`/developers/${developer._id}/dislike`).reply(200);
 
     await act(async () => {
       const component = render(
