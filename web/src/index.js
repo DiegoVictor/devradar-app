@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from '~/components/pages';
+import '~/config/ReactotronConfig';
+import Navigation from '~/routes';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Navigation />, document.getElementById('root'));
