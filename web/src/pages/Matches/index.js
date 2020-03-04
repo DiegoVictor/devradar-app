@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useContext } from 'react';
 
+import { UserContext } from '~/contexts/User';
+import api from '~/services/api';
 import { connect, subscribe, disconnect } from '~/services/socket';
 import Match from '~/components/Match';
-import api from '~/services/api';
 import Menu from '~/components/Menu';
-import {
-  Container,
-  Developers,
-  Developer,
-  Avatar,
-  Description,
-  Bio,
-} from './styles';
+import { Developers, Developer, Avatar, Description, Bio } from './styles';
+import Layout from '~/components/Layout';
 
-export default function Matches({ history }) {
+export default () => {
   const [developer, setDeveloper] = useState(null);
   const [matches, setMatches] = useState([]);
-  const { id, token } = JSON.parse(localStorage.getItem('tindev_user'));
+  const { id, token } = useContext(UserContext);
 
   useEffect(() => {
     disconnect();
@@ -37,8 +31,8 @@ export default function Matches({ history }) {
   }, [id, token]);
 
   return (
-    <Container>
-      <Menu history={history} id={id} active="matches" />
+    <Layout>
+      <Menu active="matches" />
 
       <Developers>
         {matches.map(match => (
@@ -53,12 +47,6 @@ export default function Matches({ history }) {
       </Developers>
 
       {developer && <Match developer={developer} setDeveloper={setDeveloper} />}
-    </Container>
+    </Layout>
   );
-}
-
-Matches.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };

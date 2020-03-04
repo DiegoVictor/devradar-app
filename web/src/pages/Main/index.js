@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useContext } from 'react';
 
-import { connect, subscribe, disconnect } from '~/services/socket';
 import Like from '~/assets/like.png';
 import Dislike from '~/assets/dislike.png';
-import Loading from '~/components/Loading';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import { connect, subscribe, disconnect } from '~/services/socket';
+import Layout from '~/components/Layout';
+import Loading from '~/components/Loading';
 import Match from '~/components/Match';
 import Menu from '~/components/Menu';
-import {
-  Container,
-  Developers,
-  Developer,
-  Bio,
-  Actions,
-  Center,
-} from './styles';
+import { Developers, Developer, Bio, Actions, Center } from './styles';
 
-export default function Main({ match, history }) {
+export default () => {
   const [developers, setDevelopers] = useState([]);
   const [developer, setDeveloper] = useState(null);
   const [preload, setPreloading] = useState(false);
-  const { token } = JSON.parse(localStorage.getItem('tindev_user'));
 
-  const { id } = match.params;
+  const { id, token } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +27,7 @@ export default function Main({ match, history }) {
       setDevelopers(data);
       setPreloading(true);
     })();
-  }, [id, token]);
+  }, [token]);
 
   useEffect(() => {
     disconnect();
@@ -67,8 +60,8 @@ export default function Main({ match, history }) {
   }
 
   return (
-    <Container>
-      <Menu history={history} id={id} active="developers" />
+    <Layout>
+      <Menu active="developers" />
 
       {developers.length > 0 ? (
         <Developers>
@@ -108,17 +101,6 @@ export default function Main({ match, history }) {
       )}
 
       {developer && <Match developer={developer} setDeveloper={setDeveloper} />}
-    </Container>
+    </Layout>
   );
-}
-
-Main.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    }).isRequired,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };
