@@ -1,15 +1,16 @@
 import React from 'react';
 import { render, act } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import MockAdapter from 'axios-mock-adapter';
 import faker from 'faker';
 
-import Matches from '~/components/pages/Matches';
-import factory from '../../utils/factories';
-import api from '~/services/api';
+import { UserContext } from '~/contexts/User';
 import { emit } from '../../../__mocks__/socket.io-client';
+import api from '~/services/api';
+import history from '~/services/history';
+import factory from '../../utils/factories';
+import Matches from '~/pages/Matches';
 
-const push = jest.fn();
 const api_mock = new MockAdapter(api);
 const id = faker.random.number();
 const token = faker.random.uuid();
@@ -17,7 +18,6 @@ const token = faker.random.uuid();
 describe('Matches', () => {
   beforeEach(async () => {
     await act(async () => {
-      localStorage.clear();
       localStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     });
   });
@@ -25,6 +25,7 @@ describe('Matches', () => {
   it('should be able to see a list of matches', async () => {
     const matches = await factory.attrsMany('Developer', 3);
     const developer = await factory.attrs('Developer');
+
     let getByTestId;
 
     api_mock
@@ -35,9 +36,11 @@ describe('Matches', () => {
 
     await act(async () => {
       const component = render(
-        <MemoryRouter>
-          <Matches history={{ push }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Matches />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByTestId = component.getByTestId;
@@ -51,6 +54,7 @@ describe('Matches', () => {
   it('should be able to show a match', async () => {
     const match_developer = await factory.attrs('Developer');
     const developers = await factory.attrsMany('Developer', 3);
+
     let getByAltText;
     let getByText;
 
@@ -58,9 +62,11 @@ describe('Matches', () => {
 
     await act(async () => {
       const components = render(
-        <MemoryRouter>
-          <Matches match={{ params: { id } }} history={{ push: jest.fn() }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Matches />
+          </Router>
+        </UserContext.Provider>
       );
       getByAltText = components.getByAltText;
       getByText = components.getByText;

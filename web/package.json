@@ -35,8 +35,9 @@
     "collectCoverageFrom": [
       "src/components",
       "!src/components/Loading/*.js",
-      "!src/components/pages/*.js",
+      "!src/contexts/**/*",
       "!src/config/*",
+      "!src/routes/**/*",
       "!src/services/*",
       "!src/*.js"
     ],

@@ -1,13 +1,15 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
+import { UserContext } from '~/contexts/User';
 import { emit } from '../../../__mocks__/socket.io-client';
 import api from '~/services/api';
-import Main from '~/components/pages/Main';
+import history from '~/services/history';
 import factory from '../../utils/factories';
+import Main from '~/pages/Main';
 
 const id = faker.random.number();
 const token = faker.random.uuid();
@@ -16,8 +18,9 @@ const api_mock = new MockAdapter(api);
 describe('Main', () => {
   beforeAll(async () => {
     const developer = await factory.attrs('Developer');
+
+    localStorage.setItem('tindev_user', JSON.stringify({ id, token }));
     api_mock.onGet(`/developers/${id}`).reply(200, developer);
-    localStorage.setItem('tindev_user', JSON.stringify({ token }));
   });
 
   it('should be able to see a list of developers', async () => {
@@ -30,9 +33,11 @@ describe('Main', () => {
 
     await act(async () => {
       const component = render(
-        <MemoryRouter>
-          <Main match={{ params: { id } }} history={{ push: jest.fn() }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Main match={{ params: { id } }} />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
       getByAltText = component.getByAltText;
@@ -60,9 +65,11 @@ describe('Main', () => {
 
     await act(async () => {
       const component = render(
-        <MemoryRouter>
-          <Main match={{ params: { id } }} history={{ push: jest.fn() }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Main />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
       queryByTestId = component.queryByTestId;
@@ -90,9 +97,11 @@ describe('Main', () => {
 
     await act(async () => {
       const component = render(
-        <MemoryRouter>
-          <Main match={{ params: { id } }} history={{ push: jest.fn() }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Main />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
       queryByTestId = component.queryByTestId;
@@ -117,9 +126,11 @@ describe('Main', () => {
 
     await act(async () => {
       const components = render(
-        <MemoryRouter>
-          <Main match={{ params: { id } }} history={{ push: jest.fn() }} />
-        </MemoryRouter>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Main />
+          </Router>
+        </UserContext.Provider>
       );
       getByAltText = components.getByAltText;
       getByText = components.getByText;
