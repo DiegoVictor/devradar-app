@@ -47,7 +47,6 @@ if (process.env.NODE_ENV !== 'test') {
 
 App.use(routes);
 
-// eslint-disable-next-line no-unused-vars
 App.use((err, req, res, next) => {
   const { payload } = err.output;
 
