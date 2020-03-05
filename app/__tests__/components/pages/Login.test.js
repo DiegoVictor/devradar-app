@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import Login from '~/components/pages/Login';
 import api from '~/services/api';
+import Login from '~/pages/Login';
 
 const id = faker.random.number();
 const token = faker.random.uuid();

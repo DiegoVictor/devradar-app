@@ -4,10 +4,10 @@ import { fireEvent, wait, render } from '@testing-library/react-native';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import factory from '../../utils/factories';
-import Matches from '~/components/pages/Matches';
-import api from '~/services/api';
 import { emit } from '~/../__mocks__/socket.io-client';
+import api from '~/services/api';
+import factory from '../../utils/factories';
+import Matches from '~/pages/Matches';
 
 const id = faker.random.number();
 const token = faker.random.uuid();

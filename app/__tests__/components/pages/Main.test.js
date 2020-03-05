@@ -4,10 +4,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import factory from '../../utils/factories';
-import Main from '~/components/pages/Main';
-import api from '~/services/api';
 import { emit } from '~/../__mocks__/socket.io-client';
+import api from '~/services/api';
+import factory from '../../utils/factories';
+import Main from '~/pages/Main';
 
 const id = faker.random.number();
 const token = faker.random.uuid();
