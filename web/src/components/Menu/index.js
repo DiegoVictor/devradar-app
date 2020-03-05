@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from '~/assets/logo.svg';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import history from '~/services/history';
 import { Container, Nav, Href, Profile } from './styles';
 
-export default function Menu({ history, id, active }) {
+export default function Menu({ active }) {
+  const user = useContext(UserContext);
+  const { id, token } = useMemo(() => user, [user]);
+  const [me, setMe] = useState(null);
+
   const handleLogout = () => {
     localStorage.removeItem('tindev_user');
+    delete user.id;
+    delete user.token;
     history.push('/');
   };
-  const [me, setMe] = useState(null);
-  const { token } = JSON.parse(localStorage.getItem('tindev_user'));
 
   useEffect(() => {
     (async () => {
@@ -63,9 +69,5 @@ export default function Menu({ history, id, active }) {
 }
 
 Menu.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   active: PropTypes.string.isRequired,
 };
