@@ -133,6 +133,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     splits {
         abi {
@@ -198,6 +202,8 @@ dependencies {
     } else {
       implementation jscFlavor
     }
+
+    compile 'com.android.support:multidex:1.0.0'
 }
 
 // Run this once to be able to run the application with BUCK
