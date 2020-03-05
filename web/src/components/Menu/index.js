@@ -34,15 +34,11 @@ export default function Menu({ active }) {
         <Container>
           <Nav>
             <img src={Logo} alt="Tindev" />
-            <Href
-              to={`/developers/${id}`}
-              active={active === 'developers' ? 1 : 0}
-            >
-              Developers
-            </Href>
-            <Href to="/matches" active={active === 'matches' ? 1 : 0}>
-              Matches
-            </Href>
+            {['developers', 'matches'].map(slug => (
+              <Href to={`/${slug}`} active={active === slug ? 1 : 0} key={slug}>
+                {slug}
+              </Href>
+            ))}
           </Nav>
           <button
             data-testid="logout"
