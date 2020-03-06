@@ -3,7 +3,6 @@ import Multer from 'multer';
 import ExpressBrute from 'express-brute';
 import RedisStore from 'express-brute-redis';
 
-import storage from './config/storage';
 import SessionController from './app/controllers/SessionController';
 import PendingController from './app/controllers/PendingController';
 import SpotController from './app/controllers/SpotController';
@@ -11,11 +10,14 @@ import BookingController from './app/controllers/BookingController';
 import DashboardController from './app/controllers/DashboardController';
 import ApprovalController from './app/controllers/ApprovalController';
 import RejectionController from './app/controllers/RejectionController';
+
+import SessionStore from './app/validators/Session/Store';
+import SpotStore from './app/validators/Spot/Store';
+import SpotUpdate from './app/validators/Spot/Update';
+import BookingStore from './app/validators/Booking/Store';
+
 import Authenticate from './app/middlewares/Authenticate';
-import SessionStore from './app/validators/SessionStore';
-import SpotStore from './app/validators/SpotStore';
-import SpotUpdate from './app/validators/SpotUpdate';
-import BookingStore from './app/validators/BookingStore';
+import storage from './config/storage';
 
 const Route = Router();
 
