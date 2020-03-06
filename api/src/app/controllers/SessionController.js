@@ -13,7 +13,7 @@ class SessionController {
 
     return res.json({
       user,
-      token: jwt.sign({ id: user._id }, process.env.APP_SECRET, {
+      token: jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRATION_TIME,
       }),
     });
