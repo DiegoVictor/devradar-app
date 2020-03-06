@@ -21,5 +21,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-underscore-dangle': 'off',
     'no-param-reassign': 'off',
+    'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
   },
 };

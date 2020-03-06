@@ -56,7 +56,6 @@ App.use('/files', Express.static(path.resolve(__dirname, '..', 'uploads')));
 
 App.use(routes);
 
-// eslint-disable-next-line no-unused-vars
 App.use((err, req, res, next) => {
   const { payload } = err.output;
 
