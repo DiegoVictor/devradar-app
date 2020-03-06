@@ -2,29 +2,25 @@ import Spot from '../models/Spot';
 
 class UpdateSpot {
   async run({ _id, company, file, price, techs = [], user }) {
-    let thumbnail = '';
+    const data = {
+      company,
+      price,
+      techs,
+    };
     if (typeof file === 'object') {
-      thumbnail = file.filename;
+      data.thumbnail = file.filename;
     }
 
-    techs = techs.split(',').map(tech => tech.trim());
+    data.techs = techs.split(',').map(tech => tech.trim());
 
-    const spot = await Spot.findOneAndUpdate(
-      { _id, user },
-      {
-        company,
-        price,
-        techs,
-        thumbnail,
-      }
-    );
+    const spot = await Spot.findOneAndUpdate({ _id, user }, data);
 
     return {
       spot: spot.toJSON(),
       company,
       price,
       techs,
-      thumbnail,
+      thumbnail: data.thumbnail,
     };
   }
 }
