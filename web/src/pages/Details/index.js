@@ -1,34 +1,19 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useContext } from 'react';
 import { parseISO, format } from 'date-fns';
 import PropTypes from 'prop-types';
 
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
-import Box from '~/components/Box';
+import history from '~/services/history';
 import Back from '~/components/Back';
+import Box from '~/components/Box';
 import { Spot, Banner, Techs, Bookings, LinkButton } from './styles';
+import Layout from '~/components/Layout';
 
-export default function Details({ match, history }) {
+export default function Details({ match }) {
   const [spot, setSpot] = useState(null);
-  const { id } = match.params;
-  const { token } = JSON.parse(localStorage.getItem('aircnc_user'));
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await api.get(`spots/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setSpot({
-        ...data,
-        bookings: data.bookings.map(booking => ({
-          ...booking,
-          date: format(parseISO(booking.date), "dd'/'MM'/'yyyy"),
-        })),
-      });
-    })();
-  }, [id, token]);
+  const { token } = useContext(UserContext);
+  const { id: spot_id } = match.params;
 
   const reject = useCallback(
     booking_id => {
@@ -48,9 +33,9 @@ export default function Details({ match, history }) {
   );
 
   const deleteSpot = useCallback(
-    spot_id => {
+    id => {
       (async () => {
-        await api.delete(`spots/${spot_id}`, {
+        await api.delete(`spots/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,11 +43,29 @@ export default function Details({ match, history }) {
         history.push('/dashboard');
       })();
     },
-    [history, token]
+    [token]
   );
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get(`spots/${spot_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSpot({
+        ...data,
+        bookings: data.bookings.map(booking => ({
+          ...booking,
+          date: format(parseISO(booking.date), "dd'/'MM'/'yyyy"),
+        })),
+      });
+    })();
+  }, [spot_id, token]);
+
   return (
-    <>
+    <Layout>
       <Back />
       {spot && (
         <Box>
@@ -74,7 +77,7 @@ export default function Details({ match, history }) {
                     <span key={tech}>{tech}</span>
                   ))}
                 </Techs>
-                <LinkButton to={`/spots/${id}/edit`} data-testid="edit">
+                <LinkButton to={`/spots/${spot_id}/edit`} data-testid="edit">
                   Editar
                 </LinkButton>
               </div>
@@ -85,7 +88,7 @@ export default function Details({ match, history }) {
               </span>
             </Spot>
           </ul>
-          {spot.bookings.length > 0 && (
+          {spot.bookings.length > 0 ? (
             <Bookings>
               <thead>
                 <tr>
@@ -119,27 +122,22 @@ export default function Details({ match, history }) {
                 ))}
               </tbody>
             </Bookings>
-          )}
-
-          {spot.bookings.length === 0 && (
+          ) : (
             <button
               data-testid="delete"
               type="button"
-              onClick={() => deleteSpot(id)}
+              onClick={() => deleteSpot(spot_id)}
             >
               Remover Spot
             </button>
           )}
         </Box>
       )}
-    </>
+    </Layout>
   );
 }
 
 Details.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

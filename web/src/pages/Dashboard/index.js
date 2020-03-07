@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 
-import { disconnect, connect, subscribe } from '~/services/socket';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import { disconnect, connect, subscribe } from '~/services/socket';
 import Box from '~/components/Box';
 import {
   Spots,
@@ -14,12 +15,47 @@ import {
   Accept,
   Cancel,
 } from './styles';
+import Layout from '~/components/Layout';
 
 export default () => {
   const [spots, setSpots] = useState([]);
   const [requests, setRequests] = useState([]);
-  const { id: user_id, token } = JSON.parse(
-    localStorage.getItem('aircnc_user')
+  const { id: user_id, token } = useContext(UserContext);
+
+  const approve = useCallback(
+    booking_id => {
+      (async () => {
+        await api.post(
+          `bookings/${booking_id}/approval`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setRequests(requests.filter(request => request._id !== booking_id));
+      })();
+    },
+    [requests, token]
+  );
+
+  const reject = useCallback(
+    booking_id => {
+      (async () => {
+        await api.post(
+          `bookings/${booking_id}/rejection`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setRequests(requests.filter(request => request._id !== booking_id));
+      })();
+    },
+    [requests, token]
   );
 
   useEffect(() => {
@@ -67,45 +103,9 @@ export default () => {
     });
   }, [requests, user_id]);
 
-  const approve = useCallback(
-    id => {
-      (async () => {
-        await api.post(
-          `bookings/${id}/approval`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setRequests(requests.filter(request => request._id !== id));
-      })();
-    },
-    [requests, token]
-  );
-
-  const reject = useCallback(
-    id => {
-      (async () => {
-        await api.post(
-          `bookings/${id}/rejection`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setRequests(requests.filter(request => request._id !== id));
-      })();
-    },
-    [requests, token]
-  );
-
   return (
-    <Box>
-      <>
+    <Layout>
+      <Box>
         {requests.length > 0 && (
           <Notifications>
             {requests.map(request => (
@@ -137,23 +137,25 @@ export default () => {
             ))}
           </Notifications>
         )}
-        <Spots>
-          {spots.map(spot => (
-            <Link to={`/spots/${spot._id}`} key={spot._id}>
-              <Spot key={spot._id} data-testid={`spot_${spot._id}`}>
-                <Banner url={spot.thumbnail_url} />
-                <strong>{spot.company}</strong>
-                <span>
-                  {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
-                </span>
-              </Spot>
-            </Link>
-          ))}
-        </Spots>
+        {spots.length > 0 && (
+          <Spots>
+            {spots.map(spot => (
+              <Link to={`/spots/${spot._id}`} key={spot._id}>
+                <Spot key={spot._id} data-testid={`spot_${spot._id}`}>
+                  <Banner url={spot.thumbnail_url} />
+                  <strong>{spot.company}</strong>
+                  <span>
+                    {spot.price > 0 ? `R$ ${spot.price}/DIA` : 'GRATUITO'}
+                  </span>
+                </Spot>
+              </Link>
+            ))}
+          </Spots>
+        )}
         <Link to="/spot" data-testid="new">
           <button type="button">Novo spot</button>
         </Link>
-      </>
-    </Box>
+      </Box>
+    </Layout>
   );
 };
