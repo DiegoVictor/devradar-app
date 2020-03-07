@@ -24,7 +24,7 @@ const Route = Router();
 Route.post(
   '/sessions',
   (() => {
-    if (process.env.NODE_ENV !== 'test') {
+    if (!['test', 'development'].includes(process.env.NODE_ENV)) {
       const BruteForce = new ExpressBrute(
         new RedisStore({
           host: process.env.REDIS_HOST,
