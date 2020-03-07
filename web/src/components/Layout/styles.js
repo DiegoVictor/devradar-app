@@ -1,10 +1,21 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import Background from '~/assets/background.jpg';
 
-export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+export const Container = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 70px auto 20px;
+  max-width: 490px;
+  width: 100%;
 
+  img {
+    margin-bottom: 50px;
+  }
+`;
+
+export default createGlobalStyle`
   * {
     box-sizing: border-box;
     margin: 0px;
