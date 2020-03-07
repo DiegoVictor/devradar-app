@@ -22,12 +22,12 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
     'import/prefer-default-export': 'off',
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'jsx-a11y/label-has-associated-control': 'off',
     'no-underscore-dangle': 'off',
     camelcase: 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
   settings: {
     'import/resolver': {
