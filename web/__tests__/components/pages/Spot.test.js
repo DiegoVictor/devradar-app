@@ -4,25 +4,20 @@ import { Router } from 'react-router-dom';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import history from '~/services/history';
-import Spot from '~/components/pages/Spot';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import history from '~/services/history';
 import factory from '../../utils/factories';
+import Spot from '~/pages/Spot';
 
 const id = faker.random.number();
+const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 
 describe('Spot page', () => {
   beforeEach(async () => {
     await act(async () => {
-      localStorage.clear();
-      localStorage.setItem(
-        'aircnc_user',
-        JSON.stringify({
-          id: faker.random.number(),
-          token: faker.random.uuid(),
-        })
-      );
+      localStorage.setItem('aircnc_user', JSON.stringify({ id, token }));
     });
   });
 
@@ -30,18 +25,22 @@ describe('Spot page', () => {
     const spot = await factory.attrs('Spot');
     const { company, techs, price } = await factory.attrs('Spot');
 
-    api_mock.onGet(`/spots/${id}`).reply(200, spot);
-    api_mock.onPut(`spots/${id}`).reply(200);
-    history.push = jest.fn();
+    api_mock
+      .onGet(`/spots/${spot._id}`)
+      .reply(200, spot)
+      .onPut(`spots/${spot._id}`)
+      .reply(200);
 
     let getByPlaceholderText;
     let getByTestId;
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Spot history={history} match={{ params: { id } }} />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Spot match={{ params: { id: spot._id } }} />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByPlaceholderText = component.getByPlaceholderText;
@@ -62,7 +61,7 @@ describe('Spot page', () => {
       fireEvent.submit(getByTestId('form'));
     });
 
-    expect(history.push).toHaveBeenCalledWith(`/spots/${id}`);
+    expect(history.push).toHaveBeenCalledWith(`/spots/${spot._id}`);
   });
 
   it('should be able to create a new spot ', async () => {
@@ -79,9 +78,11 @@ describe('Spot page', () => {
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Spot history={history} match={{ params: { id: null } }} />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Spot match={{ params: { id: null } }} />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByPlaceholderText = component.getByPlaceholderText;

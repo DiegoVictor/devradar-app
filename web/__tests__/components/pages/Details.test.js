@@ -4,32 +4,27 @@ import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 import { Router } from 'react-router-dom';
 
-import history from '~/services/history';
-import Details from '~/components/pages/Details';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import history from '~/services/history';
 import factory from '../../utils/factories';
+import Details from '~/pages/Details';
 
 const api_mock = new MockAdapter(api);
 const id = faker.random.number();
+const token = faker.random.uuid();
 
 describe('Details page', () => {
   beforeEach(async () => {
     await act(async () => {
-      localStorage.clear();
-      localStorage.setItem(
-        'aircnc_user',
-        JSON.stringify({
-          id: faker.random.number(),
-          token: faker.random.uuid(),
-        })
-      );
+      localStorage.setItem('aircnc_user', JSON.stringify({ id, token }));
     });
   });
 
   it('should be able to see spot details', async () => {
     const spot = await factory.attrs('Spot');
 
-    api_mock.onGet(`/spots/${id}`).reply(200, {
+    api_mock.onGet(`/spots/${spot._id}`).reply(200, {
       ...spot,
       bookings: [],
     });
@@ -39,9 +34,11 @@ describe('Details page', () => {
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Details match={{ params: { id } }} history={history} />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Details match={{ params: { id: spot._id } }} />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByText = component.getByText;
@@ -68,20 +65,24 @@ describe('Details page', () => {
   it('should be able to delete a spot', async () => {
     const spot = await factory.attrs('Spot');
 
-    api_mock.onGet(`/spots/${id}`).reply(200, {
-      ...spot,
-      bookings: [],
-    });
-    api_mock.onDelete(`/spots/${id}`).reply(200);
-    history.push = jest.fn();
+    api_mock
+      .onGet(`/spots/${spot._id}`)
+      .reply(200, {
+        ...spot,
+        bookings: [],
+      })
+      .onDelete(`/spots/${spot._id}`)
+      .reply(200);
 
     let getByTestId;
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Details match={{ params: { id } }} history={history} />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Details match={{ params: { id: spot._id } }} />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByTestId = component.getByTestId;
@@ -98,20 +99,25 @@ describe('Details page', () => {
     const spot = await factory.attrs('Spot');
     const request = await factory.attrs('Booking');
 
-    api_mock.onGet(`/spots/${id}`).reply(200, {
-      ...spot,
-      bookings: [request],
-    });
-    api_mock.onPost(`bookings/${request._id}/rejection`).reply(200);
+    api_mock
+      .onGet(`/spots/${spot._id}`)
+      .reply(200, {
+        ...spot,
+        bookings: [request],
+      })
+      .onPost(`bookings/${request._id}/rejection`)
+      .reply(200);
 
     let getByTestId;
     let queryByTestId;
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Details match={{ params: { id } }} history={history} />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Details match={{ params: { id: spot._id } }} />
+          </Router>
+        </UserContext.Provider>
       );
 
       getByTestId = component.getByTestId;

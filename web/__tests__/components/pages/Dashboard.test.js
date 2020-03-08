@@ -4,13 +4,16 @@ import MockAdapter from 'axios-mock-adapter';
 import faker from 'faker';
 import { Router } from 'react-router-dom';
 
-import factory from '../../utils/factories';
-import api from '~/services/api';
-import Dashboard from '~/components/pages/Dashboard';
-import history from '~/services/history';
+import { UserContext } from '~/contexts/User';
 import { run } from '../../../__mocks__/socket.io-client';
+import api from '~/services/api';
+import history from '~/services/history';
+import factory from '../../utils/factories';
+import Dashboard from '~/pages/Dashboard';
 
 const api_mock = new MockAdapter(api);
+const id = faker.random.number();
+const token = faker.random.uuid();
 let spots;
 
 describe('Dashboard page', () => {
@@ -21,14 +24,7 @@ describe('Dashboard page', () => {
 
   beforeEach(async () => {
     await act(async () => {
-      localStorage.clear();
-      localStorage.setItem(
-        'aircnc_user',
-        JSON.stringify({
-          id: faker.random.number(),
-          token: faker.random.uuid(),
-        })
-      );
+      localStorage.setItem('aircnc_user', JSON.stringify({ id, token }));
     });
   });
 
@@ -39,9 +35,11 @@ describe('Dashboard page', () => {
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
     });
@@ -55,11 +53,14 @@ describe('Dashboard page', () => {
     api_mock.onGet('/pending').reply(200, []);
 
     let getByTestId;
+
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
     });
@@ -70,15 +71,18 @@ describe('Dashboard page', () => {
 
   it('should be able to list pending spot requests', async () => {
     const requests = await factory.attrsMany('Booking', 3);
+
     let getByTestId;
 
     api_mock.onGet('/pending').reply(200, requests);
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
     });
@@ -89,16 +93,19 @@ describe('Dashboard page', () => {
   });
 
   it('should be able to receive booking request', async () => {
-    let getByTestId;
     const booking = await factory.attrs('Booking');
+
+    let getByTestId;
 
     api_mock.onGet('/pending').reply(200, []);
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
     });
@@ -112,17 +119,23 @@ describe('Dashboard page', () => {
 
   it('should be able to approve a booking spot request', async () => {
     const [request, ...rest] = await factory.attrsMany('Booking', 3);
+
     let getByTestId;
     let queryByTestId;
 
-    api_mock.onGet('/pending').reply(200, [request, ...rest]);
-    api_mock.onPost(`/bookings/${request._id}/approval`).reply(200);
+    api_mock
+      .onGet('/pending')
+      .reply(200, [request, ...rest])
+      .onPost(`/bookings/${request._id}/approval`)
+      .reply(200);
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
       queryByTestId = component.queryByTestId;
@@ -139,17 +152,23 @@ describe('Dashboard page', () => {
 
   it('should be able to reject a booking spot request', async () => {
     const [request, ...rest] = await factory.attrsMany('Booking', 3);
+
     let getByTestId;
     let queryByTestId;
 
-    api_mock.onGet('/pending').reply(200, [request, ...rest]);
-    api_mock.onPost(`/bookings/${request._id}/rejection`).reply(200);
+    api_mock
+      .onGet('/pending')
+      .reply(200, [request, ...rest])
+      .onPost(`/bookings/${request._id}/rejection`)
+      .reply(200);
 
     await act(async () => {
       const component = render(
-        <Router history={history}>
-          <Dashboard />
-        </Router>
+        <UserContext.Provider value={{ id, token }}>
+          <Router history={history}>
+            <Dashboard />
+          </Router>
+        </UserContext.Provider>
       );
       getByTestId = component.getByTestId;
       queryByTestId = component.queryByTestId;

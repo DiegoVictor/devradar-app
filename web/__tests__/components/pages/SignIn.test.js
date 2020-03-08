@@ -3,22 +3,25 @@ import { render, fireEvent, act } from '@testing-library/react';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 
-import SignIn from '~/components/pages/SignIn';
-import history from '~/services/history';
+import { UserContext } from '~/contexts/User';
 import api from '~/services/api';
+import history from '~/services/history';
+import SignIn from '~/pages/SignIn';
 
-const _id = faker.random.number();
+const id = faker.random.number();
 const token = faker.random.uuid();
 const email = faker.internet.email();
 const api_mock = new MockAdapter(api);
 
 describe('SignIn page', () => {
   it('should be able to login', async () => {
-    api_mock.onPost('sessions').reply(200, { user: { _id }, token });
-    history.push = jest.fn();
+    const user = {};
+    api_mock.onPost('sessions').reply(200, { user: { _id: id }, token });
 
     const { getByPlaceholderText, getByTestId } = render(
-      <SignIn history={history} />
+      <UserContext.Provider value={user}>
+        <SignIn />
+      </UserContext.Provider>
     );
 
     fireEvent.change(getByPlaceholderText('Seu melhor email'), {
@@ -30,9 +33,10 @@ describe('SignIn page', () => {
     });
 
     expect(history.push).toHaveBeenCalledWith('/dashboard');
+    expect(user).toStrictEqual({ id, token });
     expect(localStorage).toHaveProperty(
       'aircnc_user',
-      JSON.stringify({ _id, token })
+      JSON.stringify({ id, token })
     );
   });
 });
