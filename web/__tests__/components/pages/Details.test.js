@@ -14,6 +14,9 @@ const api_mock = new MockAdapter(api);
 const id = faker.random.number();
 const token = faker.random.uuid();
 
+jest.mock('~/services/history');
+history.push.mockImplementation(jest.fn());
+
 describe('Details page', () => {
   beforeEach(async () => {
     await act(async () => {

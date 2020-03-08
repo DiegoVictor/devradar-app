@@ -14,6 +14,9 @@ const id = faker.random.number();
 const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 
+jest.mock('~/services/history');
+history.push.mockImplementation(jest.fn());
+
 describe('Spot page', () => {
   beforeEach(async () => {
     await act(async () => {
@@ -68,7 +71,6 @@ describe('Spot page', () => {
     const { company, price, techs } = await factory.attrs('Spot');
 
     api_mock.onPost('spots').reply(200);
-    history.push = jest.fn();
     global.URL.createObjectURL = jest.fn(() => {
       return faker.image.imageUrl();
     });

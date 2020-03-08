@@ -13,6 +13,9 @@ const token = faker.random.uuid();
 const email = faker.internet.email();
 const api_mock = new MockAdapter(api);
 
+jest.mock('~/services/history');
+history.push.mockImplementation(jest.fn());
+
 describe('SignIn page', () => {
   it('should be able to login', async () => {
     const user = {};
