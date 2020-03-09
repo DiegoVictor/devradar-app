@@ -1,9 +1,9 @@
 # About
 This web version permit to user like or dislike another users.<br/><br/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/dashboard.png" width="49%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/login.png" width="49%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/match.png" width="49%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-8/master/web/screenshots/matches.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/8/web/screenshots/dashboard.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/8/web/screenshots/login.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/8/web/screenshots/match.png" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/8/web/screenshots/matches.png" width="49%" />
 
 # Install
 ```
@@ -20,7 +20,7 @@ This project is configured with [Reactotron](https://github.com/infinitered/reac
 Rename the `.env.example` to `.env` then just update with yours settings
 
 # API
-Start the server in the [`api`](https://github.com/DiegoVictor/omnistack-8/tree/master/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the `.env` too.
+Start the server in the [`api`](https://github.com/DiegoVictor/omnistack/tree/master/8/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the `.env` too.
 
 # Start up
 ```
