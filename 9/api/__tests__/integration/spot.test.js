@@ -160,7 +160,7 @@ describe('Spot', () => {
       expect(response.body).toMatchObject({
         techs,
         company,
-        price: price.toString(),
+        price,
         thumbnail: expect.any(String),
       });
     } else {
