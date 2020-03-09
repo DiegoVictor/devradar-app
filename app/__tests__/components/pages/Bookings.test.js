@@ -8,10 +8,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import faker from 'faker';
 import { create } from 'react-test-renderer';
 
-import Bookings from '~/components/pages/Bookings';
+import { emit } from '~/../__mocks__/socket.io-client';
 import api from '~/services/api';
 import factory from '../../utils/factories';
-import { emit } from '~/../__mocks__/socket.io-client';
+import Bookings from '~/pages/Bookings';
 
 const api_mock = new MockAdapter(api);
 const _id = faker.random.number();

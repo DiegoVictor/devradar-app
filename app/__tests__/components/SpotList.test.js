@@ -7,8 +7,8 @@ import { create } from 'react-test-renderer';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '~/services/api';
-import SpotList from '~/components/SpotList';
 import factory from '../utils/factories';
+import SpotList from '~/components/SpotList';
 
 jest.mock('@react-navigation/native');
 

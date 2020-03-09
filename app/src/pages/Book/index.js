@@ -10,11 +10,10 @@ import api from '~/services/api';
 import { Container, Label, Input, Button, WhiteText, Cancel } from './styles';
 
 export default function Book({ route }) {
-  const navigation = useNavigation();
-  const { id } = route.params;
-
+  const { navigate } = useNavigation();
   const [date, setDate] = useState(new Date());
   const [show_datepicker, setShowDatepicker] = useState(false);
+  const { id } = route.params;
 
   const handleSubmit = useCallback(() => {
     (async () => {
@@ -30,12 +29,12 @@ export default function Book({ route }) {
       );
 
       Alert.alert('Solicitação de reserva enviada');
-      navigation.navigate('List');
+      navigate('List');
     })();
   }, [date]);
 
   const handleCancel = useCallback(() => {
-    navigation.navigate('List');
+    navigate('List');
   }, []);
 
   return (
@@ -46,7 +45,7 @@ export default function Book({ route }) {
           testID="datepicker"
           mode="date"
           value={date}
-          onChange={(_, selected_date) => {
+          onChange={(event, selected_date) => {
             setDate(selected_date);
             setShowDatepicker(false);
           }}

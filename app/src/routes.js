@@ -5,10 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Book from '~/components/pages/Book';
-import Bookings from '~/components/pages/Bookings';
-import List from '~/components/pages/List';
-import SignIn from '~/components/pages/SignIn';
+import Book from '~/pages/Book';
+import Bookings from '~/pages/Bookings';
+import List from '~/pages/List';
+import SignIn from '~/pages/SignIn';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

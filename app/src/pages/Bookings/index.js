@@ -30,26 +30,6 @@ export default () => {
   const [bookings, setBookings] = useState([]);
   const [refreshing, setRefreshing] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const { _id: user_id } = JSON.parse(
-        await AsyncStorage.getItem('aircnc_user')
-      );
-
-      disconnect();
-      connect({ user_id });
-
-      subscribe('booking_response', booking => {
-        const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
-        Alert.alert(
-          `Sua reserva em ${booking.spot.company} para ${date} foi ${
-            booking.approved ? 'APROVADA' : 'REJEITADA'
-          }`
-        );
-      });
-    })();
-  }, []);
-
   const handleRefresh = useCallback(() => {
     (async () => {
       const { token } = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
@@ -83,6 +63,26 @@ export default () => {
       }
     })();
   });
+
+  useEffect(() => {
+    (async () => {
+      const { _id: user_id } = JSON.parse(
+        await AsyncStorage.getItem('aircnc_user')
+      );
+
+      disconnect();
+      connect({ user_id });
+
+      subscribe('booking_response', booking => {
+        const date = format(parseISO(booking.date), "dd'/'MM'/'yyyy");
+        Alert.alert(
+          `Sua reserva em ${booking.spot.company} para ${date} foi ${
+            booking.approved ? 'APROVADA' : 'REJEITADA'
+          }`
+        );
+      });
+    })();
+  }, []);
 
   useEffect(() => {
     handleRefresh();

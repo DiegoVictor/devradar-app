@@ -1,13 +1,14 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 import Logo from '~/assets/logo.png';
 import api from '~/services/api';
 import { Container, Form, Label, Input, Button, WhiteText } from './styles';
 
-export default function SignIn({ navigation }) {
+export default () => {
+  const { navigate } = useNavigation();
   const [email, setEmail] = useState('');
   const [techs, setTechs] = useState('');
 
@@ -22,7 +23,7 @@ export default function SignIn({ navigation }) {
       await AsyncStorage.setItem('aircnc_user', JSON.stringify({ token, _id }));
       await AsyncStorage.setItem('aircnc_techs', techs);
 
-      navigation.navigate('App', { screen: 'List' });
+      navigate('App', { screen: 'List' });
     })();
   }, [email, techs]);
 
@@ -30,7 +31,7 @@ export default function SignIn({ navigation }) {
     (async () => {
       const user = JSON.parse(await AsyncStorage.getItem('aircnc_user'));
       if (user) {
-        navigation.navigate('App', { screen: 'List' });
+        navigate('App', { screen: 'List' });
       }
     })();
   }, []);
@@ -67,10 +68,4 @@ export default function SignIn({ navigation }) {
       </Form>
     </Container>
   );
-}
-
-SignIn.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };

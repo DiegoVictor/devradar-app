@@ -7,6 +7,7 @@ import { create } from 'react-test-renderer';
 
 import SignIn from '~/components/pages/SignIn';
 import api from '~/services/api';
+import SignIn from '~/pages/SignIn';
 
 const _id = faker.random.number();
 const api_mock = new MockAdapter(api);

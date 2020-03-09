@@ -8,12 +8,10 @@ import { format, parseISO } from 'date-fns';
 import { create } from 'react-test-renderer';
 import { useNavigation } from '@react-navigation/native';
 
-import List from '~/components/pages/List';
+import { emit } from '../../../__mocks__/socket.io-client';
 import api from '~/services/api';
 import factory from '../../utils/factories';
-import { emit } from '../../../__mocks__/socket.io-client';
-
-jest.mock('@react-navigation/native');
+import List from '~/pages/List';
 
 const _id = faker.random.number();
 const token = faker.random.uuid();

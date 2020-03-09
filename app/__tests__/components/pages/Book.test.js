@@ -8,7 +8,7 @@ import { create } from 'react-test-renderer';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '~/services/api';
-import Book from '~/components/pages/Book';
+import Book from '~/pages/Book';
 
 jest.mock('@react-navigation/native');
 

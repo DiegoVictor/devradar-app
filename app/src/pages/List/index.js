@@ -4,8 +4,8 @@ import { ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Logo from '~/assets/logo.png';
-import SpotList from '~/components/SpotList';
 import { connect, disconnect, subscribe } from '~/services/socket';
+import SpotList from '~/components/SpotList';
 import { Container, Brand } from './styles';
 
 export default () => {
