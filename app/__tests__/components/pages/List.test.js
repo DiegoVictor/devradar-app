@@ -18,6 +18,7 @@ const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 const navigate = jest.fn();
 
+jest.mock('@react-navigation/native');
 useNavigation.mockReturnValue({ navigate });
 
 describe('List page', () => {

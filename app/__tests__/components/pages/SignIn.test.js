@@ -4,20 +4,23 @@ import { render, fireEvent, act } from 'react-native-testing-library';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 import { create } from 'react-test-renderer';
+import { useNavigation } from '@react-navigation/native';
 
-import SignIn from '~/components/pages/SignIn';
 import api from '~/services/api';
 import SignIn from '~/pages/SignIn';
 
 const _id = faker.random.number();
 const api_mock = new MockAdapter(api);
 const token = faker.random.uuid();
+const navigate = jest.fn();
+
+jest.mock('@react-navigation/native');
+useNavigation.mockReturnValue({ navigate });
 
 describe('SignIn page', () => {
   it('should be able to signin', async () => {
     const email = faker.internet.email();
     const tech = faker.random.word();
-    const navigate = jest.fn();
 
     api_mock.onPost('sessions').reply(200, { token, user: { _id } });
     const { getByPlaceholder, getByTestId } = render(
@@ -39,8 +42,6 @@ describe('SignIn page', () => {
   });
 
   it('should be redirected to List', async () => {
-    const navigate = jest.fn();
-
     await AsyncStorage.setItem('aircnc_user', JSON.stringify({ _id }));
     await act(async () => {
       create(<SignIn navigation={{ navigate }} />);

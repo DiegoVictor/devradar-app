@@ -10,12 +10,11 @@ import api from '~/services/api';
 import factory from '../utils/factories';
 import SpotList from '~/components/SpotList';
 
-jest.mock('@react-navigation/native');
-
 const token = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 const navigate = jest.fn();
 
+jest.mock('@react-navigation/native');
 useNavigation.mockReturnValue({ navigate });
 
 describe('SpotList component', () => {

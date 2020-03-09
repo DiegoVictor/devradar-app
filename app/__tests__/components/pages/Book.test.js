@@ -10,12 +10,11 @@ import { useNavigation } from '@react-navigation/native';
 import api from '~/services/api';
 import Book from '~/pages/Book';
 
-jest.mock('@react-navigation/native');
-
 const _id = faker.random.uuid();
 const api_mock = new MockAdapter(api);
 const navigate = jest.fn();
 
+jest.mock('@react-navigation/native');
 useNavigation.mockReturnValue({ navigate });
 
 describe('Book page', () => {
