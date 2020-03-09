@@ -24,15 +24,23 @@ Was installed and configured the `eslint` and `prettier` to keep the code clean 
 This project is configured with [Reactotron](https://github.com/infinitered/reactotron), just open the Reactotron GUI before the app is up and running, after start the app Reactotron will identify new connections.
 > If Reactotron show an empty timeline after the app is running try run `adb reverse tcp:9090 tcp:9090`, then reload the app.
 
+# .env
+Rename the `.env.example` to `.env` then just update with yours settings
+
 # API
-Start the server in the [`api`](https://github.com/DiegoVictor/omnistack-9/tree/master/api) folder (see its README for more information). If any change in the api's port or host was made remember to update in the `app.json` the `API_URL` property too.
+Start the server in the [`api`](https://github.com/DiegoVictor/omnistack-8/tree/master/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the `.env` too.
 > Also, maybe you need run reverse again but this time to the api: `adb reverse tcp:3333 tcp:3333`
 
 # Start up
+The first build must be through USB connection, so connect your device (or just open your emulator) and run:
+```
+$ yarn react-native run-android
+```
+
+In the next times you can just run the Metro Bundler server:
 ```
 $ yarn start
 ```
-> This project use Expo, to know how to run in your phone or simulator see [Open the app on your phone or simulator](https://docs.expo.io/versions/latest/workflow/up-and-running/#open-the-app-on-your-phone-or) documentation's section.
 
 # Tests
 ```
