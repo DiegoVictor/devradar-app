@@ -1,0 +1,49 @@
+{
+  "name": "aircnc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.0.0",
+    "@sentry/node": "5.10.2",
+    "cors": "^2.8.5",
+    "date-fns": "^2.6.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-brute": "^1.0.1",
+    "express-brute-redis": "^0.0.1",
+    "express-rate-limit": "^5.0.0",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.3",
+    "multer": "^1.4.2",
+    "rate-limit-redis": "^1.7.0",
+    "redis": "^2.8.0",
+    "socket.io": "^2.3.0",
+    "yup": "^0.28.0"
+  },
+  "devDependencies": {
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@types/jest": "^24.0.24",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jest": "^24.9.0",
+    "mongodb-memory-server": "^6.1.1",
+    "nodemon": "^1.19.3",
+    "prettier": "^1.18.2",
+    "redis-mock": "^0.47.0",
+    "sucrase": "^3.10.1",
+    "supertest": "^4.0.2"
+  }
+}
