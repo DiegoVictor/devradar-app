@@ -19,8 +19,12 @@ import {
 } from './styles';
 
 export default function SpotList({ tech, ...props }) {
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const [spots, setSpots] = useState([]);
+
+  const handleNavigate = useCallback(spot => {
+    navigate('Book', { id: spot._id });
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -34,10 +38,6 @@ export default function SpotList({ tech, ...props }) {
       setSpots(data);
     })();
   }, [tech]);
-
-  const handleNavigate = useCallback(spot => {
-    navigation.navigate('Book', { id: spot._id });
-  }, []);
 
   return (
     <Container {...props}>
