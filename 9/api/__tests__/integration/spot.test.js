@@ -161,7 +161,7 @@ describe('Spot', () => {
         techs,
         company,
         price: price.toString(),
-        thumbnail: expect.anything(),
+        thumbnail: expect.any(String),
       });
     } else {
       throw Error('File does not exists!');
