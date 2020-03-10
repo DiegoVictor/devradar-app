@@ -1,9 +1,9 @@
 # About
 This web version permit to companies add, update and remove their spots, see booked spots and accept/reject booking requests.<br/><br/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/web/screenshots/dashboard.jpg" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/web/screenshots/details.jpg" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/web/screenshots/details-bookings.jpg" width="49%"/>
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-9/master/web/screenshots/edit.jpg" width="49%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/9/web/screenshots/dashboard.jpg" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/9/web/screenshots/details.jpg" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/9/web/screenshots/details-bookings.jpg" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/9/web/screenshots/edit.jpg" width="49%" />
 
 # Install
 ```
