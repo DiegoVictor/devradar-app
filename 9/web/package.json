@@ -37,10 +37,11 @@
     "collectCoverageFrom": [
       "src/components",
       "!src/components/Box/*.js",
-      "!src/components/pages/*.js",
-      "!src/*.js",
+      "!src/contexts/**/*",
       "!src/config/*",
-      "!src/services/*"
+      "!src/routes/**/*",
+      "!src/services/*",
+      "!src/*.js"
     ],
     "testMatch": [
       "**/__tests__/**/*.test.js"
