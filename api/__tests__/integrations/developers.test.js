@@ -6,7 +6,7 @@ import faker from 'faker';
 import '../utils/extend';
 import app from '../../src/app';
 import Api from '../../src/app/services/Api';
-import factory from '../utils/factories';
+import factory from '../utils/factory';
 import Developer from '../../src/app/models/Developer';
 import { to, emit } from '../../__mocks__/socket.io';
 import Connection from '../../src/app/models/Connection';
