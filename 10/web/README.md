@@ -1,6 +1,6 @@
 # About
 This web version permit to you register and see registered users.
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-10/master/web/screenshots/dashboard.png" width="100%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack/master/10/web/screenshots/dashboard.png" width="100%"/>
 
 # Install
 ```
@@ -17,7 +17,7 @@ This project is configured with [Reactotron](https://github.com/infinitered/reac
 Rename the `.env.example` to `.env` then just update with yours settings.
 
 # API
-Start the server in the [api](https://github.com/DiegoVictor/omnistack-10/tree/master/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the .env too.
+Start the server in the [api](https://github.com/DiegoVictor/omnistack/tree/master/10/api) folder (see its README for more information). If any change in the api's port or host was made remember to update the .env too.
 
 # Start up
 ```
