@@ -4,11 +4,11 @@ import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 import { create } from 'react-test-renderer';
 
-import factory from '../../utils/factories';
+import { emit } from '__mocks__/socket.io-client';
+import factory from '../../utils/factory';
 import { callbacks, state } from '../../../__mocks__/react-native-maps';
-import Main from '~/components/pages/Main';
+import Main from '~/pages/Main';
 import api from '~/services/api';
-import { emit } from '~/../__mocks__/socket.io-client';
 
 const api_mock = new MockAdapter(api);
 
