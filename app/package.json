@@ -17,7 +17,8 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/components/**/*.js",
-      "!src/components/pages/Profile/*.js"
+      "src/pages/**/*.js",
+      "!src/pages/Profile/*.js"
     ],
     "coverageDirectory": "__tests__/coverage",
     "moduleNameMapper": {
