@@ -2,6 +2,9 @@
   "name": "be-the-hero",
   "version": "1.0.0",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
