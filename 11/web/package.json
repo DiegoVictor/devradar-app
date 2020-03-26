@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@unform/core": "^2.0.0",
+    "@unform/web": "^2.0.0",
+    "axios": "^0.19.2",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-icons": "^3.9.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "styled-components": "^5.0.1"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -32,6 +36,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-root-import": "^6.5.0",
     "customize-cra": "^0.9.1",
@@ -46,5 +53,6 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^2.0.2",
     "react-app-rewired": "^2.1.5",
+    "reactotron-react-js": "^3.3.7"
   }
 }
