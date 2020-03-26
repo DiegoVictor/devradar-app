@@ -15,13 +15,15 @@ export default () => {
   const handleRegister = useCallback(
     async ({ name, email, whatsapp, city, state }) => {
       try {
-        await api.post('ongs', {
+        const { data } = await api.post('ongs', {
           name,
           email,
           whatsapp,
           city,
           uf: state,
         });
+
+        alert(`ONG cadastrada com sucesso, ID: ${data.id}`);
 
         history.push('/');
       } catch (err) {
