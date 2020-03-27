@@ -9,7 +9,7 @@ class SessionController {
     if (!ong) {
       return res.status(400).json({
         error: {
-          message: 'ONG not found',
+          message: 'NGO not found',
         },
       });
     }
