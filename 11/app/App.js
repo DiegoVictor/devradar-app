@@ -3,12 +3,8 @@ import 'intl/locale-data/jsonp/pt-BR';
 import React from 'react';
 
 import '~/config/ReactotronConfig';
+import Navigation from '~/';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default () => {
+  return <Navigation />;
+};
