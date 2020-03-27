@@ -57,7 +57,7 @@ class IncidentController {
     if (incident.ong_id !== ong_id) {
       return res.status(401).json({
         error: {
-          message: 'This incident is not owned by your NGO',
+          message: 'This incident is not owned by your ONG',
         },
       });
     }
