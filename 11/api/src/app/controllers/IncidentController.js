@@ -46,6 +46,14 @@ class IncidentController {
       .select('ong_id')
       .first();
 
+    if (!incident) {
+      return res.status(404).json({
+        error: {
+          message: 'Incident not found',
+        },
+      });
+    }
+
     if (incident.ong_id !== ong_id) {
       return res.status(401).json({
         error: {
