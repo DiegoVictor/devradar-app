@@ -20,7 +20,6 @@ export default () => {
   const handleLogout = useCallback(
     (setUser) => {
       localStorage.removeItem('bethehero_user');
-      // TODO erase context user
       setUser({});
       history.push('/');
     },
@@ -61,7 +60,7 @@ export default () => {
       <Container>
         <Header>
           <img src={Logo} alt="Be The Hero" />
-          <span>Olá, {name}</span>
+          <span>Olá {name}</span>
 
           <Link to="/incidents/create">
             <Button type="button">Novo caso</Button>
