@@ -22,7 +22,12 @@ Rename the `.env.example` to `.env` then just update with yours settings.
 
 # Start Up
 ```
-$ yarn dev
+$ yarn start
+```
+
+# Tests
+```
+$ yarn test
 ```
 
 # Insomnia
