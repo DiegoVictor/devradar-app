@@ -5,11 +5,24 @@ factory.define(
   'Ong',
   {},
   {
+    id: () => faker.random.alphaNumeric(8),
     name: faker.name.findName,
     email: faker.internet.email,
-    whatsapp: () => faker.phone.phoneNumber('00000000000'),
+    whatsapp: () => faker.phone.phoneNumber('###########'),
     city: faker.address.city,
     uf: faker.address.stateAbbr,
+  }
+);
+
+factory.define(
+  'Incident',
+  {},
+  {
+    id: faker.random.number,
+    title: faker.name.title,
+    description: faker.lorem.paragraph,
+    value: () => Number(faker.finance.amount()),
+    ong_id: () => faker.random.alphaNumeric(8),
   }
 );
 

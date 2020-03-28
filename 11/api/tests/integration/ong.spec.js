@@ -28,8 +28,10 @@ describe('ONG', () => {
   });
 
   it('should be able to create a new ONG', async () => {
-    const ong = await factory.attrs('Ong');
-    const response = await request(app).post('/ongs').send(ong);
+    const { name, email, whatsapp, city, uf } = await factory.attrs('Ong');
+    const response = await request(app)
+      .post('/ongs')
+      .send({ name, email, whatsapp, city, uf });
 
     expect(response.body).toHaveProperty('id');
     expect(response.body.id).toHaveLength(8);
