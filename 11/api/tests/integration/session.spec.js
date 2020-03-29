@@ -1,9 +1,9 @@
 import request from 'supertest';
 import crypto from 'crypto';
 
-import factory from '../utils/factory';
-import connection from '../../src/database/connection';
 import app from '../../src/app';
+import connection from '../../src/database/connection';
+import factory from '../utils/factory';
 
 describe('Session', () => {
   beforeEach(async () => {
