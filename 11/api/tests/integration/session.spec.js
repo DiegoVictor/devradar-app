@@ -23,7 +23,10 @@ describe('Session', () => {
 
     const response = await request(app).post('/sessions').send({ id: ong.id });
 
-    expect(response.body).toStrictEqual({ name: ong.name });
+    expect(response.body).toStrictEqual({
+      ong: { name: ong.name },
+      token: expect.any(String),
+    });
   });
 
   it('should not be able to logon with an ong that not exists', async () => {

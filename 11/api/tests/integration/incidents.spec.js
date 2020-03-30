@@ -3,9 +3,11 @@ import request from 'supertest';
 import app from '../../src/app';
 import connection from '../../src/database/connection';
 import factory from '../utils/factory';
+import token from '../utils/jwtoken';
 
 describe('Incident', () => {
   let ong;
+  let authorization;
 
   beforeEach(async () => {
     await connection.migrate.rollback();
@@ -13,6 +15,8 @@ describe('Incident', () => {
 
     ong = await factory.attrs('Ong');
     await connection('ongs').insert(ong);
+
+    authorization = `Bearer ${token(ong.id)}`;
   });
 
   afterAll(async () => {
@@ -36,7 +40,7 @@ describe('Incident', () => {
     const { title, description, value } = await factory.attrs('Incident');
     const response = await request(app)
       .post('/incidents')
-      .set('Authorization', ong.id)
+      .set('Authorization', authorization)
       .send({ title, description, value });
 
     expect(response.body).toHaveProperty('id');
@@ -48,7 +52,7 @@ describe('Incident', () => {
 
     await request(app)
       .delete(`/incidents/${incident.id}`)
-      .set('Authorization', ong.id)
+      .set('Authorization', authorization)
       .expect(204)
       .send();
   });
@@ -58,7 +62,7 @@ describe('Incident', () => {
 
     const response = await request(app)
       .delete(`/incidents/${id}`)
-      .set('Authorization', ong.id)
+      .set('Authorization', authorization)
       .expect(404)
       .send();
 
@@ -75,7 +79,7 @@ describe('Incident', () => {
 
     const response = await request(app)
       .delete(`/incidents/${incident.id}`)
-      .set('Authorization', incident.ong_id)
+      .set('Authorization', `Bearer ${token(incident.ong_id)}`)
       .expect(401)
       .send();
 

@@ -7,6 +7,6 @@ export default celebrate({
     value: Joi.number().required(),
   }),
   [Segments.HEADERS]: Joi.object({
-    ong_id: Joi.string().required(),
+    authorization: Joi.string().required(),
   }).unknown(),
 });

@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import app from '../../src/app';
 import connection from '../../src/database/connection';
 import factory from '../utils/factory';
+import token from '../utils/jwtoken';
 
 describe("ONG's Incidents", () => {
   beforeEach(async () => {
@@ -28,7 +29,7 @@ describe("ONG's Incidents", () => {
 
     const response = await request(app)
       .get('/ong_incidents')
-      .set('Authorization', ong.id)
+      .set('Authorization', `Bearer ${token(ong.id)}`)
       .send();
 
     incidents.forEach((incident) => {

@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 import connection from '../../database/connection';
 
 class SessionController {
@@ -13,7 +15,12 @@ class SessionController {
       });
     }
 
-    return res.json(ong);
+    return res.json({
+      ong,
+      token: jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRATION_TIME,
+      }),
+    });
   }
 }
 

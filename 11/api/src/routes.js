@@ -13,6 +13,8 @@ import OngStore from './app/validators/Ongs/Store';
 import OngIncidentsGet from './app/validators/OngIncidents/Get';
 import SessionStore from './app/validators/Sessions/Store';
 
+import BearerToken from './app/middlewares/BearerToken';
+
 const Route = Router();
 
 Route.post('/sessions', SessionStore, SessionController.store);
@@ -21,6 +23,9 @@ Route.get('/ongs', OngGet, OngController.index);
 Route.post('/ongs', OngStore, OngController.store);
 
 Route.get('/incidents', IncidentGet, IncidentController.index);
+
+Route.use(BearerToken);
+
 Route.post('/incidents', IncidentStore, IncidentController.store);
 Route.delete('/incidents/:id', IncidentDelete, IncidentController.destroy);
 
