@@ -11,7 +11,7 @@ describe('ONG', () => {
     await connection.migrate.rollback();
     await connection.migrate.latest();
 
-    ongs = await factory.attrsMany('Ong', 10);
+    ongs = await factory.attrsMany('Ong', 5);
     await connection('ongs').insert(ongs);
   });
 
