@@ -1,12 +1,15 @@
 import connection from '../../database/connection';
+import PaginationLinks from '../services/PaginationLinks';
 
 class IncidentController {
   async index(req, res) {
+    const { resource_url } = req;
     const { page = 1 } = req.query;
+    const limit = 5;
     const incidents = await connection('incidents')
       .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
-      .limit(5)
-      .offset((page - 1) * 5)
+      .limit(limit)
+      .offset((page - 1) * limit)
       .select([
         'incidents.*',
         'ongs.name',
@@ -17,15 +20,23 @@ class IncidentController {
       ]);
 
     const [count] = await connection('incidents').count();
-
     res.header('X-Total-Count', count['count(*)']);
+
+    const links = PaginationLinks.run({
+      resource_url,
+      page,
+      pages_total: Math.ceil(count['count(*)'] / limit),
+    });
+    if (Object.keys(links).length > 0) {
+      res.links(links);
+    }
 
     return res.json(incidents);
   }
 
   async store(req, res) {
     const { title, description, value } = req.body;
-    const { authorization: ong_id } = req.headers;
+    const { ong_id } = req;
 
     const [id] = await connection('incidents').insert({
       title,
@@ -39,7 +50,7 @@ class IncidentController {
 
   async destroy(req, res) {
     const { id } = req.params;
-    const { authorization: ong_id } = req.headers;
+    const { ong_id } = req;
 
     const incident = await connection('incidents')
       .where('id', id)
