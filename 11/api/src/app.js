@@ -14,7 +14,7 @@ App.use(cors());
 App.use(Express.json());
 App.use(RouteAliases);
 
-App.use(routes);
+App.use('/v1/', routes);
 
 App.use(errors());
 
