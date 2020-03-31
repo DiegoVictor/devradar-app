@@ -4,13 +4,19 @@ import PaginationLinks from '../services/PaginationLinks';
 
 class OngController {
   async index(req, res) {
-    const { resource_url } = req;
+    const { base_url, resource_url } = req;
     const { page = 1 } = req.query;
     const limit = 5;
-    const ongs = await connection('ongs')
+    let ongs = await connection('ongs')
       .limit(limit)
       .offset((page - 1) * limit)
       .select('*');
+
+    ongs = ongs.map((ong) => ({
+      ...ong,
+      url: `${resource_url}/${ong.id}`,
+      incidents_url: `${base_url}/ong_incidents`,
+    }));
 
     const [count] = await connection('ongs').count();
     res.header('X-Total-Count', count['count(*)']);
@@ -25,6 +31,26 @@ class OngController {
     }
 
     return res.json(ongs);
+  }
+
+  async show(req, res) {
+    const { base_url, resource_url } = req;
+    const { id } = req.params;
+    const ong = await connection('ongs').where('id', id).first();
+
+    if (!ong) {
+      return res.status(404).json({
+        error: {
+          message: 'ONG not found',
+        },
+      });
+    }
+
+    return res.json({
+      ...ong,
+      url: resource_url,
+      incidents_url: `${base_url}/ong_incidents`,
+    });
   }
 
   async store(req, res) {

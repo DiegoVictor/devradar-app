@@ -3,21 +3,40 @@ import PaginationLinks from '../services/PaginationLinks';
 
 class IncidentController {
   async index(req, res) {
-    const { resource_url } = req;
+    const { base_url, resource_url } = req;
     const { page = 1 } = req.query;
     const limit = 5;
-    const incidents = await connection('incidents')
+
+    let incidents = await connection('incidents')
       .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
       .limit(limit)
       .offset((page - 1) * limit)
       .select([
         'incidents.*',
+        'ongs.id as ong_id',
         'ongs.name',
         'ongs.email',
         'ongs.whatsapp',
         'ongs.city',
         'ongs.uf',
       ]);
+
+    incidents = incidents.map((incident) => ({
+      id: incident.id,
+      title: incident.title,
+      description: incident.description,
+      value: incident.value,
+      url: `${resource_url}/${incident.id}`,
+      ong: {
+        id: incident.ong_id,
+        name: incident.name,
+        email: incident.email,
+        whatsapp: incident.whatsapp,
+        city: incident.city,
+        uf: incident.uf,
+        url: `${base_url}/ongs/${incident.ong_id}`,
+      },
+    }));
 
     const [count] = await connection('incidents').count();
     res.header('X-Total-Count', count['count(*)']);
@@ -32,6 +51,32 @@ class IncidentController {
     }
 
     return res.json(incidents);
+  }
+
+  async show(req, res) {
+    const { base_url, resource_url } = req;
+    const { id } = req.params;
+    const incident = await connection('incidents').where('id', id).first();
+
+    if (!incident) {
+      return res.status(404).json({
+        error: {
+          message: 'Incident not found',
+        },
+      });
+    }
+
+    return res.json({
+      id,
+      title: incident.title,
+      description: incident.description,
+      value: incident.value,
+      url: resource_url,
+      ong: {
+        id: incident.ong_id,
+        url: `${base_url}/ongs/${incident.ong_id}`,
+      },
+    });
   }
 
   async store(req, res) {
