@@ -33,4 +33,4 @@ $ yarn test
 # Insomnia
 In the root directory you can find an [Insomnia](https://insomnia.rest/) file, it has some useful requests to configure and test the app. Or click below:
 
-<a href="https://insomnia.rest/run/?label=OmniStack11&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-03-29.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
+<a href="https://insomnia.rest/run/?label=OmniStack11&uri=https%3A%2F%2Fraw.githubusercontent.com%2FDiegoVictor%2Fomnistack%2Fmaster%2F11%2Fapi%2FInsomnia_2020-03-31.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
