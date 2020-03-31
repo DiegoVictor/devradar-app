@@ -5,15 +5,14 @@ import { errors } from 'celebrate';
 import helmet from 'helmet';
 
 import routes from './routes';
-import ResourceUrl from './app/middlewares/ResourceUrl';
+import RouteAliases from './app/middlewares/RouteAliases';
 
 const App = Express();
 
 App.use(helmet());
 App.use(cors());
 App.use(Express.json());
-
-App.use(ResourceUrl);
+App.use(RouteAliases);
 
 App.use(routes);
 
