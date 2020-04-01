@@ -67,7 +67,7 @@ class IncidentController {
     }
 
     return res.json({
-      id,
+      id: incident.id,
       title: incident.title,
       description: incident.description,
       value: incident.value,
