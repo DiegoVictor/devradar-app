@@ -34,7 +34,7 @@ class IncidentController {
         whatsapp: incident.whatsapp,
         city: incident.city,
         uf: incident.uf,
-        url: `${base_url}/ongs/${incident.ong_id}`,
+        url: `${base_url}/v1/ongs/${incident.ong_id}`,
       },
     }));
 
@@ -74,7 +74,7 @@ class IncidentController {
       url: resource_url,
       ong: {
         id: incident.ong_id,
-        url: `${base_url}/ongs/${incident.ong_id}`,
+        url: `${base_url}/v1/ongs/${incident.ong_id}`,
       },
     });
   }

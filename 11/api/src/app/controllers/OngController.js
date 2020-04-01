@@ -15,7 +15,7 @@ class OngController {
     ongs = ongs.map((ong) => ({
       ...ong,
       url: `${resource_url}/${ong.id}`,
-      incidents_url: `${base_url}/ong_incidents`,
+      incidents_url: `${base_url}/v1/ong_incidents`,
     }));
 
     const [count] = await connection('ongs').count();
@@ -49,7 +49,7 @@ class OngController {
     return res.json({
       ...ong,
       url: resource_url,
-      incidents_url: `${base_url}/ong_incidents`,
+      incidents_url: `${base_url}/v1/ong_incidents`,
     });
   }
 

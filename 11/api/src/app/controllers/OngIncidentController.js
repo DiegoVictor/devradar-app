@@ -18,10 +18,10 @@ class OngIncidentController {
       title,
       description,
       value,
-      url: `${base_url}/incidents/${id}`,
+      url: `${base_url}/v1/incidents/${id}`,
       ong: {
         id: ong_id,
-        url: `${base_url}/ongs/${ong_id}`,
+        url: `${base_url}/v1/ongs/${ong_id}`,
       },
     }));
 
