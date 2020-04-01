@@ -15,7 +15,7 @@ import OngStore from './app/validators/Ongs/Store';
 import OngIncidentsGet from './app/validators/OngIncidents/Get';
 import SessionStore from './app/validators/Sessions/Store';
 
-import BearerToken from './app/middlewares/BearerToken';
+import AuthToken from './app/middlewares/AuthToken';
 
 const Route = Router();
 
@@ -28,7 +28,7 @@ Route.post('/ongs', OngStore, OngController.store);
 Route.get('/incidents', IncidentGet, IncidentController.index);
 Route.get('/incidents/:id', IncidentShow, IncidentController.show);
 
-Route.use(BearerToken);
+Route.use(AuthToken);
 
 Route.post('/incidents', IncidentStore, IncidentController.store);
 Route.delete('/incidents/:id', IncidentDelete, IncidentController.destroy);
