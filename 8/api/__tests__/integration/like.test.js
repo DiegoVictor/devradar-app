@@ -48,7 +48,8 @@ describe('Like', () => {
   it('should not be able to like an user that not exists', async () => {
     const [user, like_user] = await factory.createMany('Developer', 2);
     const token = jwtoken(user.id);
-    like_user.remove();
+
+    await like_user.remove();
 
     const response = await request(app)
       .post(`/developers/${like_user._id}/like`)
