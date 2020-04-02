@@ -16,10 +16,19 @@ import OngIncidentsGet from './app/validators/OngIncidents/Get';
 import SessionStore from './app/validators/Sessions/Store';
 
 import AuthToken from './app/middlewares/AuthToken';
+import RateLimit from './app/middlewares/RateLimit';
+import BruteForce from './app/middlewares/BruteForce';
 
 const Route = Router();
 
-Route.post('/sessions', SessionStore, SessionController.store);
+Route.post(
+  '/sessions',
+  BruteForce.prevent,
+  SessionStore,
+  SessionController.store
+);
+
+Route.use(RateLimit);
 
 Route.get('/ongs', OngGet, OngController.index);
 Route.get('/ongs/:id', OngShow, OngController.show);
