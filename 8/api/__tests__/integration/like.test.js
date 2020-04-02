@@ -4,7 +4,7 @@ import Mongoose from 'mongoose';
 
 import app from '../../src/app';
 import jwtoken from '../utils/jwtoken';
-import factory from '../utils/factories';
+import factory from '../utils/factory';
 import Developer from '../../src/app/models/Developer';
 import { connect, emit, to } from '../../__mocks__/socket.io';
 

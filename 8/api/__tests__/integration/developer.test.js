@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import Mongoose from 'mongoose';
 
 import app from '../../src/app';
-import factory from '../utils/factories';
+import factory from '../utils/factory';
 import Developer from '../../src/app/models/Developer';
 import Api from '../../src/app/services/Api';
 import jwtoken from '../utils/jwtoken';
