@@ -4,7 +4,7 @@ import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
 import { create } from 'react-test-renderer';
 
-import { emit } from '__mocks__/socket.io-client';
+import { emit } from '../../../__mocks__/socket.io-client';
 import factory from '../../utils/factory';
 import { callbacks, state } from '../../../__mocks__/react-native-maps';
 import Main from '~/pages/Main';
