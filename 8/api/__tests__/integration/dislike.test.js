@@ -29,6 +29,7 @@ describe('Dislike', () => {
   it('should not be able to dislike an user', async () => {
     const [user, dislike_user] = await factory.createMany('Developer', 2);
     const token = jwtoken(user.id);
+
     await user.delete();
 
     const response = await request(app)
@@ -66,6 +67,7 @@ describe('Dislike', () => {
     const token = jwtoken(user.id);
 
     user.dislikes.push(dislike_user._id);
+
     await user.save();
 
     const response = await request(app)

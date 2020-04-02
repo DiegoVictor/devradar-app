@@ -31,6 +31,7 @@ describe('Like', () => {
   it('should not be able to like an user', async () => {
     const [user, like_user] = await factory.createMany('Developer', 2);
     const token = jwtoken(user.id);
+
     await user.delete();
 
     const response = await request(app)
@@ -69,7 +70,6 @@ describe('Like', () => {
       likes: [user._id.toString()],
     });
     const token = jwtoken(user.id);
-
     const user_socket_id = faker.random.number();
     const match_user_socket_id = faker.random.number();
 
