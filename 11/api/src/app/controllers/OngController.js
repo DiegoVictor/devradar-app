@@ -1,3 +1,5 @@
+import { notFound } from '@hapi/boom';
+
 import connection from '../../database/connection';
 import generateUniqueId from '../../utils/generateUniqueId';
 import PaginationLinks from '../services/PaginationLinks';
@@ -39,11 +41,7 @@ class OngController {
     const ong = await connection('ongs').where('id', id).first();
 
     if (!ong) {
-      return res.status(404).json({
-        error: {
-          message: 'ONG not found',
-        },
-      });
+      throw notFound('ONG not found', { code: 244 });
     }
 
     return res.json({

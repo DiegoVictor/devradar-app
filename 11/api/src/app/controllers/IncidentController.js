@@ -1,3 +1,5 @@
+import { notFound, unauthorized } from '@hapi/boom';
+
 import connection from '../../database/connection';
 import PaginationLinks from '../services/PaginationLinks';
 
@@ -59,11 +61,7 @@ class IncidentController {
     const incident = await connection('incidents').where('id', id).first();
 
     if (!incident) {
-      return res.status(404).json({
-        error: {
-          message: 'Incident not found',
-        },
-      });
+      throw notFound('Incident not found', { code: 144 });
     }
 
     return res.json({
@@ -103,18 +101,12 @@ class IncidentController {
       .first();
 
     if (!incident) {
-      return res.status(404).json({
-        error: {
-          message: 'Incident not found',
-        },
-      });
+      throw notFound('Incident not found', { code: 144 });
     }
 
     if (incident.ong_id !== ong_id) {
-      return res.status(401).json({
-        error: {
-          message: 'This incident is not owned by your ONG',
-        },
+      throw unauthorized('This incident is not owned by your ONG', 'sample', {
+        code: 141,
       });
     }
 

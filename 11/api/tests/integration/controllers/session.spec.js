@@ -1,5 +1,6 @@
 import request from 'supertest';
 import crypto from 'crypto';
+import { badRequest } from '@hapi/boom';
 
 import app from '../../../src/app';
 import closeRedis from '../../utils/close_redis';
@@ -43,7 +44,9 @@ describe('Session', () => {
       .send({ id });
 
     expect(response.body).toStrictEqual({
-      error: { message: 'ONG not found' },
+      ...badRequest('Your ONG was not found').output.payload,
+      code: 240,
+      docs: process.env.DOCS_URL,
     });
   });
 });

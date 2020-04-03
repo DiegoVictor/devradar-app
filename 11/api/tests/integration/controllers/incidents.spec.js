@@ -1,5 +1,6 @@
 import request from 'supertest';
 import faker from 'faker';
+import { notFound, unauthorized } from '@hapi/boom';
 
 import app from '../../../src/app';
 import closeRedis from '../../utils/close_redis';
@@ -121,9 +122,9 @@ describe('Incident', () => {
       .send();
 
     expect(response.body).toStrictEqual({
-      error: {
-        message: 'Incident not found',
-      },
+      ...notFound('Incident not found').output.payload,
+      docs: process.env.DOCS_URL,
+      code: 144,
     });
   });
 
@@ -158,9 +159,9 @@ describe('Incident', () => {
       .send();
 
     expect(response.body).toStrictEqual({
-      error: {
-        message: 'Incident not found',
-      },
+      ...notFound('Incident not found').output.payload,
+      docs: process.env.DOCS_URL,
+      code: 144,
     });
   });
 
@@ -174,10 +175,14 @@ describe('Incident', () => {
       .expect(401)
       .send();
 
+    const message = 'This incident is not owned by your ONG';
     expect(response.body).toStrictEqual({
-      error: {
-        message: 'This incident is not owned by your ONG',
+      ...unauthorized(message).output.payload,
+      attributes: {
+        code: 141,
+        error: message,
       },
+      docs: process.env.DOCS_URL,
     });
   });
 });

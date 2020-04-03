@@ -1,3 +1,4 @@
+import { tooManyRequests } from '@hapi/boom';
 import RateLimiter from '../../lib/RateLimiter';
 import {
   block_duration_in_seconds,
@@ -9,15 +10,11 @@ const rate_limiter = new RateLimiter({
   points: requests_limit,
 });
 
-export default async (req, res, next) => {
+export default async (req, _, next) => {
   try {
     await rate_limiter.consume(req.ip);
     return next();
   } catch (err) {
-    return res.status(429).json({
-      error: {
-        message: 'Too Many Requests',
-      },
-    });
+    throw tooManyRequests('Too Many Requests', { code: 449 });
   }
 };

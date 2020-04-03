@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { badRequest } from '@hapi/boom';
 
 import connection from '../../database/connection';
 
@@ -8,11 +9,7 @@ class SessionController {
     const ong = await connection('ongs').where('id', id).select('name').first();
 
     if (!ong) {
-      return res.status(400).json({
-        error: {
-          message: 'ONG not found',
-        },
-      });
+      throw badRequest('Your ONG was not found', { code: 240 });
     }
 
     return res.json({

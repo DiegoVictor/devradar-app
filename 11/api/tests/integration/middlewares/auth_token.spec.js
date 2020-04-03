@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import faker from 'faker';
+import { badRequest, unauthorized } from '@hapi/boom';
 
 import AuthToken from '../../../src/app/middlewares/AuthToken';
 import connection from '../../../src/database/connection';
@@ -40,14 +41,17 @@ describe('AuthToken', () => {
     const req = {
       headers: {},
     };
-    await AuthToken(req, res, next);
 
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({
-      error: {
-        message: 'Token not provided',
-      },
-    });
+    let response;
+    try {
+      await AuthToken(req, res, next);
+    } catch (err) {
+      response = err;
+    }
+
+    expect(response).toStrictEqual(
+      badRequest('Token not provided', { code: 340 })
+    );
   });
 
   it('should not be authorizated without send a valid token', async () => {
@@ -56,13 +60,16 @@ describe('AuthToken', () => {
         authorization: faker.random.alphaNumeric(32),
       },
     };
-    await AuthToken(req, res, next);
 
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({
-      error: {
-        message: 'Token invalid',
-      },
-    });
+    let response;
+    try {
+      await AuthToken(req, res, next);
+    } catch (err) {
+      response = err;
+    }
+
+    expect(response).toStrictEqual(
+      unauthorized('Token invalid', 'sample', { code: 341 })
+    );
   });
 });

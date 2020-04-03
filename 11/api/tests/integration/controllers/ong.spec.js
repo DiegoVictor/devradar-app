@@ -1,5 +1,6 @@
 import request from 'supertest';
 import crypto from 'crypto';
+import { notFound } from '@hapi/boom';
 
 import app from '../../../src/app';
 import closeRedis from '../../utils/close_redis';
@@ -54,9 +55,9 @@ describe('ONG', () => {
     const response = await request(app).get(`/v1/ongs/${id}`).send();
 
     expect(response.body).toStrictEqual({
-      error: {
-        message: 'ONG not found',
-      },
+      ...notFound('ONG not found').output.payload,
+      code: 244,
+      docs: process.env.DOCS_URL,
     });
   });
 

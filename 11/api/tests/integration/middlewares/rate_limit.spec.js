@@ -1,3 +1,5 @@
+import { tooManyRequests } from '@hapi/boom';
+
 import closeRedis from '../../utils/close_redis';
 import instance from '../../../src/database/redis';
 import RateLimit from '../../../src/app/middlewares/RateLimit';
@@ -20,17 +22,20 @@ describe('RateLimit', () => {
 
   it('should not be able to consume after many requests', async () => {
     const requests = [];
-    for (let i = 0; i < 61; i += 1) {
+
+    let response;
+    for (let i = 0; i < 10; i += 1) {
       requests.push(RateLimit({}, res, next));
     }
 
-    await Promise.all(requests);
+    try {
+      await Promise.all(requests);
+    } catch (err) {
+      response = err;
+    }
 
-    expect(res.status).toHaveBeenCalledWith(429);
-    expect(res.json).toHaveBeenCalledWith({
-      error: {
-        message: 'Too Many Requests',
-      },
-    });
+    expect(response).toStrictEqual(
+      tooManyRequests('Too Many Requests', { code: 449 })
+    );
   });
 });
