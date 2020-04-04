@@ -1,14 +1,9 @@
 import { tooManyRequests } from '@hapi/boom';
-import RateLimiter from '../../lib/RateLimiter';
-import {
-  block_duration_in_seconds,
-  requests_limit,
-} from '../../config/rate_limit.json';
 
-const rate_limiter = new RateLimiter({
-  duration: block_duration_in_seconds,
-  points: requests_limit,
-});
+import RateLimiter from '../../lib/RateLimiter';
+import config from '../../config/rate_limit';
+
+const rate_limiter = new RateLimiter(config);
 
 export default async (req, _, next) => {
   try {

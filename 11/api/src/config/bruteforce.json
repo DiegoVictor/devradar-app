@@ -1,7 +1,0 @@
-{
-  "free_retries": 2,
-  "min_wait": 60000,
-  "max_wait": 900000,
-  "lifetime": 21600,
-  "prefix": "bruteforce_"
-}
