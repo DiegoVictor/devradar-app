@@ -20,22 +20,22 @@ describe('Session', () => {
   });
 
   it('should be able to logon', async () => {
-    const ong = await factory.attrs('Ong');
-    ong.id = crypto.randomBytes(4).toString('HEX');
+    const ngo = await factory.attrs('Ngo');
+    ngo.id = crypto.randomBytes(4).toString('HEX');
 
-    await connection('ongs').insert(ong);
+    await connection('ngos').insert(ngo);
 
     const response = await request(app)
       .post('/v1/sessions')
-      .send({ id: ong.id });
+      .send({ id: ngo.id });
 
     expect(response.body).toStrictEqual({
-      ong: { name: ong.name },
+      ngo: { name: ngo.name },
       token: expect.any(String),
     });
   });
 
-  it('should not be able to logon with an ong that not exists', async () => {
+  it('should not be able to logon with an ngo that not exists', async () => {
     const id = crypto.randomBytes(4).toString('HEX');
 
     const response = await request(app)
@@ -44,7 +44,7 @@ describe('Session', () => {
       .send({ id });
 
     expect(response.body).toStrictEqual({
-      ...badRequest('Your ONG was not found').output.payload,
+      ...badRequest('Your NGO was not found').output.payload,
       code: 240,
       docs: process.env.DOCS_URL,
     });

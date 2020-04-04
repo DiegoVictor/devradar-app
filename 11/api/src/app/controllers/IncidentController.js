@@ -10,17 +10,17 @@ class IncidentController {
     const limit = 5;
 
     let incidents = await connection('incidents')
-      .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
+      .join('ngos', 'ngos.id', '=', 'incidents.ngo_id')
       .limit(limit)
       .offset((page - 1) * limit)
       .select([
         'incidents.*',
-        'ongs.id as ong_id',
-        'ongs.name',
-        'ongs.email',
-        'ongs.whatsapp',
-        'ongs.city',
-        'ongs.uf',
+        'ngos.id as ngo_id',
+        'ngos.name',
+        'ngos.email',
+        'ngos.whatsapp',
+        'ngos.city',
+        'ngos.uf',
       ]);
 
     incidents = incidents.map((incident) => ({
@@ -29,14 +29,14 @@ class IncidentController {
       description: incident.description,
       value: incident.value,
       url: `${resource_url}/${incident.id}`,
-      ong: {
-        id: incident.ong_id,
+      ngo: {
+        id: incident.ngo_id,
         name: incident.name,
         email: incident.email,
         whatsapp: incident.whatsapp,
         city: incident.city,
         uf: incident.uf,
-        url: `${base_url}/v1/ongs/${incident.ong_id}`,
+        url: `${base_url}/v1/ngos/${incident.ngo_id}`,
       },
     }));
 
@@ -70,22 +70,22 @@ class IncidentController {
       description: incident.description,
       value: incident.value,
       url: resource_url,
-      ong: {
-        id: incident.ong_id,
-        url: `${base_url}/v1/ongs/${incident.ong_id}`,
+      ngo: {
+        id: incident.ngo_id,
+        url: `${base_url}/v1/ngos/${incident.ngo_id}`,
       },
     });
   }
 
   async store(req, res) {
     const { title, description, value } = req.body;
-    const { ong_id } = req;
+    const { ngo_id } = req;
 
     const [id] = await connection('incidents').insert({
       title,
       description,
       value,
-      ong_id,
+      ngo_id,
     });
 
     return res.json({ id });
@@ -93,19 +93,19 @@ class IncidentController {
 
   async destroy(req, res) {
     const { id } = req.params;
-    const { ong_id } = req;
+    const { ngo_id } = req;
 
     const incident = await connection('incidents')
       .where('id', id)
-      .select('ong_id')
+      .select('ngo_id')
       .first();
 
     if (!incident) {
       throw notFound('Incident not found', { code: 144 });
     }
 
-    if (incident.ong_id !== ong_id) {
-      throw unauthorized('This incident is not owned by your ONG', 'sample', {
+    if (incident.ngo_id !== ngo_id) {
+      throw unauthorized('This incident is not owned by your NGO', 'sample', {
         code: 141,
       });
     }

@@ -11,17 +11,17 @@ import token from '../../utils/jwtoken';
 
 describe('Incident', () => {
   const base_url = `http://127.0.0.1:${process.env.APP_PORT}/v1`;
-  let ong;
+  let ngo;
   let authorization;
 
   beforeEach(async () => {
     await connection.migrate.rollback();
     await connection.migrate.latest();
 
-    ong = await factory.attrs('Ong');
-    await connection('ongs').insert(ong);
+    ngo = await factory.attrs('Ngo');
+    await connection('ngos').insert(ngo);
 
-    authorization = `Bearer ${token(ong.id)}`;
+    authorization = `Bearer ${token(ngo.id)}`;
   });
 
   afterAll(async () => {
@@ -31,7 +31,7 @@ describe('Incident', () => {
 
   it('should be able to get a page of incidents', async () => {
     const incidents = await factory.attrsMany('Incident', 5, {
-      ong_id: ong.id,
+      ngo_id: ngo.id,
     });
     await connection('incidents').insert(incidents);
 
@@ -45,14 +45,14 @@ describe('Incident', () => {
           description: incident.description,
           value: incident.value,
           url: `${base_url}/incidents/${incident.id}`,
-          ong: {
-            id: incident.ong_id,
-            name: ong.name,
-            email: ong.email,
-            whatsapp: ong.whatsapp,
-            city: ong.city,
-            uf: ong.uf,
-            url: `${base_url}/ongs/${incident.ong_id}`,
+          ngo: {
+            id: incident.ngo_id,
+            name: ngo.name,
+            email: ngo.email,
+            whatsapp: ngo.whatsapp,
+            city: ngo.city,
+            uf: ngo.uf,
+            url: `${base_url}/ngos/${incident.ngo_id}`,
           },
         })
       );
@@ -61,7 +61,7 @@ describe('Incident', () => {
 
   it('should be able to get the second page of incidents', async () => {
     let incidents = await factory.attrsMany('Incident', 15, {
-      ong_id: ong.id,
+      ngo_id: ngo.id,
     });
 
     incidents = incidents.map((incident, index) => ({
@@ -79,21 +79,21 @@ describe('Incident', () => {
         description: incident.description,
         value: incident.value,
         url: `${base_url}/incidents/${incident.id}`,
-        ong: {
-          id: incident.ong_id,
-          name: ong.name,
-          email: ong.email,
-          whatsapp: ong.whatsapp,
-          city: ong.city,
-          uf: ong.uf,
-          url: `${base_url}/ongs/${incident.ong_id}`,
+        ngo: {
+          id: incident.ngo_id,
+          name: ngo.name,
+          email: ngo.email,
+          whatsapp: ngo.whatsapp,
+          city: ngo.city,
+          uf: ngo.uf,
+          url: `${base_url}/ngos/${incident.ngo_id}`,
         },
       });
     });
   });
 
   it('should be able to get an incident', async () => {
-    const incident = await factory.attrs('Incident', { ong_id: ong.id });
+    const incident = await factory.attrs('Incident', { ngo_id: ngo.id });
     await connection('incidents').insert(incident);
 
     const response = await request(app)
@@ -106,9 +106,9 @@ describe('Incident', () => {
       description: incident.description,
       value: incident.value,
       url: `${base_url}/incidents/${incident.id}`,
-      ong: {
-        id: incident.ong_id,
-        url: `${base_url}/ongs/${incident.ong_id}`,
+      ngo: {
+        id: incident.ngo_id,
+        url: `${base_url}/ngos/${incident.ngo_id}`,
       },
     });
   });
@@ -139,7 +139,7 @@ describe('Incident', () => {
   });
 
   it('should be able to delete an incident', async () => {
-    const incident = await factory.attrs('Incident', { ong_id: ong.id });
+    const incident = await factory.attrs('Incident', { ngo_id: ngo.id });
     await connection('incidents').insert(incident);
 
     await request(app)
@@ -150,7 +150,7 @@ describe('Incident', () => {
   });
 
   it('should not be able to delete an incident that not exists', async () => {
-    const { id } = await factory.attrs('Incident', { ong_id: ong.id });
+    const { id } = await factory.attrs('Incident', { ngo_id: ngo.id });
 
     const response = await request(app)
       .delete(`/v1/incidents/${id}`)
@@ -165,17 +165,17 @@ describe('Incident', () => {
     });
   });
 
-  it('should not be able to delete an incident from another ONG', async () => {
+  it('should not be able to delete an incident from another NGO', async () => {
     const incident = await factory.attrs('Incident');
-    await connection('incidents').insert({ ...incident, ong_id: ong.id });
+    await connection('incidents').insert({ ...incident, ngo_id: ngo.id });
 
     const response = await request(app)
       .delete(`/v1/incidents/${incident.id}`)
-      .set('Authorization', `Bearer ${token(incident.ong_id)}`)
+      .set('Authorization', `Bearer ${token(incident.ngo_id)}`)
       .expect(401)
       .send();
 
-    const message = 'This incident is not owned by your ONG';
+    const message = 'This incident is not owned by your NGO';
     expect(response.body).toStrictEqual({
       ...unauthorized(message).output.payload,
       attributes: {

@@ -1,5 +1,5 @@
 exports.up = (knex) => {
-  return knex.schema.createTable('ongs', (table) => {
+  return knex.schema.createTable('ngos', (table) => {
     table.string('id').primary();
 
     table.string('name').notNullable();
@@ -11,5 +11,5 @@ exports.up = (knex) => {
 };
 
 exports.down = (knex) => {
-  return knex.schema.dropTable('ongs');
+  return knex.schema.dropTable('ngos');
 };

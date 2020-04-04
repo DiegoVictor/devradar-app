@@ -24,12 +24,12 @@ describe('AuthToken', () => {
   });
 
   it('should be authorizated', async () => {
-    const ong = await factory.attrs('Ong');
-    await connection('ongs').insert(ong);
+    const ngo = await factory.attrs('Ngo');
+    await connection('ngos').insert(ngo);
 
     const req = {
       headers: {
-        authorization: `Bearer ${token(ong.id)}`,
+        authorization: `Bearer ${token(ngo.id)}`,
       },
     };
     await AuthToken(req, res, next);

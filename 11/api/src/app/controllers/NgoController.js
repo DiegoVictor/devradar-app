@@ -4,23 +4,23 @@ import connection from '../../database/connection';
 import generateUniqueId from '../../utils/generateUniqueId';
 import PaginationLinks from '../services/PaginationLinks';
 
-class OngController {
+class NgoController {
   async index(req, res) {
     const { base_url, resource_url } = req;
     const { page = 1 } = req.query;
     const limit = 5;
-    let ongs = await connection('ongs')
+    let ngos = await connection('ngos')
       .limit(limit)
       .offset((page - 1) * limit)
       .select('*');
 
-    ongs = ongs.map((ong) => ({
-      ...ong,
-      url: `${resource_url}/${ong.id}`,
-      incidents_url: `${base_url}/v1/ong_incidents`,
+    ngos = ngos.map((ngo) => ({
+      ...ngo,
+      url: `${resource_url}/${ngo.id}`,
+      incidents_url: `${base_url}/v1/ngo_incidents`,
     }));
 
-    const [count] = await connection('ongs').count();
+    const [count] = await connection('ngos').count();
     res.header('X-Total-Count', count['count(*)']);
 
     const links = PaginationLinks.run({
@@ -32,32 +32,32 @@ class OngController {
       res.links(links);
     }
 
-    return res.json(ongs);
+    return res.json(ngos);
   }
 
   async show(req, res) {
     const { base_url, resource_url } = req;
     const { id } = req.params;
-    const ong = await connection('ongs').where('id', id).first();
+    const ngo = await connection('ngos').where('id', id).first();
 
-    if (!ong) {
-      throw notFound('ONG not found', { code: 244 });
+    if (!ngo) {
+      throw notFound('NGO not found', { code: 244 });
     }
 
     return res.json({
-      ...ong,
+      ...ngo,
       url: resource_url,
-      incidents_url: `${base_url}/v1/ong_incidents`,
+      incidents_url: `${base_url}/v1/ngo_incidents`,
     });
   }
 
   async store(req, res) {
     const { name, email, whatsapp, city, uf } = req.body;
     const id = generateUniqueId();
-    await connection('ongs').insert({ id, name, email, whatsapp, city, uf });
+    await connection('ngos').insert({ id, name, email, whatsapp, city, uf });
 
     return res.json({ id });
   }
 }
 
-export default new OngController();
+export default new NgoController();

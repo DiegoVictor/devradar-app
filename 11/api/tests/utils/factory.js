@@ -2,7 +2,7 @@ import factory from 'factory-girl';
 import faker from 'faker';
 
 factory.define(
-  'Ong',
+  'Ngo',
   {},
   {
     id: () => faker.random.alphaNumeric(8),
@@ -22,7 +22,7 @@ factory.define(
     title: faker.name.title,
     description: faker.lorem.paragraph,
     value: () => Number(faker.finance.amount()),
-    ong_id: () => faker.random.alphaNumeric(8),
+    ngo_id: () => faker.random.alphaNumeric(8),
   }
 );
 

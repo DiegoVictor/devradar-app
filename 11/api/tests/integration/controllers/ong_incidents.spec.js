@@ -22,13 +22,13 @@ describe("ONG's Incidents", () => {
   });
 
   it("should be able to get ONG's incidents", async () => {
-    const ong = await factory.attrs('Ong', {
+    const ngo = await factory.attrs('Ngo', {
       id: crypto.randomBytes(4).toString('HEX'),
     });
-    await connection('ongs').insert(ong);
+    await connection('ngos').insert(ngo);
 
     let incidents = await factory.attrsMany('Incident', 10, {
-      ong_id: ong.id,
+      ngo_id: ngo.id,
     });
     incidents = incidents.map((incident, index) => ({
       ...incident,
@@ -37,8 +37,8 @@ describe("ONG's Incidents", () => {
     await connection('incidents').insert(incidents);
 
     const response = await request(app)
-      .get('/v1/ong_incidents')
-      .set('Authorization', `Bearer ${token(ong.id)}`)
+      .get('/v1/ngo_incidents')
+      .set('Authorization', `Bearer ${token(ngo.id)}`)
       .send();
 
     incidents.slice(0, 5).forEach(({ id, title, description, value }) => {
@@ -49,9 +49,9 @@ describe("ONG's Incidents", () => {
           title,
           value,
           url: `${base_url}/incidents/${id}`,
-          ong: {
-            id: ong.id,
-            url: `${base_url}/ongs/${ong.id}`,
+          ngo: {
+            id: ngo.id,
+            url: `${base_url}/ngos/${ngo.id}`,
           },
         })
       );

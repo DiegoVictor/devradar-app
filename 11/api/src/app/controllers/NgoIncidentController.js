@@ -1,14 +1,14 @@
 import connection from '../../database/connection';
 import PaginationLinks from '../services/PaginationLinks';
 
-class OngIncidentController {
+class NgoIncidentController {
   async index(req, res) {
-    const { base_url, resource_url, ong_id } = req;
+    const { base_url, resource_url, ngo_id } = req;
     const { page = 1 } = req.query;
     const limit = 5;
 
     let incidents = await connection('incidents')
-      .where('ong_id', ong_id)
+      .where('ngo_id', ngo_id)
       .limit(limit)
       .offset((page - 1) * limit)
       .select('*');
@@ -19,14 +19,14 @@ class OngIncidentController {
       description,
       value,
       url: `${base_url}/v1/incidents/${id}`,
-      ong: {
-        id: ong_id,
-        url: `${base_url}/v1/ongs/${ong_id}`,
+      ngo: {
+        id: ngo_id,
+        url: `${base_url}/v1/ngos/${ngo_id}`,
       },
     }));
 
     const [count] = await connection('incidents')
-      .where('ong_id', ong_id)
+      .where('ngo_id', ngo_id)
       .count();
     res.header('X-Total-Count', count['count(*)']);
 
@@ -43,4 +43,4 @@ class OngIncidentController {
   }
 }
 
-export default new OngIncidentController();
+export default new NgoIncidentController();
