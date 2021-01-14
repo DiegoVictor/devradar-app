@@ -1,8 +1,8 @@
 # About
 This app permit users to find developers by tech near from the current geolocalization<br /><br />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-10/master/app/screenshots/map.jpg" width="32%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-10/master/app/screenshots/callout.jpg" width="32%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/omnistack-10/master/app/screenshots/profile.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/map.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/callout.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/profile.jpg" width="32%" />
 
 # OS
 This app was tested only with Android through USB connection, is strongly recommended to use the same operational system, but of course you can use an emulator or a real device connected through wifi or USB.
