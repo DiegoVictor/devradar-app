@@ -1,9 +1,8 @@
 import React from 'react';
-import { StatusBar, YellowBox } from 'react-native';
+import { StatusBar } from 'react-native';
 
 import Navigation from './src';
 
-YellowBox.ignoreWarnings(['Unrecognized WebSocket']);
 
 export default () => {
   return (
