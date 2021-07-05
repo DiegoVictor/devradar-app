@@ -1,9 +1,8 @@
 import socketio from 'socket.io-client';
-import Constants from 'expo-constants';
+// eslint-disable-next-line import/no-unresolved
+import { SOCKET_URL } from '@env';
 
-const { API_URL } = Constants.manifest.extra;
-
-const socket = socketio(API_URL, {
+const socket = socketio(SOCKET_URL, {
   autoConnect: false,
 });
 
