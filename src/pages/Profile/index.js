@@ -1,15 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useRoute } from '@react-navigation/native';
 
 import { Github } from './styles';
 
-export default ({ navigation }) => {
-  const github_username = navigation.getParam('github_username');
-  return <Github source={{ uri: `https://github.com/${github_username}` }} />;
-}
-
-Profile.propTypes = {
-  navigation: PropTypes.shape({
-    getParam: PropTypes.func.isRequired,
-  }).isRequired,
+export default () => {
+  const { params } = useRoute();
+  const { githubUsername } = params;
+  return <Github source={{ uri: `https://github.com/${githubUsername}` }} />;
 };
