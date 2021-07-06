@@ -7,7 +7,7 @@ import { Avatar, User, Name, Bio, Techs } from './styles';
 
 export function Dev({ dev, navigation, ...props }) {
   const handleCalloutPress = useCallback(() => {
-    navigation.navigate('Profile', { github_username: dev.github_username });
+    navigation.navigate('Profile', { githubUsername: dev.github_username });
   }, []);
 
   return (

@@ -12,7 +12,7 @@ import Dev from '~/components/Dev';
 import { Map, Search, Input, Button } from './styles';
 
 export default () => {
-  const [current_region, setCurrentRegion] = useState(null);
+  const [currentRegion, setCurrentRegion] = useState(null);
   const [developers, setDevelopers] = useState([]);
   const [techs, setTechs] = useState('');
 
@@ -64,17 +64,16 @@ export default () => {
         connect(latitude, longitude, techs);
       }
     })();
-  }, [current_region, techs]);
+  }, [currentRegion, techs]);
 
-  if (!current_region) {
+  if (!currentRegion) {
     return <View />;
   }
 
   return (
     <>
       <Map
-        onRegionChangeComlpete={handleRegionChange}
-        initialRegion={current_region}
+        initialRegion={currentRegion}
       >
         {developers.map(dev => (
           <Dev testID={`developer_${dev._id}`} key={dev._id} dev={dev} />
