@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { Marker, Callout } from 'react-native-maps';
+import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import { withNavigation } from 'react-navigation';
 
 import { Avatar, User, Name, Bio, Techs } from './styles';
 
-export function Dev({ dev, navigation, ...props }) {
+export function Dev({ dev, ...props }) {
+  const navigation = useNavigation();
   const handleCalloutPress = useCallback(() => {
     navigation.navigate('Profile', { githubUsername: dev.github_username });
   }, []);
@@ -46,9 +47,6 @@ Dev.propTypes = {
       coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     }).isRequired,
   }).isRequired,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 Dev.defaulProp = {
@@ -58,4 +56,4 @@ Dev.defaulProp = {
   },
 };
 
-export default withNavigation(Dev);
+export default Dev;
