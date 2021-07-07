@@ -73,6 +73,7 @@ export default () => {
   return (
     <>
       <Map
+        onRegionChangeComplete={handleRegionChange}
         initialRegion={currentRegion}
       >
         {developers.map(dev => (
