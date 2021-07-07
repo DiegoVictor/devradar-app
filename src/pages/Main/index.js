@@ -46,24 +46,22 @@ export default () => {
     setCurrentRegion(region);
   }, []);
 
-  const handleSearch = useCallback(() => {
-    (async () => {
-      const { latitude, longitude } = current_region;
-      if (techs.length > 0) {
-        const { data } = await api.get('search', {
-          params: {
-            latitude,
-            longitude,
-            techs,
-          },
-        });
+  const handleSearch = useCallback(async () => {
+    const { latitude, longitude } = currentRegion;
+    if (techs.length > 0) {
+      const { data } = await api.get('search', {
+        params: {
+          latitude,
+          longitude,
+          techs,
+        },
+      });
 
-        setDevelopers(data);
+      setDevelopers(data);
 
-        disconnect();
-        connect(latitude, longitude, techs);
-      }
-    })();
+      disconnect();
+      connect(latitude, longitude, techs);
+    }
   }, [currentRegion, techs]);
 
   if (!currentRegion) {
