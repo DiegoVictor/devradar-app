@@ -11,25 +11,6 @@
     "test": "jest",
     "eject": "expo eject"
   },
-  "jest": {
-    "preset": "jest-expo",
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/components/**/*.js",
-      "src/pages/**/*.js",
-      "!src/pages/Profile/*.js"
-    ],
-    "coverageDirectory": "__tests__/coverage",
-    "moduleNameMapper": {
-      "^~/(.*)": "<rootDir>/src/$1"
-    },
-    "testMatch": [
-      "**/__tests__/**/*.test.js"
-    ]
-  },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
     "@react-native-community/masked-view": "0.1.10",
