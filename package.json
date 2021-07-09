@@ -37,6 +37,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@testing-library/jest-native": "^4.0.1",
+    "@testing-library/react-native": "^7.2.0",
     "@types/jest": "^26.0.24",
     "@types/react-navigation": "^3.4.0",
     "axios-mock-adapter": "^1.17.0",
@@ -55,8 +56,6 @@
     "factory-girl": "^5.0.4",
     "faker": "^5.5.3",
     "jest-expo": "^42.0.0",
-    "prettier": "^2.3.2",
-    "react-native-testing-library": "^6.0.0",
-    "react-test-renderer": "^17.0.2"
+    "prettier": "^2.3.2"
   }
 }
