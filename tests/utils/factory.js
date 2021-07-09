@@ -5,13 +5,13 @@ factory.define(
   'Developer',
   {},
   {
-    _id: faker.random.number,
+    _id: faker.datatype.number,
     github_username: faker.internet.userName,
     name: faker.name.findName,
     bio: faker.lorem.paragraph,
     techs: () => {
       const techs = [];
-      for (let i = 0; i < faker.random.number({ min: 1, max: 5 }); i += 1) {
+      for (let i = 0; i < faker.datatype.number({ min: 1, max: 5 }); i += 1) {
         techs.push(faker.random.word());
       }
       return techs;
