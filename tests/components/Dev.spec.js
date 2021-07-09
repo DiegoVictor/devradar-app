@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, fireEvent } from 'react-native-testing-library';
-
+import { fireEvent, render } from '@testing-library/react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import factory from '../utils/factory';
 import { Dev } from '~/components/Dev';
 

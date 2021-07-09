@@ -1,8 +1,7 @@
 import React from 'react';
-import { fireEvent, act } from 'react-native-testing-library';
 import faker from 'faker';
 import MockAdapter from 'axios-mock-adapter';
-import { create } from 'react-test-renderer';
+import { act, fireEvent, render } from '@testing-library/react-native';
 
 import { emit } from '../../mocks/socket.io-client';
 import factory from '../utils/factory';
@@ -11,8 +10,9 @@ import Main from '~/pages/Main';
 import api from '~/services/api';
 import {
   getCurrentPositionAsync,
-  requestPermissionsAsync,
+  requestForegroundPermissionsAsync,
 } from '~/../mocks/expo-location';
+import wait from '../utils/wait';
 
 jest.mock('@react-navigation/native');
 
@@ -26,25 +26,23 @@ describe('Main page', () => {
     });
 
     apiMock.onGet('search').reply(200, developers);
+    const { getByPlaceholderText, getByTestId } = render(<Main />);
 
-    let root;
-    await act(async () => {
-      root = create(<Main />);
-    });
+    await wait(() =>
+      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
+    );
 
     fireEvent.changeText(
-      root.root.findByProps({ placeholder: 'Buscar devs por tecnologia' }),
+      getByPlaceholderText('Buscar devs por tecnologia'),
       word
     );
 
     await act(async () => {
-      fireEvent.press(root.root.findByProps({ testID: 'search' }));
+      fireEvent.press(getByTestId('search'));
     });
 
-    developers.forEach(dev => {
-      expect(
-        root.root.findByProps({ testID: `developer_${dev._id}` })
-      ).toBeTruthy();
+    developers.forEach((dev) => {
+      expect(getByTestId(`developer_${dev._id}`)).toBeTruthy();
     });
   });
 
@@ -56,19 +54,15 @@ describe('Main page', () => {
 
     apiMock.onGet('search').reply(200, developers);
 
-    let root;
-    await act(async () => {
-      root = create(<Main />);
-    });
+    const { getByTestId, queryAllByTestId } = render(<Main />);
+    await wait(() => expect(getByTestId('search')).toBeTruthy());
 
     await act(async () => {
-      fireEvent.press(root.root.findByProps({ testID: 'search' }));
+      fireEvent.press(getByTestId('search'));
     });
 
-    developers.forEach(dev => {
-      expect(
-        root.root.findAllByProps({ testID: `developer_${dev._id}` })
-      ).toStrictEqual([]);
+    developers.forEach((dev) => {
+      expect(queryAllByTestId(`developer_${dev._id}`)).toStrictEqual([]);
     });
   });
 
@@ -76,9 +70,11 @@ describe('Main page', () => {
     const latitude = faker.address.latitude();
     const longitude = faker.address.longitude();
 
-    await act(async () => {
-      create(<Main />);
-    });
+    const { getByPlaceholderText } = render(<Main />);
+
+    await wait(() =>
+      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
+    );
 
     await act(async () => {
       callbacks.onRegionChangeComplete({
@@ -99,26 +95,25 @@ describe('Main page', () => {
       techs: [word],
     });
 
-    let root;
-    await act(async () => {
-      root = create(<Main />);
-    });
+    const { getByTestId, getByPlaceholderText } = render(<Main />);
+
+    await wait(() =>
+      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
+    );
 
     await act(async () => {
       emit('developer', developer);
     });
 
-    expect(
-      root.root.findByProps({ testID: `developer_${developer._id}` })
-    ).toBeTruthy();
+    expect(getByTestId(`developer_${developer._id}`)).toBeTruthy();
   });
 
   it('should not be able to get user current position', async () => {
-    requestPermissionsAsync.mockImplementation(() => ({ granted: false }));
+    requestForegroundPermissionsAsync.mockImplementation(() => ({
+      granted: false,
+    }));
 
-    await act(async () => {
-      create(<Main />);
-    });
+    render(<Main />);
 
     expect(getCurrentPositionAsync).not.toHaveBeenCalled();
   });
