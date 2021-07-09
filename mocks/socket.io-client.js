@@ -1,10 +1,10 @@
-let callback;
-export const emit = payload => {
-  callback(payload);
+const callbacks = {};
+export const emit = (event, payload) => {
+  callbacks[event](payload);
 };
 
 export const on = jest.fn((event, cb) => {
-  callback = cb;
+  callbacks[event] = cb;
 });
 
 export default (url, options) => ({

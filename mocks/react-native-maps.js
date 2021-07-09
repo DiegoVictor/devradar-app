@@ -14,11 +14,11 @@ export const callbacks = {};
 export const state = {};
 
 export default function MapView({
-  onRegionChangeComlpete,
+  onRegionChangeComplete,
   initialRegion,
   ...props
 }) {
-  callbacks.onRegionChangeComlpete = onRegionChangeComlpete;
+  callbacks.onRegionChangeComplete = onRegionChangeComplete;
   state.initialRegion = initialRegion;
 
   return <View {...props} />;
