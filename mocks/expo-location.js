@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-export const requestPermissionsAsync = jest.fn(async () => {
+export const requestForegroundPermissionsAsync = jest.fn(async () => {
   return {
     granted: true,
   };
