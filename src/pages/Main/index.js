@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
-  requestPermissionsAsync,
   getCurrentPositionAsync,
+  requestForegroundPermissionsAsync,
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
 import { View } from 'react-native';
@@ -18,7 +18,7 @@ export default () => {
 
   useEffect(() => {
     (async () => {
-      const { granted } = await requestPermissionsAsync();
+      const { granted } = await requestForegroundPermissionsAsync();
 
       if (granted) {
         const { coords } = await getCurrentPositionAsync({
