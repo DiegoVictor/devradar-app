@@ -4,7 +4,7 @@
 [![styled-components](https://img.shields.io/badge/styled_components-5.2.1-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![eslint](https://img.shields.io/badge/eslint-6.8.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
-[![jest](https://img.shields.io/badge/jest-24.9.0-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![jest](https://img.shields.io/badge/jest-25.5.4-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![expo](https://img.shields.io/badge/expo-40.0.0-000000?style=flat-square&logo=expo)](https://expo.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/devradar-app?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/devradar-app)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/devradar-app/blob/master/LICENSE)
