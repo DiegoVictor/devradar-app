@@ -16,7 +16,7 @@
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "babel-plugin-dotenv-import": "^2.1.0",
     "expo": "^40.0.0",
     "expo-location": "~10.0.0",
@@ -32,7 +32,7 @@
     "react-native-screens": "~2.15.0",
     "react-native-web": "~0.13.12",
     "react-native-webview": "11.0.0",
-    "socket.io-client": "2.1.1",
+    "socket.io-client": "^4.1.2",
     "styled-components": "^5.0.0"
   },
   "devDependencies": {
