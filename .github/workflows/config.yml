@@ -11,12 +11,12 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '16'
       - uses: actions/checkout@v2
       - name: Run test
         run: |
-          yarn
-          yarn test
+          npm ci
+          npm run test
       - uses: codecov/codecov-action@v1
         with:
           directory: ./tests/coverage/
