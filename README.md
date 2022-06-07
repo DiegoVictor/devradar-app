@@ -1,5 +1,5 @@
 # [App] DevRadar
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/devradar-app/CI?logo=github&style=flat-square)](https://github.com/DiegoVictor/devradar-app/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/devradar-app/Pipeline?logo=github&style=flat-square)](https://github.com/DiegoVictor/devradar-app/actions)
 [![react-native](https://img.shields.io/badge/react--native-0.67.4-61dafb?style=flat-square&logo=react)](https://reactnative.dev/)
 [![styled-components](https://img.shields.io/badge/styled_components-5.3.5-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![eslint](https://img.shields.io/badge/eslint-8.12.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
