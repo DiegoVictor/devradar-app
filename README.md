@@ -7,7 +7,7 @@
 [![jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![expo](https://img.shields.io/badge/expo-44.0.6-000000?style=flat-square&logo=expo)](https://expo.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/devradar-app?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/devradar-app)
-[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/devradar-app/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/devradar-app/blob/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 This app allows to users to find developers by techs and near from the current geolocalization. All the resources used by this application comes from its [`API`](https://github.com/DiegoVictor/devradar-api).
@@ -26,9 +26,9 @@ This app allows to users to find developers by techs and near from the current g
 
 # Screenshots
 Click to expand.<br>
-<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/map.jpg" width="32%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/callout.jpg" width="32%" />
-<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/master/screenshots/profile.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/main/screenshots/map.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/main/screenshots/callout.jpg" width="32%" />
+<img src="https://raw.githubusercontent.com/DiegoVictor/devradar-app/main/screenshots/profile.jpg" width="32%" />
 
 # Installing
 Easy peasy lemon squeezy:
