@@ -1,5 +1,5 @@
 # [App] DevRadar
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DiegoVictor/devradar-app/Pipeline?logo=github&style=flat-square)](https://github.com/DiegoVictor/devradar-app/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DiegoVictor/devradar-app/config.yml?logo=github&style=flat-square)](https://github.com/DiegoVictor/devradar-app/actions)
 [![react-native](https://img.shields.io/badge/react--native-0.67.4-61dafb?style=flat-square&logo=react)](https://reactnative.dev/)
 [![styled-components](https://img.shields.io/badge/styled_components-5.3.5-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![eslint](https://img.shields.io/badge/eslint-8.12.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
@@ -7,7 +7,7 @@
 [![jest](https://img.shields.io/badge/jest-26.6.3-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
 [![expo](https://img.shields.io/badge/expo-44.0.6-000000?style=flat-square&logo=expo)](https://expo.io/)
 [![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/devradar-app?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/devradar-app)
-[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/DiegoVictor/devradar-app/blob/main/LICENSE)
+[![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/devradar-app/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 This app allows to users to find developers by techs and near from the current geolocalization. All the resources used by this application comes from its [`API`](https://github.com/DiegoVictor/devradar-api).
