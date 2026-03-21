@@ -14,16 +14,17 @@
 This app allows to users to find developers by techs and near from the current geolocalization. All the resources used by this application comes from its [`API`](https://github.com/DiegoVictor/devradar-api).
 
 ## Table of Contents
-* [Screenshots](#screenshots)
-* [Installing](#installing)
-  * [Configuring](#configuring)
-    * [.env](#env)
-    * [API](#api)
-* [Usage](#usage)
-  * [Expo](#expo)
-  * [OS](#os)
-* [Running the tests](#running-the-tests)
-  * [Coverage report](#coverage-report)
+
+- [Screenshots](#screenshots)
+- [Installing](#installing)
+  - [Configuring](#configuring)
+    - [.env](#env)
+    - [API](#api)
+- [Usage](#usage)
+  - [Expo](#expo)
+  - [OS](#os)
+- [Running the tests](#running-the-tests)
+  - [Coverage report](#coverage-report)
 
 # Screenshots
 
@@ -56,10 +57,10 @@ Configure your environment variables and remember to start the [API](https://git
 
 In this file you may configure the API's url. Rename the `.env.example` in the root directory to `.env` then just update with your settings.
 
-key|description|default
----|---|---
-API_URL|API's url with version (v1)|`http://localhost:3333/v1`
-SOCKET_URL|Socket's url|`http://localhost:3333`
+| key        | description                 | default                    |
+| ---------- | --------------------------- | -------------------------- |
+| API_URL    | API's url with version (v1) | `http://localhost:3333/v1` |
+| SOCKET_URL | Socket's url                | `http://localhost:3333`    |
 
 ### API
 
