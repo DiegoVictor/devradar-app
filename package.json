@@ -22,7 +22,7 @@
     "expo-font": "~55.0.4",
     "expo-location": "~55.1.4",
     "prop-types": "^15.7.2",
-    "react": "^19.2.0",
+    "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-native": "0.83.2",
     "react-native-gesture-handler": "~2.30.0",
