@@ -2,7 +2,6 @@
   "expo": {
     "name": "devradar",
     "slug": "devradar",
-    "privacy": "public",
     "platforms": [
       "ios",
       "android",
@@ -25,6 +24,8 @@
     "ios": {
       "supportsTablet": true
     },
-    "sdkVersion": "44.0.0"
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
