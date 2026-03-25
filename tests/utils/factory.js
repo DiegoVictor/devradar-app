@@ -7,7 +7,7 @@ factory.define(
   {
     _id: faker.datatype.number,
     github_username: faker.internet.userName,
-    name: faker.name.findName,
+    name: faker.person.findName,
     bio: faker.lorem.paragraph,
     techs: () => {
       const techs = [];
