@@ -5,22 +5,22 @@ factory.define(
   'Developer',
   {},
   {
-    _id: faker.datatype.number,
-    github_username: faker.internet.userName,
-    name: faker.person.findName,
+    _id: faker.number.int,
+    github_username: faker.internet.username,
+    name: faker.person.fullName,
     bio: faker.lorem.paragraph,
     techs: () => {
       const techs = [];
-      for (let i = 0; i < faker.datatype.number({ min: 1, max: 5 }); i += 1) {
-        techs.push(faker.random.word());
+      for (let i = 0; i < faker.number.int({ min: 1, max: 5 }); i += 1) {
+        techs.push(faker.lorem.word());
       }
       return techs;
     },
-    avatar_url: faker.image.imageUrl,
+    avatar_url: faker.image.url,
     location: () => ({
       coordinates: [
-        Number(faker.address.longitude()),
-        Number(faker.address.latitude()),
+        Number(faker.location.longitude()),
+        Number(faker.location.latitude()),
       ],
     }),
   }
