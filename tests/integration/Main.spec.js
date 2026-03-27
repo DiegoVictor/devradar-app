@@ -1,8 +1,7 @@
 import React from 'react';
 import { faker } from '@faker-js/faker';
 import MockAdapter from 'axios-mock-adapter';
-import { act, fireEvent, render } from '@testing-library/react-native';
-
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 import { emit } from '../../mocks/socket.io-client';
 import factory from '../utils/factory';
 import { callbacks, state } from '../../mocks/react-native-maps';
@@ -12,7 +11,6 @@ import {
   getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
 } from '~/../mocks/expo-location';
-import wait from '../utils/wait';
 
 jest.mock('@react-navigation/native');
 
@@ -28,9 +26,7 @@ describe('Main page', () => {
     apiMock.onGet('search').reply(200, developers);
     const { getByPlaceholderText, getByTestId } = render(<Main />);
 
-    await wait(() =>
-      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
-    );
+    await waitFor(() => getByPlaceholderText('Buscar devs por tecnologia'));
 
     fireEvent.changeText(
       getByPlaceholderText('Buscar devs por tecnologia'),
@@ -55,7 +51,7 @@ describe('Main page', () => {
     apiMock.onGet('search').reply(200, developers);
 
     const { getByTestId, queryAllByTestId } = render(<Main />);
-    await wait(() => expect(getByTestId('search')).toBeTruthy());
+    await waitFor(() => getByTestId('search'));
 
     await act(async () => {
       fireEvent.press(getByTestId('search'));
@@ -72,9 +68,7 @@ describe('Main page', () => {
 
     const { getByPlaceholderText } = render(<Main />);
 
-    await wait(() =>
-      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
-    );
+    await waitFor(() => getByPlaceholderText('Buscar devs por tecnologia'));
 
     await act(async () => {
       callbacks.onRegionChangeComplete({
@@ -97,9 +91,7 @@ describe('Main page', () => {
 
     const { getByTestId, getByPlaceholderText } = render(<Main />);
 
-    await wait(() =>
-      expect(getByPlaceholderText('Buscar devs por tecnologia')).toBeTruthy()
-    );
+    await waitFor(() => getByPlaceholderText('Buscar devs por tecnologia'));
 
     await act(async () => {
       emit('developer', developer);
