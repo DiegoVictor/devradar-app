@@ -63,8 +63,8 @@ describe('Main page', () => {
   });
 
   it('should be able to update user current position', async () => {
-    const latitude = faker.address.latitude();
-    const longitude = faker.address.longitude();
+    const latitude = faker.location.latitude();
+    const longitude = faker.location.longitude();
 
     const { getByPlaceholderText } = render(<Main />);
 
